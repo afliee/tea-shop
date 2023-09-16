@@ -1,14 +1,22 @@
 import express from 'express';
 
-import resourceConfig from "./src/config/resourceConfig.js";
-import {env} from "./src/config/variables/index.js";
+import {
+    env,
+    resourceConfig,
+    routesConfig
+} from "./src/config/index.js";
 
+const {PORT} = env;
+
+// init express instance
 const app = express();
 
+// config resources
 resourceConfig(app);
 
-app.listen(3000, () => {
-    console.log(`Server is running on port ${env.PORT}`);
+// config routes
+routesConfig(app);
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`);
 });
-
-
