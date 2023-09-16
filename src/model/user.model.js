@@ -15,7 +15,12 @@ export const User = mongoose.model(
         },
         password: {
             type: String,
-            required: true
+            required: true,
+            trim: true,
+            length: {min: 8, max: 32},
+            validate: (value) => {
+                if (!validator.isStrongPassword(value)) throw new Error('Invalid password');
+            }
         },
         role: [{
             type: String,
