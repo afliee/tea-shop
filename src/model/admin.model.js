@@ -1,10 +1,9 @@
-import mongoose from "mongoose";
+import {Schema, model} from 'mongoose';
 
 import validator from "validator/es";
-
-export const User = mongoose.model(
-    'User',
-    new mongoose.Schema({
+export const Admin = model(
+    'Admin',
+    new Schema({
         email: {
             type: String,
             required: true,
@@ -16,7 +15,6 @@ export const User = mongoose.model(
         password: {
             type: String,
             required: true,
-            trim: true,
             length: {min: 8, max: 32},
             validate: (value) => {
                 if (!validator.isStrongPassword(value)) throw new Error('Invalid password');
@@ -24,8 +22,8 @@ export const User = mongoose.model(
         },
         role: {
             type: String,
-            enum: ['user', 'admin', 'customer_scare', 'post_manager'],
-            default: 'user'
+            enum: ['admin', 'customer_scare', 'post_manager'],
+            default: 'admin'
         },
         token: {
             type: String,

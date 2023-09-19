@@ -17,6 +17,12 @@ export const roles = {
         'update:own',
         'delete:own'
     ],
+    SUPPlIER: [
+        'create:own',
+        'read:own',
+        'update:own',
+        'delete:own'
+    ],
     USER: [
         'read:own',
         'update:own',

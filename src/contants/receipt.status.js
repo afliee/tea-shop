@@ -1,0 +1,8 @@
+export const ReceiptStatus = {
+    PENDING: 'PENDING',
+    DELIVERING: 'DELIVERING',
+    DELIVERED: 'DELIVERED',
+    PAID: 'PAID',
+    REFUNDED: 'REFUNDED',
+    CANCELLED: 'CANCELLED'
+}
