@@ -1,27 +1,34 @@
 import express from 'express';
 import morgan from 'morgan';
+import session from 'express-session';
 
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import ejs from 'ejs';
+
+import {env} from "#root/config/index.js";
+
+import {fileURLToPath} from 'url';
 import * as path from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const {JWT_SECRET} = env;
 
 function resourceConfig(app) {
-//      set view engine
+    app.engine('ejs', ejs.renderFile);
     app.set('views engine', 'ejs');
-    app.set('views', path.join(__dirname, 'resources/views'));
+    app.set('views', path.join(path.dirname(fileURLToPath(import.meta.url)), '../../resource/views'));
 
 //     set static files
-    app.use(express.static(path.join(__dirname, 'public')));
-
-//     set favicon
-    app.use('/favicon.ico', express.static('./src/public/favicon.ico'));
+    app.use(express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../public')));
 
 //     set body parser
-    app.use(express.urlencoded({ extended: true }));
+    app.use(express.urlencoded({extended: true}));
     app.use(express.json());
+
+//     config session
+    app.use(session({
+        secret: JWT_SECRET,
+        resave: true,
+        saveUninitialized: true
+    }));
 
 //     morgan logger
     app.use(morgan('combined'));

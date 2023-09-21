@@ -1,10 +1,23 @@
 import express from "express";
+import {validationResult} from "express-validator";
+import passport from "passport";
 
 const router = express.Router();
 
-import {requireToken} from "#middlewares/http/index.js";
+import {AuthController} from "#controllers/index.js";
 
-router.get("/register", (req, res) =>{
+import {registerValidator, loginValidator} from "#utils/auth.utils.js";
+
+router.get("/register", (req, res) => {
+    res.render('utils/register.ejs')
+})
+router.post("/register", registerValidator, AuthController.signUp)
+
+router.get("/login",(req, res) =>{
+    res.send("login");
+})
+
+router.post("/register", (req, res) => {
     res.send("register");
 })
 

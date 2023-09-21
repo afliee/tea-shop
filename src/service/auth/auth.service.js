@@ -4,6 +4,14 @@ function signIn() {
 
 }
 
+function signUp(user) {
+    console.log("signUp", user);
+    return user;
+}
 
 
-export {signIn};
+
+export default {
+    signIn,
+    signUp
+}

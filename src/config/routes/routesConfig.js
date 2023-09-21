@@ -1,6 +1,7 @@
-import { authRoutes} from '#routes/index.js';
+import {authRoutes, homeRouters} from '#routes/index.js';
 
 const routesConfig = (app) => {
+    app.use("/", homeRouters);
     app.use("/auth", authRoutes);
 }
 

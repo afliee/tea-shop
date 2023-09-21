@@ -4,6 +4,7 @@ import {
     env,
     resourceConfig,
     routesConfig,
+    passportConfig,
     connect
 } from "./src/config/index.js";
 
@@ -12,11 +13,16 @@ const {PORT} = env;
 // init express instance
 const app = express();
 
+// passport config
+passportConfig(app);
+
 // config resources
 resourceConfig(app);
 
 // config routes
 routesConfig(app);
+
+
 
 // connect to database
 await connect();

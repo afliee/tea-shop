@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 
-import validator from "validator/es";
+import validator from 'validator';
+
+import {Roles} from "#root/contants/roles.js";
 
 export const User = mongoose.model(
     'User',
@@ -22,10 +24,14 @@ export const User = mongoose.model(
                 if (!validator.isStrongPassword(value)) throw new Error('Invalid password');
             }
         },
+        active: {
+            type: Boolean,
+            default: false
+        },
         role: {
             type: String,
-            enum: ['user', 'admin', 'customer_scare', 'post_manager'],
-            default: 'user'
+            enum: [...Object.keys(Roles)],
+            default: Roles.USER
         },
         token: {
             type: String,
