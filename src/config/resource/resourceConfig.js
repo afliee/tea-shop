@@ -23,15 +23,15 @@ function resourceConfig(app) {
     app.use(express.urlencoded({extended: true}));
     app.use(express.json());
 
-//     config session
-    app.use(session({
-        secret: JWT_SECRET,
-        resave: true,
-        saveUninitialized: true
-    }));
+
 
 //     morgan logger
     app.use(morgan('combined'));
+
+    return {
+        status: '✅',
+        message: 'Resource config loaded'
+    }
 }
 
 export default resourceConfig;

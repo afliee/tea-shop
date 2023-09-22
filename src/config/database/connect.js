@@ -9,9 +9,16 @@ const connect = async () => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
-        console.log("Connect to mongodb successfully");
+        return {
+            status: '✅',
+            message: 'Connected to database successfully.'
+        }
     } catch (e) {
         console.log(e);
+        return {
+            status: '❌',
+            message: 'Failed to connect to database.'
+        }
     }
 }
 export default connect;

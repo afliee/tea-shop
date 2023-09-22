@@ -7,6 +7,9 @@ import {Roles} from "#root/contants/roles.js";
 export const User = mongoose.model(
     'User',
     new mongoose.Schema({
+        name: {
+            type: String,
+        },
         email: {
             type: String,
             required: true,
@@ -24,6 +27,10 @@ export const User = mongoose.model(
                 if (!validator.isStrongPassword(value)) throw new Error('Invalid password');
             }
         },
+        avatar: {
+            type: String,
+            default: "/img/default_avt.jpg"
+        },
         active: {
             type: Boolean,
             default: false
@@ -38,6 +45,9 @@ export const User = mongoose.model(
         },
         refreshToken: {
             type: String,
+        },
+        googleId: {
+            type: String
         }
     }, {
         timestamps: true
