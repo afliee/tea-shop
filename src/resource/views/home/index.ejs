@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Tea Shop</title>
+    <title>Tea Loza</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -38,7 +38,8 @@
 </div>
 <!-- Spinner End -->
     <%- include('../partials/header.ejs', {
-        active: 'home'
+        active: 'home',
+        currentUser: currentUser
     }); %>
 
 
@@ -52,7 +53,7 @@
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-7 text-center">
-                                <p class="fs-4 text-white animated zoomIn">Welcome to <strong class="text-dark">TEA House</strong></p>
+                                <p class="fs-4 text-white animated zoomIn">Welcome to <strong class="text-dark">Tea Loza</strong></p>
                                 <h1 class="display-1 text-dark mb-4 animated zoomIn">Organic & Quality Tea Production</h1>
                                 <a href="" class="btn btn-light rounded-pill py-3 px-5 animated zoomIn">Explore More</a>
                             </div>
@@ -66,7 +67,7 @@
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-7 text-center">
-                                <p class="fs-4 text-white animated zoomIn">Welcome to <strong class="text-dark">TEA House</strong></p>
+                                <p class="fs-4 text-white animated zoomIn">Welcome to <strong class="text-dark">Tea Loza</strong></p>
                                 <h1 class="display-1 text-dark mb-4 animated zoomIn">Organic & Quality Tea Production</h1>
                                 <a href="" class="btn btn-light rounded-pill py-3 px-5 animated zoomIn">Explore More</a>
                             </div>
@@ -109,7 +110,7 @@
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                 <div class="section-title">
                     <p class="fs-5 fw-medium fst-italic text-primary">About Us</p>
-                    <h1 class="display-6">The success history of TEA House in 25 years</h1>
+                    <h1 class="display-6">The success history of Tea Loza in 25 years</h1>
                 </div>
                 <div class="row g-3 mb-4">
                     <div class="col-sm-4">
@@ -443,7 +444,6 @@
     </div>
 </div>
 <!-- Contact Start -->
-
 <%- include('../partials/footer.ejs')%>
 
 <!-- Back to Top -->
@@ -460,6 +460,7 @@
 
 <!-- Template Javascript -->
 <script src="/js/home/main.js"></script>
+<script src="/js/utils/auth/logout.js"></script>
 </body>
 
 </html>

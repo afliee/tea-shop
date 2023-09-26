@@ -1,28 +1,23 @@
 import {verifyToken} from '#utils/jwt.utils.js';
 
-const requireTokenMiddleware = (req, res, next) => {
-//     check if token is present in the request header or exist in the cookie
-    const token = req.headers?.authorization || req.cookies?.token;
+const requireTokenMiddleware = async (req, res, next) => {
+//     require token in session
+    const token = req.session.token;
 
     if (!token) {
-        return res.status(401).json({
-            status: 'error',
-            message: 'Unauthorized'
-        });
+        return res.status(401).send("Unauthorized");
     }
 
-    const decoded = verifyToken(token);
+    try {
+        const decoded = await verifyToken(token);
 
-    if (!decoded) {
-        return res.status(401).json({
-            status: 'error',
-            message: 'Unauthorized'
-        });
+        req.user = decoded;
+
+        next();
+    } catch (e) {
+        return res.status(401).send("Unauthorized");
     }
 
-    req.user = decoded;
-
-    next();
 }
 
 export default requireTokenMiddleware;

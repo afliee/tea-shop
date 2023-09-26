@@ -57,11 +57,11 @@
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
           <!-- Register Card -->
-          <div class="card">
+          <div class="card regis-card">
             <div class="card-body">
               <!-- Logo -->
               <div class="app-brand justify-content-center">
-                <a href="index.html" class="app-brand-link gap-2">
+                <a href="/" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
                     <svg
                       width="25"
@@ -117,14 +117,14 @@
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">Tea</span>
+                  <span class="app-brand-text demo text-body fw-bolder">Tea Loza</span>
                 </a>
               </div>
               <!-- /Logo -->
               <h4 class="mb-2">Adventure starts here 🚀</h4>
               <p class="mb-4">Make your favorite flavor</p>
 
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+              <form id="formAuthentication" class="mb-3" action="/auth/register" method="POST">
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
                   <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
@@ -143,6 +143,10 @@
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
+<!--                  alert error bootstrap-->
+                  <div class="alert alert-danger error d-none" role="alert">
+
+                  </div>
                 </div>
 
                 <div class="mb-3">
@@ -159,14 +163,14 @@
                 </div>
                 <div class="mb-3">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                    <input class="form-check-input terms" type="checkbox" id="terms-conditions" name="terms" />
                     <label class="form-check-label" for="terms-conditions">
                       I agree to
                       <a href="javascript:void(0);">privacy policy & terms</a>
                     </label>
                   </div>
                 </div>
-                <button class="btn btn-primary d-grid w-100">Sign up</button>
+                <button class="btn btn-primary d-grid w-100 btn-signup">Sign up</button>
               </form>
 
               <p class="text-center">
@@ -178,6 +182,20 @@
             </div>
           </div>
           <!-- Register Card -->
+
+          <div class="card next-notify d-none"  >
+            <div class="card-body">
+              <h4 class="mb-2 welcome-text">Adventure starts here 🚀</h4>
+              <p class="mb-4">Let check the notification from the email you just entered</p>
+
+              <div class="mb-3">
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="text" class="form-control" id="email-notify" readonly name="email"/>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -196,7 +214,7 @@
 
     <!-- Main JS -->
     <script src="/js/admin/main.js"></script>
-
+    <script src="/js/utils/auth/register.js"></script>
     <!-- Page JS -->
 
     <!-- Place this tag in your head or just before your close body tag. -->

@@ -1,27 +1,49 @@
 import express from "express";
-import {validationResult} from "express-validator";
 import passport from "passport";
-import bcrypt from "bcrypt";
+import { AuthController } from "#controllers/index.js";
+
+import { registerValidator } from "#utils/auth.utils.js";
 
 const router = express.Router();
 
-import {AuthController} from "#controllers/index.js";
-
-import {registerValidator, loginValidator} from "#utils/auth.utils.js";
-
-import {env} from "#root/config/index.js";
-
-const {GOOGLE_DEFAULT_PASSWORD_FOR_NEW_USERS} = env;
-router.get("/register", (req, res) => {
+router.get("/register", ( req, res ) => {
     res.render('utils/register.ejs')
 })
 router.post("/register", registerValidator, AuthController.signUp)
 
-router.get("/login",(req, res) =>{
-    res.send("login");
+router.get("/login", ( req, res ) => {
+    // log flash in req
+    res.render('utils/login.ejs', { error: req.flash('error') || null });
 })
 
-router.post("/register", (req, res) => {
+router.post("/login", (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/auth/login',
+        failureFlash: true,
+        session: true
+    }, ( err, user, info ) => {
+        if (err) {
+            return next(err);
+        }
+
+        if (info) {
+            req.flash('error', info.message);
+        }
+        if (!user) {
+            return res.redirect('/auth/login');
+        }
+
+        req.logIn(user, function ( err ) {
+            if (err) {
+                return next(err);
+            }
+            return res.redirect('/');
+        });
+    })(req, res, next);
+});
+
+router.post("/register", ( req, res ) => {
     res.send("register");
 })
 
@@ -29,23 +51,36 @@ router.get("/google", passport.authenticate("google", {
     scope: ["profile", "email"]
 }));
 
-router.get("/google/callback", passport.authenticate("google", {
-    failureRedirect: "/auth",
-    successRedirect: "/",
-    session: true
-}));
-
-router.get("/logout", (req, res) => {
-    req.logout(function (err) {
+router.get("/google/callback", (req, res, next) => {
+    passport.authenticate("google", {
+        failureRedirect: "/auth/login",
+        successRedirect: "/",
+        session: true
+    }, ( err, user, info ) => {
         if (err) {
-            console.log(err);
+            return next(err);
         }
-        res.redirect("/");
-    });
+
+        if (!user) {
+            return res.redirect('/auth/login');
+        }
+
+        req.logIn(user, function ( err ) {
+            if (err) {
+                return next(err);
+            }
+            return res.redirect('/');
+        });
+    })(req, res, next);
 });
 
-router.get("/current_user", async (req, res) => {
-    res.send(req.user);
+router.get("/logout/:id", AuthController.signOut);
+
+router.get("/active/:id", AuthController.activeAccount, ( req, res ) => {
+    res.send("Active account successfully");
+});
+router.get("/current_user", async ( req, res ) => {
+    res.send(req.session);
 })
 
 export default router;
