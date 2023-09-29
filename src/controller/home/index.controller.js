@@ -33,6 +33,7 @@ class IndexController {
     async product(req, res) {
         res.render("home/product.ejs", {
             title: "Product",
+            currentUser: req?.user || null
         });
     }
 }

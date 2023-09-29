@@ -18,12 +18,12 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link <%- active === 'pages' && 'active' %> dropdown-toggle"
                            data-bs-toggle="dropdown">Pages</a>
-<!--                        <div class="dropdown-menu bg-light rounded-0 m-0">-->
-<!--                            <a href="feature.html" class="dropdown-item">Features</a>-->
-<!--                            <a href="blog.html" class="dropdown-item">Blog Article</a>-->
-<!--                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>-->
-<!--                            <a href="404.html" class="dropdown-item">404 Page</a>-->
-<!--                        </div>-->
+                        <!--                        <div class="dropdown-menu bg-light rounded-0 m-0">-->
+                        <!--                            <a href="feature.html" class="dropdown-item">Features</a>-->
+                        <!--                            <a href="blog.html" class="dropdown-item">Blog Article</a>-->
+                        <!--                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>-->
+                        <!--                            <a href="404.html" class="dropdown-item">404 Page</a>-->
+                        <!--                        </div>-->
                     </div>
                     <a href="contact.ejs" class="nav-item nav-link">Contact</a>
                 </div>
@@ -31,7 +31,7 @@
                     <% if (!currentUser) { %>
                         <a href="/auth/login" class="btn btn-primary">Login</a>
                     <% } else { %>
-<!--                        show avatar and dropdown option-->
+                        <!--                        show avatar and dropdown option-->
                         <div class="dropdown">
                             <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,13 +40,17 @@
                             </a>
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-<!--                                show infor + wellcome message-->
+                                <!--                                show infor + wellcome message-->
                                 <li class="dropdown-item my-2 text-center">
                                     <span>Hi 👋! <%= currentUser?.name || currentUser.email %></span>
                                     <p class="text-muted">Welcome to our services</p>
                                 </li>
+                                <% if (currentUser.role === 'ADMIN') { %>
+                                    <li><a class="dropdown-item" href="/admin">Admin Dashboard</a></li>
+                                <% } %>
                                 <li><a class="dropdown-item" href="/user/profile">Profile</a></li>
-                                <li><a class="dropdown-item logout" href="<%= `/auth/logout/${currentUser._id}`%>">Logout</a></li>
+                                <li><a class="dropdown-item logout" href="<%= `/auth/logout/${ currentUser._id }` %>">Logout</a>
+                                </li>
                             </ul>
                         </div>
                     <% } %>

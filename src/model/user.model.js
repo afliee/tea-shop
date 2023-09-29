@@ -5,7 +5,7 @@ import validator from 'validator';
 
 import { Roles } from "#root/contants/roles.js";
 import { ErrorMessage } from "#utils/error/message.utils.js";
-import { generateToken, verifyToken } from "#utils/jwt.utils.js";
+import { generateRefreshToken, generateToken, verifyToken } from "#utils/jwt.utils.js";
 
 export const User = mongoose.model(
     'User',
@@ -59,7 +59,8 @@ export const User = mongoose.model(
 
 export const verifyUser = async ( user ) => {
     try {
-        const existUser = await User.findOne({
+        // get user by email not select password
+        let existUser = await User.findOne({
             email: user.email
         });
 
@@ -100,6 +101,16 @@ export const verifyUser = async ( user ) => {
                 await existUser.save();
                 return existUser;
             } else {
+                // generate new refresh token
+                console.log("refresh token is expired");
+                const newRefreshToken = await generateRefreshToken(user);
+                existUser.refreshToken = newRefreshToken;
+
+                // generate new token
+                const newToken = await generateToken(user);
+                existUser.token = newToken;
+
+                await existUser.save();
                 return ErrorMessage(400, "Refresh token expired");
             }
         }

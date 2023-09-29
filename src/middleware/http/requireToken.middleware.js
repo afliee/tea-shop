@@ -1,23 +1,15 @@
-import {verifyToken} from '#utils/jwt.utils.js';
+import { verifyToken } from '#utils/jwt.utils.js';
+import passport from "passport";
 
-const requireTokenMiddleware = async (req, res, next) => {
-//     require token in session
-    const token = req.session.token;
+const TAG = 'requireTokenMiddleware';
 
-    if (!token) {
-        return res.status(401).send("Unauthorized");
+const requireTokenMiddleware = async ( req, res, next ) => {
+//     require login with passport
+    if (!req.user) {
+        return res.redirect('/auth/login');
     }
 
-    try {
-        const decoded = await verifyToken(token);
-
-        req.user = decoded;
-
-        next();
-    } catch (e) {
-        return res.status(401).send("Unauthorized");
-    }
-
+    next();
 }
 
 export default requireTokenMiddleware;

@@ -43,8 +43,13 @@ const mailOptions = {
 
 const localStrategy = new LocalStrategy(localOptions, async ( req, email, password, done ) => {
     try {
-        const {body} = req;
+        // const {body} = req;
+        const body = {
+            email,
+            password
+        }
 
+        console.log("body", body)
         const signIn = await AuthService.signIn(body);
         switch (signIn.status) {
             case 400: {

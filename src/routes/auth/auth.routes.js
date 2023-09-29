@@ -13,7 +13,12 @@ router.post("/register", registerValidator, AuthController.signUp)
 
 router.get("/login", ( req, res ) => {
     // log flash in req
-    res.render('utils/login.ejs', { error: req.flash('error') || null });
+//     check if user is logged in
+    if (req.isAuthenticated()) {
+        return res.redirect('/');
+    } else {
+        res.render('utils/login.ejs', { error: req.flash('error') || null });
+    }
 })
 
 router.post("/login", (req, res, next) => {
