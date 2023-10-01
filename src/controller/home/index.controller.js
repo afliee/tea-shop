@@ -36,6 +36,20 @@ class IndexController {
             currentUser: req?.user || null
         });
     }
+
+    async about(req, res) {
+        res.render("home/about.ejs", {
+            title: "About",
+            currentUser: req?.user || null
+        });
+    }
+
+    async contact(req, res) {
+        res.render("home/contact.ejs", {
+            title: "Contact",
+            currentUser: req?.user || null
+        });
+    }
 }
 
 export default new IndexController();
