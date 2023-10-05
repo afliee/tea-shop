@@ -1,0 +1,73 @@
+
+.dataTables_wrapper.container-fluid, .dataTables_wrapper.container-sm, .dataTables_wrapper.container-md, .dataTables_wrapper.container-lg, .dataTables_wrapper.container-xl {
+    padding: 0;
+}
+
+table.dataTable {
+    border-collapse: collapse !important;
+    margin-bottom: 15px !important;
+}
+
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc_disabled:before {
+    right: 0.5rem;
+    content: "\F360";
+    font-family: "Material Design Icons";
+    font-size: 1rem;
+    top: 12px;
+}
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:after {
+    right: 0.5em;
+    content: "\F35D";
+    font-family: "Material Design Icons";
+    top: 18px;
+    font-size: 1rem;
+}
+
+table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
+    background-color: #536de6;
+}
+
+table.dataTable tbody > tr.selected td, table.dataTable tbody > tr > .selected td {
+    border-color: #536de6;
+}
+
+table.dataTable tbody td:focus {
+    outline: none !important;
+}
+
+table.dataTable tbody th.focus, table.dataTable tbody td.focus {
+    outline: 2px solid #536de6 !important;
+    outline-offset: -1px;
+    background-color: rgba(83, 109, 230, 0.15);
+}
+
+.dataTables_info {
+    font-weight: 600;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr[role=row] > td:first-child:before, table.dataTable.dtr-inline.collapsed > tbody > tr[role=row] > th:first-child:before {
+    -webkit-box-shadow: 0 0 45px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0 45px 0 rgba(0, 0, 0, 0.12);
+    background-color: #10c469;
+    top: auto;
+    bottom: auto;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before, table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before {
+    background-color: #ff5b5b;
+}
+
+.pagination-rounded .page-link {
+    border-radius: 30px !important;
+    margin: 0 3px;
+    border: none;
+}

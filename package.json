@@ -19,13 +19,16 @@
     "#routes/*": "./src/routes/*",
     "#services/*": "./src/service/*",
     "#utils/*": "./src/utils/*",
-    "#middlewares/*": "./src/middleware/*"
+    "#middlewares/*": "./src/middleware/*",
+    "#validator/*": "./src/validator/*"
   },
   "dependencies": {
     "accesscontrol": "^2.2.1",
     "ascii-table": "^0.0.9",
     "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
     "cookie-session": "^2.0.0",
+    "datatables": "^1.10.18",
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",

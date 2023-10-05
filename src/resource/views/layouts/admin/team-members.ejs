@@ -38,10 +38,13 @@
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="/lib/perfect-scrollbar/perfect-scrollbar.css"/>
-
+    <link rel="stylesheet" href="/css/vendors/buttons.bootstrap4.css">
+    <link rel="stylesheet" href="/css/vendors/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="/css/vendors/select.bootstrap4.css">
     <!-- Page CSS -->
     <!-- Page -->
     <link rel="stylesheet" href="/css/pages/page-auth.css"/>
+<!--    <link rel="stylesheet" href="/css/pages/page-datatable.css">-->
     <!-- Helpers -->
     <script src="/js/admin/helpers.js"></script>
 
@@ -206,7 +209,18 @@
 
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="nav-all-members" role="tabpanel">
-                                All members
+                                <table id="users" class="table dt-responsive nowrap w-100">
+                                    <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Name</th>
+                                        <th>Role</th>
+                                        <th>Joined</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                </table>
                             </div>
 
                             <div class="tab-pane fade" id="nav-user-role" role="tabpanel">
@@ -250,6 +264,77 @@
 <!-- Page JS -->
 <script src="/js/utils/auth/dashboards-analytics.js"></script>
 <script src="/js/utils/ui/extended-ui-perfect-scrollbar.js"></script>
+
+<script src="/lib/datatables/jquery.dataTables.min.js"></script>
+<script src="/lib/datatables/dataTables.bootstrap4.js"></script>
+<script src="/lib/datatables/dataTables.buttons.min.js"></script>
+<script src="/lib/datatables/dataTables.checkboxes.min.js"></script>
+<script src="/lib/datatables/dataTables.keyTable.min.js"></script>
+<script src="/lib/datatables/dataTables.responsive.min.js"></script>
+<script src="/lib/datatables/dataTables.select.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/admin/members',
+            method: 'GET',
+            success: function ( data ) {
+                $('#users').DataTable({
+                    keys: true,
+                    responsive: true,
+                    language: {
+                        paginate: {
+                            previous: "<i class='bx bx-left-arrow-alt' ></i>",
+                            next: "<i class='bx bx-right-arrow-alt' ></i>",
+                        },
+                    },
+                    drawCallback: function () {
+                        console.log('drawCallback')
+                        $('.dataTables_paginate > .pagination').addClass(
+                            'pagination-rounded'
+                        );
+                    },
+                    data: data,
+                    columns: [
+                        { data: 'email' },
+                        {
+                            data: 'name',
+                            render: function ( data, type, row ) {
+                                return data || 'N/A'
+                            }
+                        },
+                        { data: 'role' },
+                        {
+                            data: 'createdAt',
+                            render: function ( data, type, row ) {
+                                return new Date(data).toLocaleDateString()
+                            }
+                        },
+                        {
+                            data: 'active',
+                            render: function ( data, type, row ) {
+                                return data ? `
+                                    <span class="badge rounded-pill bg-success">Active</span>
+                                ` : `
+                                    <span class="badge rounded-pill bg-danger">Inactive</span>
+                                `;
+                            }
+                        },
+                        {
+                            data: null,
+                            render: function ( data, type, row ) {
+                                return `<a href="/admin/members/${ data._id }" class="btn btn-sm btn-primary">Edit</a>`
+                            }
+                        }
+                    ]
+                })
+            },
+            error: function ( err ) {
+                console.log(err)
+            }
+        })
+    })
+</script>
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>

@@ -1,9 +1,10 @@
 import passport from 'passport';
 import flash from 'express-flash';
 
-import { ExtractJwt, Strategy } from 'passport-jwt';
+import { Strategy as JwtStrategy } from 'passport-jwt';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+
 import { User } from "#models/user.model.js";
 import { Roles } from "#root/contants/roles.js";
 
@@ -14,11 +15,14 @@ import { AuthService } from "#services/index.js";
 
 import { generateToken, generateRefreshToken } from "#utils/jwt.utils.js";
 import session from "express-session";
+import cookieParser from "cookie-parser";
 import bcrypt from 'bcrypt';
 
 const {
     ENV,
     JWT_SECRET,
+    TOKEN_EXPIRE_TIME,
+    REFRESH_TOKEN_EXPIRE_TIME,
     GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET,
     GOOGLE_CALLBACK_URL,
@@ -26,7 +30,19 @@ const {
 } = env;
 
 const jwtOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    jwtFromRequest: function ( req ) {
+        let token = null, refreshToken = null;
+        if (req && req.cookies) {
+            token = req.cookies['token'];
+        }
+
+        if (!token) {
+            return null;
+        }
+
+        console.log("token", token)
+        return token;
+    },
     secretOrKey: JWT_SECRET
 }
 
@@ -44,9 +60,11 @@ const mailOptions = {
 const localStrategy = new LocalStrategy(localOptions, async ( req, email, password, done ) => {
     try {
         // const {body} = req;
+        const remember = req.body?.remember;
+
         const body = {
             email,
-            password
+            password,
         }
 
         console.log("body", body)
@@ -63,7 +81,12 @@ const localStrategy = new LocalStrategy(localOptions, async ( req, email, passwo
                 }
             }
             default: {
-                return done(null, signIn);
+                return done(null, signIn, {
+                    remember: {
+                        remember,
+                        token: signIn.refreshToken
+                    }
+                });
             }
         }
     } catch (e) {
@@ -71,7 +94,7 @@ const localStrategy = new LocalStrategy(localOptions, async ( req, email, passwo
     }
 })
 
-const strategy = new Strategy(jwtOptions, async ( payload, done ) => {
+const strategy = new JwtStrategy(jwtOptions, async ( payload, done ) => {
     try {
         const user = await User.findOne({
             email: payload.email
@@ -83,6 +106,7 @@ const strategy = new Strategy(jwtOptions, async ( payload, done ) => {
 
         return done(null, user);
     } catch (e) {
+        console.log(e)
         return done(e);
     }
 });
@@ -141,6 +165,7 @@ const googleStrategy = new GoogleStrategy({
 });
 
 export default function passportConfig( app ) {
+    app.use(cookieParser());
     //     config session
     app.use(session({
         secret: JWT_SECRET,
@@ -164,9 +189,9 @@ export default function passportConfig( app ) {
         }
     })
 
-    passport.use(strategy);
     passport.use('local', localStrategy);
     passport.use('google', googleStrategy);
+    passport.use('jwt', strategy)
 
     app.use(passport.initialize());
     app.use(passport.session());

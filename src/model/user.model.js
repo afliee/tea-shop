@@ -7,11 +7,39 @@ import { Roles } from "#root/contants/roles.js";
 import { ErrorMessage } from "#utils/error/message.utils.js";
 import { generateRefreshToken, generateToken, verifyToken } from "#utils/jwt.utils.js";
 
+const VALID_NAME_REGEX = /^[a-zA-Z]+$/;
+
 export const User = mongoose.model(
     'User',
     new mongoose.Schema({
         name: {
             type: String,
+        },
+        firstName: {
+            type: String,
+            length: { min: 2, max: 32 },
+            validate: (value) => {
+                if (!validator.isAlpha(value)) throw new Error('Invalid first name');
+            //     name not containst number and special character
+                if (!VALID_NAME_REGEX.test(value)) throw new Error('Invalid first name');
+            },
+            match: [VALID_NAME_REGEX, 'Invalid first name']
+        },
+        lastName: {
+            type: String,
+            length: { min: 2, max: 32 },
+            validate: (value) => {
+                if (!validator.isAlpha(value)) throw new Error('Invalid last name');
+                if (!VALID_NAME_REGEX.test(value)) throw new Error('Invalid last name');
+            },
+            match: [VALID_NAME_REGEX, 'Invalid last name']
+        },
+        phone: {
+            type: String,
+            length: { min: 10, max: 10 },
+            validate: ( value ) => {
+                if (!validator.isMobilePhone(value, "vi-VN")) throw new Error('Invalid phone number');
+            }
         },
         email: {
             type: String,
@@ -89,12 +117,13 @@ export const verifyUser = async ( user ) => {
             return existUser;
         } else {
             console.log("token is expired");
-            const decodedRefreshToken = await verifyToken(refreshToken);
-            if (!decodedRefreshToken) {
-                return ErrorMessage(400, "Invalid refresh token");
-            }
+            const decodedRefreshToken = await verifyToken(refreshToken).then(data => data).catch(e => {
+                console.log(e);
+                return null;
+            });
 
-            if (decodedRefreshToken.exp > Date.now() / 1000) {
+
+            if (decodedRefreshToken && decodedRefreshToken.exp > Date.now() / 1000) {
                 console.log("refresh token is not expired and generate new token");
                 const newToken = await generateToken(user);
                 existUser.token = newToken;
@@ -111,7 +140,8 @@ export const verifyUser = async ( user ) => {
                 existUser.token = newToken;
 
                 await existUser.save();
-                return ErrorMessage(400, "Refresh token expired");
+                // return ErrorMessage(400, "Refresh token expired");
+                return existUser;
             }
         }
     } catch (e) {

@@ -99,6 +99,9 @@ class AuthController {
             }
         });
 
+        res.clearCookie('token');
+        res.clearCookie('remember');
+
         return res.status(200).send({
             message: "Sign out successfully",
             redirect: "/"
