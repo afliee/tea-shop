@@ -158,7 +158,21 @@
                     </label>
                   </div>
                 </div>
-                <button class="btn btn-primary d-grid w-100 btn-signup">Sign up</button>
+                <button class="btn btn-primary d-grid w-100 btn-signup mb-2">Sign up</button>
+
+                <% if (error.length != 0) { %>
+                  <div class="alert alert-danger error" role="alert">
+                    <i class="bx bx-error"></i>
+                    <span><%= error %></span>
+                  </div>
+                <% } %>
+
+                <% if (message.length != 0) { %>
+                  <div class="alert alert-success sucess" role="alert">
+                    <i class="bx bx-error"></i>
+                    <span><%= message[0] %></span>
+                  </div>
+                <% } %>
               </form>
 
               <p class="text-center">

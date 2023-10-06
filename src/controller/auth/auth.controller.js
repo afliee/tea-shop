@@ -1,15 +1,20 @@
 import { validationResult } from "express-validator";
 import { AuthService } from "#services/index.js";
-import {emailUtils} from "#utils/index.js";
+import { emailUtils, jwtUtils } from "#utils/index.js";
 import { env } from "#root/config/index.js";
+import {findUser} from "#models/user.model.js";
 
 const { ENV, URL_PREFIX, PORT } = env;
+
+const TAG = "AuthController";
 
 class AuthController {
     constructor() {
     }
 
     async signUp( req, res ) {
+        console.log(`[${ TAG }] signUp`)
+
         const errorAfterValidation = validationResult(req);
         if (!errorAfterValidation.isEmpty()) {
             return res.status(400).send({ errors: errorAfterValidation.mapped() });
@@ -37,8 +42,8 @@ class AuthController {
             subject: "Active account",
             template: "activeAccount",
             context: {
-                url: `${ URL_PREFIX }:${PORT}/auth/active/${ signUp._id }`,
-                name: signUp.name || signUp.email
+                url: `${ URL_PREFIX }:${ PORT }/auth/active/${ signUp._id }?success_url=${ URL_PREFIX }:${ PORT }/auth/login&failure_url=${ URL_PREFIX }:${ PORT }/auth/reactive?id=${ signUp._id }&token=${ signUp.token }`,
+                name: signUp.name || signUp.email,
             }
         })
 
@@ -86,6 +91,8 @@ class AuthController {
     }
 
     async signOut( req, res ) {
+        console.log(`[${ TAG }] signOut`)
+
         const { id } = req.params;
         if (!req.session.users) {
             req.session.users = [];
@@ -109,14 +116,64 @@ class AuthController {
     }
 
     async activeAccount( req, res, next ) {
+        console.log(`[${ TAG }] activeAccount`)
+
         const { id } = req.params;
-        const activeAccount = await AuthService.activeAccount(id);
+        const { success_url, failure_url, token } = req.query;
+        try {
+            const decoded = await jwtUtils.verifyToken(token).catch(err => null);
 
-        if (!activeAccount) {
-            return res.status(400).send({ message: "Active account failed" });
+            console.log(decoded)
+            if (!decoded) {
+                return res.redirect(failure_url)
+            }
+
+            if (decoded.exp < Date.now() / 1000) {
+                return res.redirect(`/auth/reactive?email=${ decoded.email }`);
+            }
+
+            const activeAccount = await AuthService.activeAccount(id);
+
+            if (!activeAccount) {
+                return res.status(400).send({ message: "Active account failed" });
+            }
+
+            req.flash('message', 'Active account successfully')
+            return res.redirect(success_url);
+        } catch (e) {
+            console.log(e);
+            req.flash('error', e.message)
+            return res.redirect(failure_url)
         }
+    }
 
-        next();
+    async reactiveAccount( req, res, next ) {
+        console.log(`[${ TAG }] reactiveAccount`)
+
+        try {
+            const { id } = req.body;
+
+            const user = await findUser(id);
+            const token =await jwtUtils.generateToken(user);
+
+            await emailUtils.sendEmail({
+                email: user.email,
+                subject: "Reactivate account",
+                template: "activeAccount",
+                context: {
+                    url: `${ URL_PREFIX }:${ PORT }/auth/active/${ user._id }?success_url=${ URL_PREFIX }:${ PORT }/auth/login&failure_url=${ URL_PREFIX }:${ PORT }/auth/reactive?id=${ user._id }&token=${ token }`,
+                    name: user.name || user.email,
+                }
+            }).then(() => {
+                req.flash('message', 'New active account link has been sent to your email')
+                return res.redirect('/auth/login')
+            })
+
+
+        } catch (e) {
+            console.log(e);
+
+        }
     }
 }
 

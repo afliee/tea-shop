@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { env } from "#root/config/index.js";
 
 const { JWT_SECRET, TOKEN_EXPIRE_TIME, REFRESH_TOKEN_EXPIRE_TIME } = env;
-
+const ONE_DAY = 60 * 60 * 24;
 const generateToken = ( user ) => {
     return new Promise( ( resolve, reject ) => {
         const payload = {
@@ -58,5 +58,6 @@ const verifyToken = ( token ) => {
         } );
     } )
 }
+
 
 export { generateToken, generateRefreshToken, verifyToken };

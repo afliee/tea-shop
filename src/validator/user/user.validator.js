@@ -26,7 +26,9 @@ const validateRememberMe = async ( req, res, next ) => {
             }
 
             if (!user) {
-                return next();
+                return next(
+                    ErrorMessage(401, "Unauthorized", "You are not authorized to access this resource")
+                );
             }
             console.log("user", user);
 

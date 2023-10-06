@@ -166,10 +166,17 @@
                             <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
                         </div>
 
-                        <% if (error.length != 0) { %>
+                        <% if (flash?.error) { %>
                             <div class="alert alert-danger error" role="alert">
                                 <i class="bx bx-error"></i>
-                                <span><%= error %></span>
+                                <span><%= flash?.error %></span>
+                            </div>
+                        <% } %>
+
+                        <% if (flash?.message) { %>
+                            <div class="alert alert-success valid-feedback" role="alert">
+                                <i class="bx bx-check-double"></i>
+                                <span><%= flash?.message %></span>
                             </div>
                         <% } %>
                     </form>

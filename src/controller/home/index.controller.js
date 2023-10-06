@@ -8,21 +8,6 @@ class IndexController {
 
     async index( req, res ) {
         let currentUser = null;
-        // check user is logged in passport
-        // if (req.session?.passport) {
-        //     const user = req.session?.passport.user;
-        //
-        //     if (user) {
-        //         // find user in db and ignore password
-        //         try {
-        //             currentUser = await User.findOne({
-        //                 _id: user
-        //             }).select("-password");
-        //         } catch (e) {
-        //             console.log(e);
-        //         }
-        //     }
-        // }
 
         await UserValidator.validateRememberMe(req, res, ( err ) => {
             if (err) {
@@ -30,16 +15,20 @@ class IndexController {
                 return res.redirect('/auth/login');
             }
 
+            console.log("req.isAuthenticated()", req.isAuthenticated())
             if (req.isAuthenticated()) {
                 const user = req?.user;
-                console.log("req.isAuthenticated()", req.isAuthenticated())
                 return res.render("home/index.ejs", {
                     title: "Home",
                     active: "home",
                     currentUser: user
                 });
             } else {
-                return res.redirect('/auth/login');
+                return res.render("home/index.ejs", {
+                    title: "Home",
+                    active: "home",
+                    currentUser: null
+                });
             }
         })
     }

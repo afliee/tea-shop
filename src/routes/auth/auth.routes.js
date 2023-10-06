@@ -13,26 +13,21 @@ const router = express.Router();
 
 
 router.get("/register", ( req, res ) => {
-    res.render('utils/register.ejs')
+    res.render('utils/register.ejs', {
+        error: req.flash('error') || null,
+        message: req.flash('message') || null,
+    })
 })
 router.post("/register", registerValidator, AuthController.signUp)
 
-// router.get("/login", ( req, res ) => {
-//     // log flash in req
-// //     check if user is logged in
-//     if (req.isAuthenticated()) {
-//         return res.redirect('/');
-//     } else {
-//
-//         res.render('utils/login.ejs', { error: req.flash('error') || null });
-//     }
-// })
 
 router.get('/login', UserValidator.validateRememberMe, ( req, res ) => {
     if (req.isAuthenticated()) {
         return res.redirect('/');
     } else {
-        res.render('utils/login.ejs', { error: req.flash('error') || null });
+        res.render('utils/login.ejs', {
+            flash: req.flash() || null,
+        });
     }
 })
 
@@ -82,10 +77,6 @@ router.post("/login", ( req, res, next ) => {
     })(req, res, next);
 });
 
-router.post("/register", ( req, res ) => {
-    res.send("register");
-})
-
 router.get("/google", passport.authenticate("google", {
     scope: ["profile", "email"]
 }));
@@ -116,8 +107,16 @@ router.get("/google/callback", ( req, res, next ) => {
 router.get("/logout/:id", AuthController.signOut);
 
 router.get("/active/:id", AuthController.activeAccount, ( req, res ) => {
-    res.send("Active account successfully");
+    res.redirect('/auth/login');
 });
+
+router.get("/reactive", ( req, res ) => {
+    res.render('layouts/user/resendActiveAccount.ejs', {
+        id: req.query?.id || null
+    });
+});
+
+router.post("/reactive", AuthController.reactiveAccount)
 router.get("/current_user", async ( req, res ) => {
     res.send(req.session);
 })

@@ -96,13 +96,13 @@
 }
 
 .text-primary {
-  /*color: #696cff !important;*/
-  color: #88B44E !important;
+  color: #696cff !important;
+  /*color: #88B44E !important;*/
 }
 
 .text-body[href]:hover {
-  /*color: #5f61e6 !important;*/
-  color: #88B44E !important;
+  color: #5f61e6 !important;
+  /*color: #88B44E !important;*/
 }
 
 .bg-primary {

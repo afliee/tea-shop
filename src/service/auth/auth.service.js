@@ -55,6 +55,10 @@ function activeAccount( id ) {
             return reject(user);
         }
 
+        if (user.active) {
+            return reject(ErrorMessage(400, "User already active"));
+        }
+
         user.active = true;
         await user.save();
         return resolve(user);
