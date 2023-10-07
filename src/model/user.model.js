@@ -7,8 +7,9 @@ import { Roles } from "#root/contants/roles.js";
 import { ErrorMessage } from "#utils/error/message.utils.js";
 import { generateRefreshToken, generateToken, verifyToken } from "#utils/jwt.utils.js";
 
-const VALID_NAME_REGEX = /^[a-zA-Z]+$/;
-
+// Validate name have not number and special character
+const VALID_NAME_REGEX = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/; // example : Nguyen Van A
+const TAG = "UserModel";
 export const User = mongoose.model(
     'User',
     new mongoose.Schema({
@@ -19,11 +20,10 @@ export const User = mongoose.model(
             type: String,
             length: { min: 2, max: 32 },
             validate: (value) => {
-                if (!validator.isAlpha(value)) throw new Error('Invalid first name');
+                if (!validator.isAlpha(value)) throw new Error('Invalid first name because it contains a special character');
             //     name not containst number and special character
-                if (!VALID_NAME_REGEX.test(value)) throw new Error('Invalid first name');
+                if (!VALID_NAME_REGEX.test(value)) throw new Error('Invalid format first name');
             },
-            match: [VALID_NAME_REGEX, 'Invalid first name']
         },
         lastName: {
             type: String,
@@ -32,7 +32,6 @@ export const User = mongoose.model(
                 if (!validator.isAlpha(value)) throw new Error('Invalid last name');
                 if (!VALID_NAME_REGEX.test(value)) throw new Error('Invalid last name');
             },
-            match: [VALID_NAME_REGEX, 'Invalid last name']
         },
         phone: {
             type: String,
@@ -166,4 +165,37 @@ export const findUser = async ( id ) => {
         console.log(e);
         return ErrorMessage(500, "Server error", e);
     }
+}
+
+export const update = (id, user) => {
+    return new Promise(async ( resolve, reject ) => {
+        try {
+            console.log(`[${ TAG }] update`)
+            const existUser = await User.findOne({
+                _id: id
+            });
+
+            if (!existUser) {
+                // status for exist user
+                console.log(`[${ TAG }] update failed, User not found `);
+                return reject(ErrorMessage(400, "User not found"));
+            }
+
+            await User.updateOne({
+                _id: id
+            }, {
+                $set: {
+                    ...user
+                }
+            })
+
+            await existUser.save();
+
+            console.log(existUser);
+            return resolve(existUser);
+        } catch (e) {
+            console.log(e);
+            return reject(ErrorMessage(500, "Server error", e));
+        }
+    })
 }

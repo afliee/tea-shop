@@ -65,7 +65,6 @@ function activeAccount( id ) {
     });
 }
 
-
 export default {
     signIn,
     signUp,

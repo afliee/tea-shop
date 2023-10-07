@@ -1,4 +1,4 @@
-import { authRoutes, homeRouters, dashboardRoutes } from '#routes/index.js';
+import { authRoutes, homeRouters, dashboardRoutes, memberRoutes } from '#routes/index.js';
 
 import Table from 'ascii-table';
 import {UserValidator} from "#validator/index.js";
@@ -11,6 +11,7 @@ const routesConfig = ( app ) => {
     app.use("/", homeRouters);
     app.use("/auth", authRoutes);
     app.use("/admin", dashboardRoutes);
+    app.use("/members", memberRoutes);
 //     middleware for error handling
     app.get('/test', (req, res, next) => {
         res.render('test.ejs');

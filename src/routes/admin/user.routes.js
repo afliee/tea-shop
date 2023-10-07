@@ -33,7 +33,8 @@ router.get('/members/:id', requireToken, async ( req, res, next ) => {
 
         return res.render('layouts/admin/user.ejs', {
             user: user,
-            currentUser: req?.user
+            currentUser: req?.user,
+            flash: req?.flash() || {}
         });
     } catch (e) {
         return res.status(500).json(ErrorMessage(500, e.message, e))

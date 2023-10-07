@@ -20,10 +20,8 @@ function resourceConfig(app) {
     app.use(express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../public')));
 
 //     set body parser
-    app.use(express.urlencoded({extended: true}));
+    app.use(express.urlencoded({extended: false}));
     app.use(express.json());
-
-
 
 //     morgan logger
     app.use(morgan('combined'));
