@@ -67,7 +67,7 @@
 							<% if (currentUser.role === 'ADMIN') { %>
 							<li><a class="dropdown-item" href="/admin">Admin Dashboard</a></li>
 							<% } %>
-							<li><a class="dropdown-item" href="/user/profile">Profile</a></li>
+							<li><a class="dropdown-item" href="/members/user/profile">Profile</a></li>
 							<li>
 								<a class="dropdown-item logout" href="<%= `/auth/logout/${ currentUser._id }` %>"
 									>Logout</a
