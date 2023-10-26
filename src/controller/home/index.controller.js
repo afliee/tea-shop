@@ -1,4 +1,5 @@
-import { User } from "#models/user.model.js";
+import { Ticket } from "#models/index.js";
+
 import { UserValidator } from "#validator/index.js";
 
 class IndexController {
@@ -54,6 +55,53 @@ class IndexController {
         });
     }
 
+    async service(req, res ) {
+        console.log("req.isAuthenticated()", req.isAuthenticated());
+        res.render("home/service.ejs", {
+            title: "Service",
+            currentUser: req?.user || null,
+            flash: req.flash() || null
+        });
+    }
+
+    async createTicket( req, res ) {
+        try {
+            console.log("body", req.body);
+            const { name, email, subject, message } = req.body;
+
+            if (!name || !email || !subject || !message) {
+                return res.status(400).json({
+                    type: "danger",
+                    message: "All fields are required"
+                })
+            }
+
+            const ticket = {
+                name,
+                email,
+                subject,
+                message,
+                status: "pending",
+                createdBy: req?.user?._id
+            }
+
+            await Ticket.create(ticket);
+
+            console.log("ticket", ticket)
+            // add type and message to flash
+
+            return res.status(201).json({
+                type: "success",
+                message: "Ticket created successfully"
+            });
+        } catch (e) {
+            console.log(e)
+            return res.status(500).json({
+                type: "danger",
+                message: "Server error"
+            });
+        }
+    }
 }
 
 export default new IndexController();

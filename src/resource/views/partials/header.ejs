@@ -19,21 +19,20 @@
 					<a href="/about" class="nav-item nav-link <%- active === 'about' && 'active' %>">About</a>
 					<a href="/product" class="nav-item nav-link <%- active === 'product' && 'active' %>">Products</a>
 					<a href="store.html" class="nav-item nav-link <%- active === 'store' && 'active' %>">Store</a>
-					<div class="nav-item dropdown">
-						<a
-							href="#"
-							class="nav-link <%- active === 'pages' && 'active' %> dropdown-toggle"
-							data-bs-toggle="dropdown"
-							>Pages</a
-						>
-						<!--                        <div class="dropdown-menu bg-light rounded-0 m-0">-->
-						<!--                            <a href="feature.html" class="dropdown-item">Features</a>-->
-						<!--                            <a href="blog.html" class="dropdown-item">Blog Article</a>-->
-						<!--                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>-->
-						<!--                            <a href="404.html" class="dropdown-item">404 Page</a>-->
-						<!--                        </div>-->
-					</div>
-					<a href="/contact" class="nav-item nav-link">Contact</a>
+					<% if (currentUser) {%>
+						<a href="/service" class="nav-item nav-link <%- active === 'service' && 'active' %>">Service</a>
+
+<!--						<div class="nav-item">-->
+
+							<!--                        <div class="dropdown-menu bg-light rounded-0 m-0">-->
+							<!--                            <a href="feature.html" class="dropdown-item">Features</a>-->
+							<!--                            <a href="blog.html" class="dropdown-item">Blog Article</a>-->
+							<!--                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>-->
+							<!--                            <a href="404.html" class="dropdown-item">404 Page</a>-->
+							<!--                        </div>-->
+<!--						</div>-->
+					<%}%>
+					<a href="/contact" class="nav-item nav-link <%- active === 'contact' && 'active' %>">Contact</a>
 				</div>
 				<div class="border-start ps-4 d-none d-lg-block">
 					<% if (!currentUser) { %>

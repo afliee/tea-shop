@@ -12,7 +12,6 @@ const validateRememberMe = async ( req, res, next ) => {
             return next();
         }
         console.log("remember", remember)
-        const token = req.cookies['token'];
     //     authentication with passport jwt strategy
         await passport.authenticate('jwt', { session: false }, async ( err, user, info ) => {
             if (err) {

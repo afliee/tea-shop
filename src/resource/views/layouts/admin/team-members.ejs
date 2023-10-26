@@ -44,7 +44,8 @@
     <!-- Page CSS -->
     <!-- Page -->
     <link rel="stylesheet" href="/css/pages/page-auth.css"/>
-<!--    <link rel="stylesheet" href="/css/pages/page-datatable.css">-->
+    <!--    <link rel="stylesheet" href="/css/icons.min.css">-->
+    <!--    <link rel="stylesheet" href="/css/pages/page-datatable.css">-->
     <!-- Helpers -->
     <script src="/js/admin/helpers.js"></script>
 
@@ -187,22 +188,7 @@
                                 >
                                     <i class="bx bx-group me-2"></i>
                                     <span class="d-none d-sm-inline">All Members</span>
-                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">3</span>
-                                </button>
-                            </li>
-
-                            <li class="nav-item">
-                                <button
-                                        type="button"
-                                        class="nav-link"
-                                        role="tab"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#nav-user-role"
-                                        aria-controls="nav-user-role"
-                                        aria-selected="false"
-                                >
-                                    <i class="bx bx-user me-2"></i>
-                                    <span class="d-none d-sm-inline">User Role Manager</span>
+                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger number_members">3</span>
                                 </button>
                             </li>
                         </ul>
@@ -221,10 +207,6 @@
                                     </tr>
                                     </thead>
                                 </table>
-                            </div>
-
-                            <div class="tab-pane fade" id="nav-user-role" role="tabpanel">
-                                User role manager
                             </div>
                         </div>
                     </div>
@@ -289,15 +271,25 @@
             },
             success: function ( data ) {
                 $('#users').html('');
+                $('.number_members').text(data.length);
                 $('#users').DataTable({
                     keys: true,
                     responsive: true,
                     language: {
                         paginate: {
-                            previous: "<i class='bx bx-left-arrow-alt' ></i>",
-                            next: "<i class='bx bx-right-arrow-alt' ></i>",
+                            previous: "<i class='mdi mdi-chevron-left'>",
+                            next: "<i class='mdi mdi-chevron-right'>",
                         },
+                        info: 'Showing customers _START_ to _END_ of _TOTAL_',
+                        lengthMenu:
+                            'Display <select class=\'custom-select custom-select-sm ml-1 mr-1\'><option value="10">10</option><option value="20">20</option><option value="-1">All</option></select> customers',
                     },
+                    // language: {
+                    //     paginate: {
+                    //         previous: "<i class='bx bx-left-arrow-alt' ></i>",
+                    //         next: "<i class='bx bx-right-arrow-alt' ></i>",
+                    //     },
+                    // },
                     drawCallback: function () {
                         console.log('drawCallback')
                         $('.dataTables_paginate > .pagination').addClass(
@@ -306,10 +298,21 @@
                     },
                     data: data,
                     columns: [
+                        {
+                            data: 'avatar',
+                            render: function ( data ) {
+                                return `
+                               <div class="avatar avatar-online">
+                                    <img src="${ data }" alt class="w-px-40 h-auto rounded-circle"/>
+                                </div>
+                            `
+                            }
+                        },
                         { data: 'email' },
                         {
                             data: 'name',
                             render: function ( data, type, row ) {
+
                                 return data || 'N/A'
                             }
                         },

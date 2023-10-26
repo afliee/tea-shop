@@ -9,7 +9,15 @@ import { requireToken } from "#middlewares/http/index.js";
 
 router.get("/", IndexController.index);
 router.get("/product", UserValidator.validateRememberMe, IndexController.product);
-router.get("/about", UserValidator.validateRememberMe, IndexController.about)
-router.get("/contact", UserValidator.validateRememberMe, IndexController.contact)
+router.get("/about", UserValidator.validateRememberMe, IndexController.about);
+router.get("/contact", UserValidator.validateRememberMe, IndexController.contact);
+router.get('/service', UserValidator.validateRememberMe, (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        return res.redirect('/auth/login');
+    } else {
+        next();
+    }
+}, IndexController.service);
+router.post('/service', UserValidator.validateRememberMe, IndexController.createTicket);
 
 export default router;

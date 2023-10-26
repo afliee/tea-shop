@@ -6,6 +6,8 @@
 
 document.addEventListener('DOMContentLoaded', function ( e ) {
     (function () {
+        const id = document.getElementById('id').value;
+
         const deactivateAcc = document.querySelector('#formAccountDeactivation');
         const btnSave = document.querySelector('.btn-save');
         // Update/reset user image of account page
@@ -19,10 +21,21 @@ document.addEventListener('DOMContentLoaded', function ( e ) {
 
         if (accountUserImage) {
             const resetImage = accountUserImage.src;
-            fileInput.onchange = () => {
+            fileInput.onchange = async () => {
                 if (fileInput.files[0]) {
                     accountUserImage.src = window.URL.createObjectURL(fileInput.files[0]);
                 }
+
+                const formData = new FormData();
+                formData.append('avatar', fileInput.files[0]);
+                formData.append('id', id);
+                await fetch('/members/update', {
+                    method: "PUT",
+                    body: formData
+                }).then(res => res.json())
+                    .then(() => {
+                        console.log("avatar updated")
+                    })
             };
             resetFileInput.onclick = () => {
                 fileInput.value = '';
@@ -40,32 +53,32 @@ document.addEventListener('DOMContentLoaded', function ( e ) {
 
         btnSave.addEventListener('click', async function ( e ) {
             e.preventDefault();
-            const id = document.getElementById('id').value;
-
             try {
                 await fetch(`/members`, {
-                    method: "POST",
+                    method: "PUT",
                     body: JSON.stringify({
                         id: id,
-                        name : fullName.value,
+                        name: fullName.value,
                         firstName: firstName.value,
                         lastName: lastName.value,
                         phone: document.getElementById("phoneNumber").value,
                         address: document.getElementById("address").value,
-                        avatar: accountUserImage.src
+                        avatar: fileInput.files[0]
                     }),
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
                     }
                 }).then(res => {
                     console.log(res)
                     if (res.status === 200) {
                         return res.json();
                     }
-                }).then (res => {
+                }).then(res => {
                     if (res.status === 200) {
                         location.reload();
                     }
+                }).catch(err => {
+                    console.log(err)
                 })
             } catch (e) {
                 console.log(e)
