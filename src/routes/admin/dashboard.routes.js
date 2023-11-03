@@ -1,6 +1,9 @@
 import express from "express";
 import {default as settingRoutes} from "./setting.routes.js";
 import {default as userRoutes} from "./user.routes.js";
+import {default as ticketRoutes} from "./ticket.routes.js";
+import {default as categoryRoutes} from "./category.routes.js";
+import {default as productRoutes} from "./product.routes.js";
 
 import { Roles } from "#root/contants/roles.js";
 
@@ -16,6 +19,9 @@ router.get("/", requireToken, authMiddleware.requireRole([Roles.ADMIN]), ( req, 
 });
 
 router.use("/settings", settingRoutes);
+router.use("/tickets", ticketRoutes);
+router.use("/categories", categoryRoutes);
+router.use("/products", productRoutes);
 router.use(userRoutes);
 
 export default router;

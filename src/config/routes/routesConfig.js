@@ -1,4 +1,4 @@
-import { authRoutes, homeRouters, dashboardRoutes, memberRoutes } from '#routes/index.js';
+import { authRoutes, homeRouters, dashboardRoutes, memberRoutes, importRoutes } from '#routes/index.js';
 
 import Table from 'ascii-table';
 import {UserValidator} from "#validator/index.js";
@@ -12,6 +12,7 @@ const routesConfig = ( app ) => {
     app.use("/auth", authRoutes);
     app.use("/admin", dashboardRoutes);
     app.use("/members", memberRoutes);
+    app.use("/import", importRoutes);
 //     middleware for error handling
     app.get('/test', (req, res, next) => {
         res.render('test.ejs');
@@ -21,29 +22,6 @@ const routesConfig = ( app ) => {
         console.log(err);
         res.status(500).send(err.message);
     })
-
-    const COLUMNS_NAME = ['Root Path', 'Method', 'Path'];
-    table.setHeading(...COLUMNS_NAME);
-
-    [
-        { name: '/', route: homeRouters },
-        { name: '/auth', route: authRoutes },
-        { name: '/admin', route: dashboardRoutes }
-    ].forEach(router => {
-        router.route.stack.forEach(layer => {
-            if (layer.route) {
-                const { path, methods } = layer.route;
-                Object.keys(methods).forEach(method => {
-                    table.addRow(router.name, method.toUpperCase(), path);
-                })
-            }
-        })
-
-    //     set empty row
-        table.addRow();
-    })
-
-    console.log(table.toString());
 }
 
 export default routesConfig;

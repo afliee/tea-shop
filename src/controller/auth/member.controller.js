@@ -72,12 +72,14 @@ class MemberController {
             if (!filePath) {
                 throw new Error("update avt fail");
             }
-            const targetPath = path.join("src/public/img", `${id}.png`);
+            let targetPath = path.join("src/public/img", `${id}.png`);
             fs.rename(filePath, targetPath, (err) => {
                 if (err) {
                     throw err;
                 }
             })
+
+            targetPath = `/img/${id}.png`;
             const user = await update(id, {
                 avatar: targetPath
             })

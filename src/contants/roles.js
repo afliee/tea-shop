@@ -2,6 +2,6 @@ export const Roles = {
     ADMIN: 'ADMIN',
     CUSTOMER_SCARE: 'CUSTOMER_SCARE',
     POST_MANAGER: 'POST_MANAGER',
-    SUPPlIER: 'SUPPLIER',
+    SUPPlIER: 'SUPPlIER',
     USER: 'USER'
 }

@@ -11,9 +11,6 @@ export const Category = model(
         description: {
             type: String,
         },
-        image: {
-            type: String,
-        }
     }, {
         timestamps: true
     })

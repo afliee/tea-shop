@@ -1,6 +1,6 @@
 import {Schema, model} from "mongoose";
 
-import validator from "validator/es";
+import validator from "validator";
 
 export const Supplier = model(
     'Supplier',

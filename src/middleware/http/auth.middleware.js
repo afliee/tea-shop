@@ -9,7 +9,7 @@ const requireRole = ( roles ) => {
         }
 
         const user = req.user;
-        if (!user.role.includes(roles)) {
+        if (!user || !roles.includes(user.role)) {
             return res.status(403).send({
                 message: "You are not authorized to access this resource"
             })

@@ -42,9 +42,16 @@ export const Product = model(
                 if (value < 0) throw new Error('Invalid quantity');
             }
         },
+        expiredAt: {
+            type: Date,
+        },
         category: {
             type: Schema.Types.ObjectId,
             ref: 'Category'
+        },
+        active: {
+            type: Boolean,
+            default: true
         }
     }, {
         timestamps: true

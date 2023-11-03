@@ -44,6 +44,7 @@
     <!-- Page CSS -->
     <!-- Page -->
     <link rel="stylesheet" href="/css/pages/page-auth.css"/>
+    <link rel="stylesheet" href="/css/pages/page-ticket.css"/>
     <!--    <link rel="stylesheet" href="/css/icons.min.css">-->
     <!--    <link rel="stylesheet" href="/css/pages/page-datatable.css">-->
     <!-- Helpers -->
@@ -58,7 +59,7 @@
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <%- include('../../partials/admin/menubar.ejs', {
-        active: 'settings',
+        active: 'import',
         sub: 'team-members'
         }) %>
         <div class="layout-page">
@@ -172,47 +173,75 @@
 
             <!-- Content wrapper -->
             <div class="content-wrapper">
-                <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <div class="nav-align-top mb-4">
-                        <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
-                            <li class="nav-item">
-                                <button
-                                        type="button"
-                                        class="nav-link active"
-                                        role="tab"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#nav-all-members"
-                                        aria-controls="nav-all-members"
-                                        aria-selected="true"
-                                >
-                                    <i class="bx bx-group me-2"></i>
-                                    <span class="d-none d-sm-inline">All Members</span>
-                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger number_members">3</span>
-                                </button>
-                            </li>
-                        </ul>
+                    <div class="mb-3">
+                        <button class="btn btn-primary">
+                            <i class="bx bx-plus me-2"></i>
+                            <span class="align-middle">Create New Import Coupon</span>
+                        </button>
+                    </div>
 
-                        <div class="tab-content">
-                            <div class="tab-pane fade show active" id="nav-all-members" role="tabpanel">
-                                <table id="users" class="table dt-responsive nowrap w-100">
-                                    <thead>
-                                    <tr>
-                                        <th>Email</th>
-                                        <th>Name</th>
-                                        <th>Role</th>
-                                        <th>Joined</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                </table>
+                    <div class="mb-3">
+                        <!-- File Upload -->
+                        <form action="/import/upload" method="post" class="dropzone" id="myAwesomeDropzone"
+                              data-plugin="dropzone" data-previews-container="#file-previews"
+                              data-upload-preview-template="#uploadPreviewTemplate">
+                            <div class="fallback">
+                                <input name="file" type="file"
+                                       accept="text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+                            </div>
+
+                            <div class="dz-message needsclick">
+                                <i class="h1 text-muted dripicons-cloud-upload"></i>
+                                <h3>Drop files here or click to upload.</h3>
+                                <span class="text-muted font-13">The system just accept (.csv, .xls, .xlsx) format</span>
+                            </div>
+                        </form>
+
+                        <!-- Preview -->
+                        <div class="dropzone-previews mt-3" id="file-previews"></div>
+
+                        <!-- file preview template -->
+                        <div class="d-none" id="uploadPreviewTemplate">
+                            <div class="card mt-1 mb-0 shadow-none border">
+                                <div class="p-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <img data-dz-thumbnail src="#"
+                                                 class="avatar-sm rounded bg-light dz-thumbnail" alt="">
+                                        </div>
+                                        <div class="col pl-0">
+                                            <a href="javascript:void(0);" class="text-muted font-weight-bold dz-name"
+                                               data-dz-name></a>
+                                            <p class="mb-0" data-dz-size></p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Button -->
+                                            <a href="" class="btn btn-link btn-lg text-muted" data-dz-remove>
+                                                <i class="bx bx-crosshair"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- / Content -->
 
+                    <table id="import-table" class="table table-responsive dt-responsive nowrap w-100 d-none mt-3">
+                        <thead>
+                        <tr>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">Description</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Sell Price</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Category</th>
+                            <th class="text-center">Type</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
                 <div class="content-backdrop fade"></div>
             </div>
             <!-- Content wrapper -->
@@ -233,15 +262,11 @@
 <script src="/lib/popper/popper.js"></script>
 <script src="/lib/bootstrap/bootstrap.js"></script>
 <script src="/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
-
+<script src="/lib/dropzone/dropzone.min.js"></script>
 <script src="/lib/bootstrap/menu.js"></script>
 <!-- endbuild -->
 <script src="/lib/apex-charts/apexcharts.js"></script>
 <!-- Vendors JS -->
-
-<!-- Main JS -->
-<script src="/js/admin/main.js"></script>
-<script src="/js/utils/auth/logout.js"></script>
 
 <!-- Page JS -->
 <script src="/js/utils/auth/dashboards-analytics.js"></script>
@@ -254,110 +279,14 @@
 <script src="/lib/datatables/dataTables.keyTable.min.js"></script>
 <script src="/lib/datatables/dataTables.responsive.min.js"></script>
 <script src="/lib/datatables/dataTables.select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"
+        integrity="sha512-JRlcvSZAXT8+5SQQAvklXGJuxXTouyq8oIMaYERZQasB8SBDHZaUbeASsJWpk0UUrf89DP3/aefPPrlMR1h1yQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script>
-    $(document).ready(function () {
-        $.ajax({
-            url: '/admin/members',
-            method: 'GET',
-            beforeSend: function () {
-                $('#users').html(`
-                    <div class="d-flex justify-content-center">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
-                `)
-            },
-            success: function ( data ) {
-                $('#users').html('');
-                $('.number_members').text(data.length);
-                $('#users').DataTable({
-                    keys: true,
-                    responsive: true,
-                    language: {
-                        paginate: {
-                            previous: "<i class='mdi mdi-chevron-left'>",
-                            next: "<i class='mdi mdi-chevron-right'>",
-                        },
-                        info: 'Showing customers _START_ to _END_ of _TOTAL_',
-                        lengthMenu:
-                            'Display <select class=\'custom-select custom-select-sm ml-1 mr-1\'><option value="10">10</option><option value="20">20</option><option value="-1">All</option></select> customers',
-                    },
-                    // language: {
-                    //     paginate: {
-                    //         previous: "<i class='bx bx-left-arrow-alt' ></i>",
-                    //         next: "<i class='bx bx-right-arrow-alt' ></i>",
-                    //     },
-                    // },
-                    drawCallback: function () {
-                        console.log('drawCallback')
-                        $('.dataTables_paginate > .pagination').addClass(
-                            'pagination-rounded'
-                        );
-                    },
-                    data: data,
-                    columns: [
-                        {
-                            title: 'Avatar',
-                            data: 'avatar',
-                            render: function ( data ) {
-                                return `
-                               <div class="avatar avatar-online">
-                                    <img src="${ data }" alt class="w-px-40 h-auto rounded-circle"/>
-                                </div>
-                            `
-                            }
-                        },
-                        {
-                            title: 'Email',
-                            data: 'email'
-                        },
-                        {
-                            title: 'Name',
-                            data: 'name',
-                            render: function ( data, type, row ) {
-
-                                return data || 'N/A'
-                            }
-                        },
-                        {
-                            title: 'Role',
-                            data: 'role' },
-                        {
-                            title: 'Joined',
-                            data: 'createdAt',
-                            render: function ( data, type, row ) {
-                                return new Date(data).toLocaleDateString()
-                            }
-                        },
-                        {
-                            title: 'Status',
-                            data: 'active',
-                            render: function ( data, type, row ) {
-                                return data ? `
-                                    <span class="badge rounded-pill bg-success">Active</span>
-                                ` : `
-                                    <span class="badge rounded-pill bg-danger">Inactive</span>
-                                `;
-                            }
-                        },
-                        {
-                            title: 'Actions',
-                            data: null,
-                            render: function ( data, type, row ) {
-                                return `<a href="/admin/members/${ data._id }" class="btn btn-sm btn-primary">Edit</a>`
-                            }
-                        }
-                    ]
-                })
-            },
-            error: function ( err ) {
-                console.log(err)
-            }
-        })
-    })
-</script>
+<!-- Main JS -->
+<script src="/js/admin/main.js"></script>
+<script src="/js/utils/auth/logout.js"></script>
+<script src="/js/utils/ui/component.fileupload.js"></script>
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>

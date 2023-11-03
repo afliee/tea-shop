@@ -1,6 +1,6 @@
 import {Schema, model} from "mongoose";
 
-const Import = model(
+export const Import = model(
     'Import',
     new Schema({
         supplier: {

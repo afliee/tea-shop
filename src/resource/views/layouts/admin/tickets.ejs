@@ -30,6 +30,7 @@
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="/lib/fonts/boxicons.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="/css/core.css" class="template-customizer-core-css"/>
@@ -44,6 +45,7 @@
     <!-- Page CSS -->
     <!-- Page -->
     <link rel="stylesheet" href="/css/pages/page-auth.css"/>
+    <link rel="stylesheet" href="/css/pages/page-ticket.css"/>
     <!--    <link rel="stylesheet" href="/css/icons.min.css">-->
     <!--    <link rel="stylesheet" href="/css/pages/page-datatable.css">-->
     <!-- Helpers -->
@@ -58,7 +60,7 @@
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <%- include('../../partials/admin/menubar.ejs', {
-        active: 'settings',
+        active: 'tickets',
         sub: 'team-members'
         }) %>
         <div class="layout-page">
@@ -172,47 +174,87 @@
 
             <!-- Content wrapper -->
             <div class="content-wrapper">
-                <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <div class="nav-align-top mb-4">
-                        <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
-                            <li class="nav-item">
-                                <button
-                                        type="button"
-                                        class="nav-link active"
-                                        role="tab"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#nav-all-members"
-                                        aria-controls="nav-all-members"
-                                        aria-selected="true"
-                                >
-                                    <i class="bx bx-group me-2"></i>
-                                    <span class="d-none d-sm-inline">All Members</span>
-                                    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger number_members">3</span>
-                                </button>
-                            </li>
-                        </ul>
-
-                        <div class="tab-content">
-                            <div class="tab-pane fade show active" id="nav-all-members" role="tabpanel">
-                                <table id="users" class="table dt-responsive nowrap w-100">
-                                    <thead>
-                                    <tr>
-                                        <th>Email</th>
-                                        <th>Name</th>
-                                        <th>Role</th>
-                                        <th>Joined</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                </table>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="text-sm-right d-flex justify-content-end gap-1">
+                                <div class="btn-group mb-3">
+                                    <a href="/admin/tickets" type="button" class="btn btn-light <%= filter === 'all' && 'btn-primary'%>">
+                                        All
+                                    </a>
+                                </div>
+                                <div class="btn-group mb-3 ml-1">
+                                    <a href="?filter=pending" type="button" class="btn btn-light <%= filter === 'pending' && 'btn-primary'%>">
+                                        Pending
+                                    </a>
+                                    <a href="?filter=approved" type="button" class="btn btn-light <%= filter === 'approved' && 'btn-primary'%>">
+                                        Approved
+                                    </a>
+                                    <a href="?filter=rejected" type="button" class="btn btn-light <%= filter === 'rejected' && 'btn-primary'%>">
+                                        Rejected
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- / Content -->
+                    <div class="row tickets"  data-masonry='{"percentPosition": true }'>
+                        <% tickets.forEach(ticket => { %>
+                            <div class="col-md-6 col-xl-3 d-inline-block mb-3 ticket">
+                                <div class="card d-block shadow-sm">
+                                    <div class="card-body">
+                                        <h4 class="mt-0 text-truncate" data-bs-toggle="tooltip" title="<%= ticket.subject%>">
+                                            <%= ticket.subject %>
+                                        </h4>
 
+                                        <% switch (ticket.status) {
+                                        case 'approved': %>
+                                        <span class="badge bg-success text-white">Open</span>
+                                        <% break;
+                                        case 'rejected': %>
+                                        <span class="badge bg-danger text-white">Closed</span>
+                                        <% break;
+                                        case 'pending': %>
+                                        <span class="badge bg-warning text-white">Pending</span>
+                                        <% break;
+                                        } %>
+                                        <p class="card-text text-muted mb-3 mt-2">
+                                            <%= ticket.message %>
+                                        </p>
+
+                                        <div class="mb-3">
+                                            <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top"
+                                               title="<%= ticket.createdBy.name%>" data-original-title="<%= ticket.createdBy.name %>"
+                                               class="d-inline-block">
+                                                <img src="<%= ticket.createdBy.avatar %>"
+                                                     class="rounded rounded-circle avatar-xs" alt="friend">
+                                            </a>
+
+                                            <a href="mailto:<%= ticket.email %>"
+                                               class="text-body fw-bold ms-2"><%= ticket.createdBy.name || "N/A" %></a>
+                                        </div>
+
+                                        <p class="mb-2 fw-bold">Created At <span
+                                                    class="float-end"><%= new Date(ticket.createdAt).toLocaleDateString() %></span>
+                                        </p>
+
+                                        <div class="d-flex justify-content-between">
+                                                <a href="/admin/tickets/approve/<%= ticket.id %>" class="<%= ticket.status === 'approved' && 'disabled'%>">
+                                                    <button class="btn btn-outline-success">
+                                                        Approve
+                                                    </button>
+                                                </a>
+                                                <a href="/admin/tickets/reject/<%= ticket.id %>" class=" <%= ticket.status === 'rejected' && 'disabled'%>">
+                                                    <button class="btn btn-outline-danger">
+                                                        Reject
+                                                    </button>
+                                                </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
                 <div class="content-backdrop fade"></div>
             </div>
             <!-- Content wrapper -->
@@ -254,110 +296,8 @@
 <script src="/lib/datatables/dataTables.keyTable.min.js"></script>
 <script src="/lib/datatables/dataTables.responsive.min.js"></script>
 <script src="/lib/datatables/dataTables.select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js" integrity="sha512-JRlcvSZAXT8+5SQQAvklXGJuxXTouyq8oIMaYERZQasB8SBDHZaUbeASsJWpk0UUrf89DP3/aefPPrlMR1h1yQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script>
-    $(document).ready(function () {
-        $.ajax({
-            url: '/admin/members',
-            method: 'GET',
-            beforeSend: function () {
-                $('#users').html(`
-                    <div class="d-flex justify-content-center">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
-                `)
-            },
-            success: function ( data ) {
-                $('#users').html('');
-                $('.number_members').text(data.length);
-                $('#users').DataTable({
-                    keys: true,
-                    responsive: true,
-                    language: {
-                        paginate: {
-                            previous: "<i class='mdi mdi-chevron-left'>",
-                            next: "<i class='mdi mdi-chevron-right'>",
-                        },
-                        info: 'Showing customers _START_ to _END_ of _TOTAL_',
-                        lengthMenu:
-                            'Display <select class=\'custom-select custom-select-sm ml-1 mr-1\'><option value="10">10</option><option value="20">20</option><option value="-1">All</option></select> customers',
-                    },
-                    // language: {
-                    //     paginate: {
-                    //         previous: "<i class='bx bx-left-arrow-alt' ></i>",
-                    //         next: "<i class='bx bx-right-arrow-alt' ></i>",
-                    //     },
-                    // },
-                    drawCallback: function () {
-                        console.log('drawCallback')
-                        $('.dataTables_paginate > .pagination').addClass(
-                            'pagination-rounded'
-                        );
-                    },
-                    data: data,
-                    columns: [
-                        {
-                            title: 'Avatar',
-                            data: 'avatar',
-                            render: function ( data ) {
-                                return `
-                               <div class="avatar avatar-online">
-                                    <img src="${ data }" alt class="w-px-40 h-auto rounded-circle"/>
-                                </div>
-                            `
-                            }
-                        },
-                        {
-                            title: 'Email',
-                            data: 'email'
-                        },
-                        {
-                            title: 'Name',
-                            data: 'name',
-                            render: function ( data, type, row ) {
-
-                                return data || 'N/A'
-                            }
-                        },
-                        {
-                            title: 'Role',
-                            data: 'role' },
-                        {
-                            title: 'Joined',
-                            data: 'createdAt',
-                            render: function ( data, type, row ) {
-                                return new Date(data).toLocaleDateString()
-                            }
-                        },
-                        {
-                            title: 'Status',
-                            data: 'active',
-                            render: function ( data, type, row ) {
-                                return data ? `
-                                    <span class="badge rounded-pill bg-success">Active</span>
-                                ` : `
-                                    <span class="badge rounded-pill bg-danger">Inactive</span>
-                                `;
-                            }
-                        },
-                        {
-                            title: 'Actions',
-                            data: null,
-                            render: function ( data, type, row ) {
-                                return `<a href="/admin/members/${ data._id }" class="btn btn-sm btn-primary">Edit</a>`
-                            }
-                        }
-                    ]
-                })
-            },
-            error: function ( err ) {
-                console.log(err)
-            }
-        })
-    })
-</script>
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
