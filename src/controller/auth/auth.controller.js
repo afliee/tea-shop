@@ -2,7 +2,7 @@ import { validationResult } from "express-validator";
 import { AuthService } from "#services/index.js";
 import { emailUtils, jwtUtils } from "#utils/index.js";
 import { env } from "#root/config/index.js";
-import {findUser} from "#models/user.model.js";
+import {findUser, User} from "#models/user.model.js";
 
 const { ENV, URL_PREFIX, PORT } = env;
 
@@ -173,6 +173,52 @@ class AuthController {
         } catch (e) {
             console.log(e);
 
+        }
+    }
+
+    async sendMailForgotPassword( req, res, next ) {
+        console.log(`[${ TAG }] sendMailForgotPassword`)
+
+        try {
+            const {email} = req.body;
+            const user = await User.findOne({email: email});
+            const token = await jwtUtils.generateToken(user);
+
+            await emailUtils.sendEmail({
+                email: user.email,
+                subject: "Forgot password",
+                template: "forgotPassword",
+                context: {
+                    url: `${URL_PREFIX}:${PORT}/auth/forgot-password/${user._id}`,
+                    name: user.name || user.email,
+                }
+            }).then(() => {
+                req.flash('message', 'New forgot password link has been sent to your email')
+                res.redirect('/auth/login')
+            })
+        } catch (e) {
+            console.log(e);
+            req.flash('error', e.message)
+        }
+    }
+
+    async forgotPassword( req, res, next ) {
+        console.log(`[${ TAG }] forgotPassword`)
+        try {
+            const data = {
+                id: req.body.id,
+                password: req.body.password,
+                confirmPassword: req.body.confirmPassword
+            }
+            const user = await AuthService.forgotPassword(data);
+            if (user != null) {
+                return res.status(200).send({message: "Password reset successfully"})
+            } else {
+                return res.status(400).send({message: "Password reset failed"})
+            }
+        } catch (e) {
+            console.log(e)
+            return res.status(500).send({message: "Server error"})
         }
     }
 }

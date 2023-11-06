@@ -1,13 +1,13 @@
-import { User, verifyUser, findUser } from "#models/user.model.js";
-import { generateRefreshToken, generateToken } from "#utils/jwt.utils.js";
+import {User, verifyUser, findUser} from "#models/user.model.js";
+import {generateRefreshToken, generateToken} from "#utils/jwt.utils.js";
 
 import bcrypt from "bcrypt";
-import { ErrorMessage } from "#utils/error/message.utils.js";
+import {ErrorMessage} from "#utils/error/message.utils.js";
 
 
-async function signIn( user ) {
-    return new Promise(async ( resolve, reject ) => {
-        const isOk =  verifyUser(user);
+async function signIn(user) {
+    return new Promise(async (resolve, reject) => {
+        const isOk = verifyUser(user);
         if (!isOk) {
             return reject(isOk);
         }
@@ -16,7 +16,7 @@ async function signIn( user ) {
     })
 }
 
-async function signUp( user ) {
+async function signUp(user) {
     try {
         const existUser = await User.findOne({
             email: user.email
@@ -47,8 +47,8 @@ async function signUp( user ) {
     }
 }
 
-function activeAccount( id ) {
-    return new Promise(async ( resolve, reject ) => {
+function activeAccount(id) {
+    return new Promise(async (resolve, reject) => {
         const user = await findUser(id);
 
         if (user.status === 500 || user.status === 400) {
@@ -65,8 +65,35 @@ function activeAccount( id ) {
     });
 }
 
+async function forgotPassword(data = {}) {
+    try {
+
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hashSync(data?.password, salt);
+
+        if (data.password !== data.confirmPassword) {
+            return null;
+        }
+
+        const user = await User.findByIdAndUpdate({
+            _id: data.id
+        },
+            {
+                password: hash
+            })
+        if (!user) {
+            return null;
+        }
+        return user;
+    } catch (e) {
+        console.log(e);
+        return null;
+    }
+}
+
 export default {
     signIn,
     signUp,
-    activeAccount
+    activeAccount,
+    forgotPassword
 }

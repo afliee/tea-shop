@@ -121,4 +121,21 @@ router.get("/current_user", async ( req, res ) => {
     res.send(req.session);
 })
 
+router.get("/forgot-password", ( req, res ) => {
+    res.render('utils/forgotPassword.ejs', {
+        flash: req.flash() || null
+    });
+})
+
+router.post("/send-mail", AuthController.sendMailForgotPassword)
+
+router.get("/forgot-password/:id", ( req, res ) => {
+    res.render('utils/resetPassword.ejs', {
+        id: req.params?.id || null,
+        flash: req.flash() || null
+    });
+})
+
+router.post("/forgot-password", AuthController.forgotPassword)
+
 export default router;
