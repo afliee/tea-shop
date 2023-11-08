@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        class="light-style customizer-hide"
+        dir="ltr"
+        data-theme="theme-default"
+        data-template="vertical-menu-template-free"
+>
+<head>
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>Tea Loza</title>
+
+    <meta name="description" content=""/>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico"/>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+            rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="/lib/fonts/boxicons.css"/>
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="/css/core.css" class="template-customizer-core-css"/>
+    <link rel="stylesheet" href="/css/theme-default.css" class="template-customizer-theme-css"/>
+    <link rel="stylesheet" href="/css/demo.css"/>
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="/lib/perfect-scrollbar/perfect-scrollbar.css"/>
+    <link rel="stylesheet" href="/css/vendors/buttons.bootstrap4.css">
+    <link rel="stylesheet" href="/css/vendors/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="/css/vendors/select.bootstrap4.css">
+    <!-- Page CSS -->
+    <!-- Page -->
+    <link rel="stylesheet" href="/css/pages/page-auth.css"/>
+    <link rel="stylesheet" href="/css/pages/page-ticket.css"/>
+    <!--    <link rel="stylesheet" href="/css/icons.min.css">-->
+    <!--    <link rel="stylesheet" href="/css/pages/page-datatable.css">-->
+    <!-- Helpers -->
+    <script src="/js/admin/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="/js/admin/config.js"></script>
+</head>
+<body>
+<!-- BEGIN: Content-->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <%- include('../../partials/admin/menubar.ejs', {
+        active: 'products',
+        sub: ''
+        }) %>
+        <div class="layout-page">
+            <!-- Navbar -->
+
+            <nav
+                    class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                    id="layout-navbar"
+            >
+                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                        <i class="bx bx-menu bx-sm"></i>
+                    </a>
+                </div>
+
+                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                    <!-- Search -->
+                    <div class="navbar-nav align-items-center">
+                        <div class="nav-item d-flex align-items-center">
+                            <i class="bx bx-search fs-4 lh-0"></i>
+                            <input
+                                    type="text"
+                                    class="form-control border-0 shadow-none"
+                                    placeholder="Search..."
+                                    aria-label="Search..."
+                            />
+                        </div>
+                    </div>
+                    <!-- /Search -->
+
+                    <ul class="navbar-nav flex-row align-items-center ms-auto">
+                        <!-- Place this tag where you want the button to render. -->
+                        <li class="nav-item lh-1 me-3">
+                            <a
+                                    class="github-button"
+                                    href="https://github.com/themeselection/sneat-html-admin-template-free"
+                                    data-icon="octicon-star"
+                                    data-size="large"
+                                    data-show-count="true"
+                                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
+                            >Star</a
+                            >
+                        </li>
+
+                        <!-- User -->
+                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                               data-bs-toggle="dropdown">
+                                <div class="avatar avatar-online">
+                                    <img src="<%= user.avatar %>" alt class="w-px-40 h-auto rounded-circle"/>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar avatar-online">
+                                                    <img src="<%= user.avatar %>" alt
+                                                         class="w-px-40 h-auto rounded-circle"/>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <span class="fw-semibold d-block"><%= user.name || user.email %></span>
+                                                <small class="text-muted"><%= user.role %></small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bx bx-user me-2"></i>
+                                        <span class="align-middle">My Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bx bx-cog me-2"></i>
+                                        <span class="align-middle">Settings</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                        <span class="d-flex align-items-center align-middle">
+                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                          <span class="flex-grow-1 align-middle">Billing</span>
+                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item logout" href="/auth/logout/<%= user.id %>">
+                                        <i class="bx bx-power-off me-2"></i>
+                                        <span class="align-middle">Log Out</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--/ User -->
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- / Navbar -->
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <!-- Toast with Placements -->
+                    <div
+                            class="bs-toast toast toast-placement-ex m-2 top-0 end-0"
+                            role="alert"
+                            aria-live="assertive"
+                            aria-atomic="true"
+                            data-delay="2000"
+                    >
+                        <div class="toast-header">
+                            <i class="bx bx-bell me-2"></i>
+                            <div class="me-auto fw-semibold">Tea Loza</div>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">Fruitcake chocolate bar tootsie roll gummies gummies jelly beans cake.</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-5 d-flex flex-column align-items-center justify-content-center">
+                                    <!-- Product image -->
+                                    <% if (!product.images.length) { %>
+                                        <div class="text-center d-flex justify-content-center flex-column align-items-center">
+                                            <img src="/img/placeholder.jpg"
+                                                 class="img-fluid img-thumbnail p-2  mb-2 image__product"
+                                                 width="200" height="200" alt="Product-img"/>
+
+                                            <h4 class="mt-3">No Image</h4>
+                                            <span class="mt-2 text-muted">(Let upload a representative image for this product)</span>
+
+                                            <div class="mt-3">
+                                                <label type="button" class="btn btn-primary waves-effect waves-light"
+                                                       for="uploadImage">
+                                                    <i class="bx bx-upload me-2"></i>
+                                                    <span>Upload</span>
+                                                    <input type="file" class="d-none" id="uploadImage"
+                                                           name="uploadImage" accept="image/*"/>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    <% } else { %>
+                                        <div class="text-center d-flex justify-content-center flex-column align-items-center">
+                                            <img src="<%= product.images[0].url %>"
+                                                 class="img-fluid img-thumbnail p-2  mb-2 image__product"
+                                                 width="200" height="200" alt="Product-img"/>
+
+
+                                            <div class="mt-3">
+                                                <label type="button" class="btn btn-primary waves-effect waves-light"
+                                                       for="uploadImage">
+                                                    <i class="bx bx-upload me-2"></i>
+                                                    <span>Change</span>
+                                                    <input type="file" class="d-none" id="uploadImage"
+                                                           name="uploadImage" accept="image/*"/>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    <%}%>
+
+                                    <div class="d-lg-flex d-none justify-content-center">
+                                        <!--                                        <a href="javascript: void(0);">-->
+                                        <!--                                            <img src="assets/images/products/product-1.jpg" class="img-fluid img-thumbnail p-2" style="max-width: 75px;" alt="Product-img" />-->
+                                        <!--                                        </a>-->
+                                        <!--                                        <a href="javascript: void(0);" class="ml-2">-->
+                                        <!--                                            <img src="assets/images/products/product-6.jpg" class="img-fluid img-thumbnail p-2" style="max-width: 75px;" alt="Product-img" />-->
+                                        <!--                                        </a>-->
+                                        <!--                                        <a href="javascript: void(0);" class="ml-2">-->
+                                        <!--                                            <img src="assets/images/products/product-3.jpg" class="img-fluid img-thumbnail p-2" style="max-width: 75px;" alt="Product-img" />-->
+                                        <!--                                        </a>-->
+                                    </div>
+                                </div> <!-- end col -->
+                                <div class="col-lg-7">
+                                    <form class="pl-lg-4" onsubmit="return false">
+                                        <!-- Product title -->
+                                        <h3 class="mt-0">
+                                            <span class="product__name"><%= product.name %></span>
+                                            <a href="javascript: void(0);" class="text-muted btn__edit-toggle">
+                                                <i class="bx bx-edit ml-2"></i>
+                                            </a>
+                                        </h3>
+                                        <div class="form-group my-2">
+                                            <input type="text" class="form-control edit__product-name d-none"
+                                                   placeholder="Product Name"
+                                                   value="<%= product.name %>">
+                                        </div>
+                                        <p class="mb-1">Added
+                                            Date: <%= new Date(product.createdAt).toLocaleDateString() %></p>
+                                        <p class="font-16">
+                                            <span class="text-warning mdi mdi-star"></span>
+                                            <span class="text-warning mdi mdi-star"></span>
+                                            <span class="text-warning mdi mdi-star"></span>
+                                            <span class="text-warning mdi mdi-star"></span>
+                                            <span class="text-warning mdi mdi-star"></span>
+                                        </p>
+
+                                        <!-- Product description -->
+                                        <div class="mt-4">
+                                            <h6 class="font-14">Retail Price:</h6>
+                                            <div class="row d-flex align-items-center">
+                                                <div class="col-md-6 col-12">
+                                                    <input type="number" class="form-control pricing__input edit__price"
+                                                           placeholder="Origin Price" value="<%= product.price %>">
+                                                </div>
+                                                <div class="col-md-6 col-12 mt-sm-2 mt-md-0">
+                                                    <h3 class="m-0 pricing__input--display"><%= parseInt(product.price).toLocaleString('vi-VN', {
+                                                            style: 'currency',
+                                                            currency: 'VND'
+                                                        }) %></h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4">
+                                            <h6 class="font-14">Origin Price:</h6>
+                                            <div class="row d-flex align-items-center">
+                                                <div class="col-md-6 col-12">
+                                                    <input type="number" class="form-control pricing__input edit__sale-price"
+                                                           placeholder="Origin Price" value="<%= product.salePrice %>">
+                                                </div>
+                                                <div class="col-md-6 col-12 mt-sm-2 mt-md-0">
+                                                    <h3 class="m-0 pricing__input--display"><%= parseInt(product.salePrice).toLocaleString('vi-VN', {
+                                                            style: 'currency',
+                                                            currency: 'VND'
+                                                        }) %></h3>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-4">
+                                            <h6 class="font-14">Category Type: </h6>
+                                            <select class="form-select edit__category">
+                                                <option>Choose...</option>
+                                                <% categories.forEach(category => { %>
+                                                    <option value="<%= category.id %>" <%= category.id === product.category.id ? 'selected' : '' %> class="form-control"><%= category.name %></option>
+                                                <% }); %>
+                                            </select>
+                                        </div>
+                                        <!-- Product description -->
+                                        <div class="mt-4">
+                                            <h6 class="font-14">Description:</h6>
+                                            <textarea class="form-control edit__description" rows="4"
+                                                      placeholder="Please enter description"><%= product.description %></textarea>
+                                        </div>
+
+                                        <!-- Product information -->
+                                        <div class="mt-4">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h6 class="font-14">Available Stock:</h6>
+                                                    <p class="text-sm lh-150">1784</p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h6 class="font-14">Number of Orders:</h6>
+                                                    <p class="text-sm lh-150">5,458</p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h6 class="font-14">Revenue:</h6>
+                                                    <p class="text-sm lh-150">$8,57,014</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-4">
+                                            <div class="row d-flex justify-content-end">
+                                                <div class="col-12">
+                                                    <button class="btn btn-danger" type="button">
+                                                        Cancel
+                                                    </button>
+                                                    <button class="btn btn-primary btn-save" type="button">
+                                                        Save Changes
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" value="<%= product.id%>" name="id" id="id"/>
+                                    </form>
+                                </div> <!-- end col -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+</div>
+</div>
+
+
+<!-- Core JS -->
+<!-- build:js assets/vendor/js/core.js -->
+<script src="/lib/jquery/jquery.js"></script>
+<script src="/lib/popper/popper.js"></script>
+<script src="/lib/bootstrap/bootstrap.js"></script>
+<script src="/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="/lib/dropzone/dropzone.min.js"></script>
+<script src="/lib/bootstrap/menu.js"></script>
+<!-- endbuild -->
+<script src="/lib/apex-charts/apexcharts.js"></script>
+<!-- Vendors JS -->
+
+<!-- Page JS -->
+<script src="/js/utils/auth/dashboards-analytics.js"></script>
+<script src="/js/utils/ui/extended-ui-perfect-scrollbar.js"></script>
+
+<script src="/lib/datatables/jquery.dataTables.min.js"></script>
+<script src="/lib/datatables/dataTables.bootstrap4.js"></script>
+<script src="/lib/datatables/dataTables.buttons.min.js"></script>
+<script src="/lib/datatables/dataTables.checkboxes.min.js"></script>
+<script src="/lib/datatables/dataTables.keyTable.min.js"></script>
+<script src="/lib/datatables/dataTables.responsive.min.js"></script>
+<script src="/lib/datatables/dataTables.select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"
+        integrity="sha512-JRlcvSZAXT8+5SQQAvklXGJuxXTouyq8oIMaYERZQasB8SBDHZaUbeASsJWpk0UUrf89DP3/aefPPrlMR1h1yQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Main JS -->
+<script src="/js/admin/main.js"></script>
+<script src="/js/utils/auth/logout.js"></script>
+<script src="/js/utils/ui/component.fileupload.js"></script>
+<script>
+    const id = $('#id').val();
+    $('.pricing__input').on('change', function ( e ) {
+        e.preventDefault();
+
+        const price = $(this).val();
+
+        $(this).parent().next().find('.pricing__input--display').text(new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(price));
+    })
+
+    $('.btn__edit-toggle').on('click', function ( e ) {
+        e.preventDefault();
+
+        const $this = $(this);
+
+        $this.closest('.card-body').find('.edit__product-name').toggleClass('d-none');
+        $this.find('i').toggleClass('bx-edit bx-check');
+    })
+
+    $('.edit__product-name').on('change', function ( e ) {
+        $('.product__name').text($(this).val());
+    });
+
+    $('#uploadImage').on('change', function ( e ) {
+        const imagePreview = $('.image__product');
+
+        if (this.files && this.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function ( e ) {
+                imagePreview.attr('src', e.target.result);
+
+            //     post image to server
+            }
+
+            reader.readAsDataURL(this.files[0]);
+
+            const formData = new FormData();
+            formData.append('file', this.files[0]);
+            $.ajax({
+                url: `/admin/products/update-image/${id}`,
+                method: 'PUT',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    console.log(res);
+                    const toast = $('.toast');
+                    toast.addClass('toast-success');
+                    toast.addClass('bg-success');
+                    toast.find('.toast-body').text(res.message);
+                    const showToast = new bootstrap.Toast(toast);
+                    showToast.show();
+                },
+                error: function (err) {
+                    console.log(err);
+                    const toast = $('.toast');
+                    toast.addClass('toast-danger');
+                    toast.addClass('bg-danger');
+                    toast.find('.toast-body').text(err.responseJSON.message);
+                    const showToast = new bootstrap.Toast(toast);
+                    showToast.show();
+                }
+            })
+        }
+    })
+</script>
+
+<script>
+    $('.btn-save').on('click', function (e) {
+        e.preventDefault();
+        const id = $('#id').val();
+        const name = $('.edit__product-name').val();
+        const price = $('.edit__price').val();
+        const salePrice = $('.edit__sale-price').val();
+        const category = $('.edit__category').val();
+        const description = $('.edit__description').val();
+
+        const data = {
+            name,
+            price,
+            salePrice,
+            category,
+            description
+        };
+        console.log(data);
+        $.ajax({
+            url: `/admin/products/update/${id}`,
+            method: 'PUT',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function (res) {
+                if (res.status === 200) {
+                    console.log(res);
+                    const toast = $('.toast');
+                    toast.addClass('toast-success');
+                    toast.addClass('bg-success');
+                    toast.find('.toast-body').text(res.message);
+                    const showToast = new bootstrap.Toast(toast);
+                    showToast.show();
+                }
+            },
+            error: function (err) {
+                console.log(err);
+                const toast = $('.toast');
+                toast.addClass('toast-danger');
+                toast.addClass('bg-danger');
+                toast.find('.toast-body').text(err.responseJSON.message);
+                const showToast = new bootstrap.Toast(toast);
+                showToast.show();
+            }
+        })
+
+    })
+</script>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>

@@ -1,5 +1,6 @@
 import multer from "multer";
 
+const PUBLIC_PATH = 'src/public';
 const IMPORT_PATH = 'src/public/uploads/import';
 const PRODUCT_PATH = 'src/public/uploads/product';
 
@@ -47,6 +48,7 @@ const multerConfig = ( path = '', filter_type = '' ) => {
 export {
     IMPORT_PATH,
     PRODUCT_PATH,
+    PUBLIC_PATH,
     IMPORT_TYPE,
     PRODUCT_TYPE,
     multerConfig

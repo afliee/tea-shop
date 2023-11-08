@@ -1,10 +1,13 @@
 import csv from "csvtojson";
-
+import fs from 'fs';
+import path from "path";
 import { Category, Product } from "#root/model/index.js";
+import { PRODUCT_PATH, PUBLIC_PATH } from "#root/config/resource/multerConfig.js";
 
 class ProductService {
     constructor() {
         this.HEADER = ['name', 'price', 'description', 'price', 'salePrice', 'quantity'];
+        this.IMAGE_PATH = '/img/products';
     }
 
     getAll = async () => {
@@ -22,6 +25,7 @@ class ProductService {
                             salePrice: "$salePrice",
                             quantity: "$quantity",
                             expiredAt: "$expiredAt",
+                            createdAt: "$createdAt",
                         }
                     }
                 }
@@ -64,6 +68,8 @@ class ProductService {
                     }
                 });
 
+                // remove file after read
+                fs.unlinkSync(path);
                 return data;
                 break;
 
@@ -98,6 +104,68 @@ class ProductService {
             return false;
         }
 
+    }
+
+    update = async (id, data) => {
+        try {
+            const product = await Product.findById(id);
+            if (!product) {
+                return false;
+            }
+
+            const { name, description, price, salePrice, category } = data;
+            product.name = name;
+            product.description = description;
+            product.price = price;
+            product.salePrice = salePrice;
+            product.category = category;
+
+            const result = await product.save();
+
+            return result;
+        } catch (e) {
+            console.log(e);
+            return false;
+        }
+    }
+
+    updateImage = async (id, path, ext = 'png') => {
+        try {
+            const product = await Product.findById(id);
+            if (!product) {
+                return false;
+            }
+            let targetPath = `${PRODUCT_PATH}/${id}.${ext}`;
+            // rename and move file to img folder
+            fs.renameSync(path, targetPath);
+            targetPath = targetPath.replace(PUBLIC_PATH, '');
+            product.images[0] = {
+                url: targetPath
+            }
+
+            const result = await product.save();
+
+            return result;
+        } catch (e) {
+            console.log(e);
+            return false;
+        }
+    }
+
+    delete = async (id) => {
+        try {
+            const product = await Product.findById(id);
+            if (!product) {
+                return false;
+            }
+
+            const result = await product.remove();
+
+            return result;
+        } catch (e) {
+            console.log(e);
+            return false;
+        }
     }
 }
 

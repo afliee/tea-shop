@@ -20,6 +20,14 @@ router.get('/', UserValidator.validateRememberMe, ( req, res, next ) => {
     }
 }, ProductController.index);
 
+router.get('/:id', UserValidator.validateRememberMe, ( req, res, next ) => {
+    if (req.isAuthenticated()) {
+        next();
+    } else {
+        return res.redirect('/auth/login');
+    }
+}, ProductController.show);
+
 router.post('/upload', UserValidator.validateRememberMe, ( req, res, next ) => {
     if (req.isAuthenticated()) {
         next();
@@ -35,4 +43,28 @@ router.post('/create', UserValidator.validateRememberMe, ( req, res, next ) => {
         return res.redirect('/auth/login');
     }
 }, authMiddleware.requireRole([Roles.ADMIN]), ProductController.create);
+
+router.put('/update/:id', UserValidator.validateRememberMe, ( req, res, next ) => {
+    if (req.isAuthenticated()) {
+        next();
+    } else {
+        return res.redirect('/auth/login');
+    }
+}, authMiddleware.requireRole([Roles.ADMIN]), ProductController.update);
+
+router.put('/update-image/:id', UserValidator.validateRememberMe, (req, res, next) => {
+    if (req.isAuthenticated()) {
+        next();
+    } else {
+        return res.redirect('/auth/login');
+    }
+}, authMiddleware.requireRole([Roles.ADMIN]), upload.single('file'), ProductController.updateImage)
+
+router.delete('/:id', UserValidator.validateRememberMe, ( req, res, next ) => {
+    if (req.isAuthenticated()) {
+        next();
+    } else {
+        return res.redirect('/auth/login');
+    }
+}, authMiddleware.requireRole([Roles.ADMIN]), ProductController.delete);
 export default router;
