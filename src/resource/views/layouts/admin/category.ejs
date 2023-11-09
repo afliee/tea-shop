@@ -206,8 +206,10 @@
 
                             <% categories.forEach(category => { %>
                                 <div class="col-md-6 col-xl-4 d-inline-block mb-3 ticket">
-                                    <div class="card d-block shadow-sm">
-                                        <div class="card-body category">
+                                    <div class="card d-block shadow-sm category">
+                                        <img src="<%= category?.image ? category.image : '/img/default-thumbnail.png' %>"
+                                             loading="lazy" class="card-img-top" height="300" alt="">
+                                        <div class="card-body ">
                                             <div class="d-flex justify-content-between">
                                                 <h4 class="mt-0 text-truncate category__name" data-bs-toggle="tooltip"
                                                     title="<%= category.name %>">
@@ -259,7 +261,7 @@
 
                 <form action="/admin/categories/create" method="post">
                     <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-dialog  modal-xl modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="modalCenterTitle">New Category</h5>
@@ -272,32 +274,60 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="col mb-3">
-                                            <label for="nameWithTitle"
-                                                   class="form-label">Name</label>
-                                            <input
-                                                    type="text"
-                                                    id="nameWithTitle"
-                                                    class="form-control"
-                                                    placeholder="Enter Name"
-                                                    name="name"
-                                            />
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col mb-3">
+                                                    <label for="nameWithTitle"
+                                                           class="form-label">Name</label>
+                                                    <input
+                                                            type="text"
+                                                            id="nameWithTitle"
+                                                            class="form-control"
+                                                            placeholder="Enter Name"
+                                                            name="name"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="row g-2">
+                                                <div class="col-md">
+                                                    <label for="description"
+                                                           class="form-label">Description</label>
+                                                    <textarea
+                                                            class="form-control"
+                                                            id="description"
+                                                            rows="16"
+                                                            name="description"
+                                                            placeholder="Enter Description"
+                                                    ></textarea>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row g-2">
-                                        <div class="col-md">
-                                            <label for="description"
-                                                   class="form-label">Description</label>
-                                            <textarea
-                                                    class="form-control"
-                                                    id="description"
-                                                    rows="3"
-                                                    name="description"
-                                                    placeholder="Enter Description"
-                                            ></textarea>
+                                        <div class="col-6">
+                                            <div class="row g-2">
+                                                <div class="col-md">
+                                                    <label for="image"
+                                                           class="form-label">Image</label>
+                                                    <input
+                                                            class="form-control"
+                                                            type="file"
+
+                                                            name="image"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <!--                                            image review-->
+                                            <div class="row g-2 mt-3">
+                                                <div class="col-md">
+                                                    <img src="/img/default-thumbnail.png" alt=""
+                                                         class="img-fluid img-thumbnail" id="image-review">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <hr class="divider mb-2">
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-outline-secondary"
                                             data-bs-dismiss="modal">
@@ -312,11 +342,11 @@
                 </form>
 
                 <form action="/admin/categories/update" method="post">
-                    <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal fade " id="editCategoryModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="modalCenterTitle">New Category</h5>
+                                    <h5 class="modal-title" id="modalCenterTitle">Update Category</h5>
                                     <button
                                             type="button"
                                             class="btn-close"
@@ -326,32 +356,62 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="col mb-3">
-                                            <label for="nameWithTitle"
-                                                   class="form-label">Name</label>
-                                            <input
-                                                    type="text"
-                                                    id="nameWithTitle"
-                                                    class="form-control"
-                                                    placeholder="Enter Name"
-                                                    name="name"
-                                            />
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col mb-3">
+                                                    <label for="nameWithTitle"
+                                                           class="form-label">Name</label>
+                                                    <input
+                                                            type="text"
+                                                            id="nameWithTitle"
+                                                            class="form-control"
+                                                            placeholder="Enter Name"
+                                                            name="name"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="row g-2">
+                                                <div class="col-md">
+                                                    <label for="description"
+                                                           class="form-label">Description</label>
+                                                    <textarea
+                                                            class="form-control"
+                                                            id="description"
+                                                            rows="16"
+                                                            name="description"
+                                                            placeholder="Enter Description"
+                                                    ></textarea>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row g-2">
-                                        <div class="col-md">
-                                            <label for="description"
-                                                   class="form-label">Description</label>
-                                            <textarea
-                                                    class="form-control"
-                                                    id="description"
-                                                    rows="3"
-                                                    name="description"
-                                                    placeholder="Enter Description"
-                                            ></textarea>
+                                        <div class="col-6">
+                                            <div class="row g-2">
+                                                <div class="col-md">
+                                                    <label for="image"
+                                                           class="form-label">Image</label>
+                                                    <input
+                                                            class="form-control"
+                                                            type="file"
+                                                            id="image"
+                                                            name="image"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <!--                                            image review-->
+                                            <div class="row g-2 mt-3">
+                                                <div class="col-md">
+                                                    <label for="image">
+                                                        <img src="/img/default-thumbnail.png" alt=""
+                                                             height="400"
+                                                             class="img-fluid" id="image-review">
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-outline-secondary"
                                             data-bs-dismiss="modal">
@@ -364,6 +424,20 @@
                     </div>
                 </form>
                 <div class="content-backdrop fade"></div>
+            </div>
+            <div
+                    class="bs-toast toast toast-placement-ex m-2 top-0 end-0"
+                    role="alert"
+                    aria-live="assertive"
+                    aria-atomic="true"
+                    data-delay="2000"
+            >
+                <div class="toast-header">
+                    <i class="bx bx-bell me-2"></i>
+                    <div class="me-auto fw-semibold">Tea Loza</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">Fruitcake chocolate bar tootsie roll gummies gummies jelly beans cake.</div>
             </div>
             <!-- Content wrapper -->
         </div>
@@ -398,10 +472,61 @@
         const category = $(this).closest('.category');
         const cate = category.find('.category__name').text().trim();
         const description = category.find('.category__description').text().trim();
+        const imgSrc = category.find('img').attr('src');
 
+        console.log(imgSrc)
         $('#editCategoryModal').find('#nameWithTitle').val(cate);
         $('#editCategoryModal').find('#description').val(description);
-        $('#editCategoryModal').closest('form').attr('action', `/admin/categories/update/${id}`);
+        $('#editCategoryModal').find('#image-review').attr('src', imgSrc);
+        // set data id for form
+        $('#editCategoryModal').find('#image').data('id', id);
+        $('#editCategoryModal').closest('form').attr('action', `/admin/categories/update/${ id }`);
+    });
+
+    $('#image').on('change', function () {
+        const file = $(this)[0].files[0];
+        const reader = new FileReader();
+        reader.onload = function ( e ) {
+            $('#editCategoryModal #image-review').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(file);
+
+        if (!file) {
+            return;
+        }
+        const id = $(this).data('id');
+        const formData = new FormData();
+
+        formData.append('image', file);
+        $.ajax({
+            url: `/admin/categories/update-image/${ id }`,
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function ( res ) {
+                console.log(res);
+                const toast = $('.toast');
+                toast.addClass('toast-success');
+                toast.addClass('bg-success');
+                toast.find('.toast-body').text(res.message);
+                const showToast = new bootstrap.Toast(toast);
+                showToast.show();
+
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            },
+            error: function ( err ) {
+                console.log(err);
+                const toast = $('.toast');
+                toast.addClass('toast-danger');
+                toast.addClass('bg-danger');
+                toast.find('.toast-body').text(err.responseJSON.message);
+                const showToast = new bootstrap.Toast(toast);
+                showToast.show();
+            }
+        })
     });
 </script>
 <!-- Page JS -->

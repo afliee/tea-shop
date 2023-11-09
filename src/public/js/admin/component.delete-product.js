@@ -22,7 +22,7 @@ $(document).ready(function () {
                     success: function (response) {
                         Swal.fire({
                             title: 'Deleted!',
-                            text: 'Your file has been deleted.',
+                            text: 'Your item has been deleted.',
                             icon: 'success',
                             confirmButtonText: 'OK'
                         }).then(() => {
