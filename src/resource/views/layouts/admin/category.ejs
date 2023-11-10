@@ -1,208 +1,224 @@
 <!DOCTYPE html>
 <html
-        lang="en"
-        class="light-style customizer-hide"
-        dir="ltr"
-        data-theme="theme-default"
-        data-template="vertical-menu-template-free"
+	lang="en"
+	class="light-style customizer-hide"
+	dir="ltr"
+	data-theme="theme-default"
+	data-template="vertical-menu-template-free"
 >
-<head>
-    <meta charset="utf-8"/>
-    <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+		/>
 
-    <title>Tea Loza</title>
+		<title>Tea Loza</title>
 
-    <meta name="description" content=""/>
+		<meta name="description" content="" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico"/>
+		<!-- Favicon -->
+		<link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-            rel="stylesheet"
-    />
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+			rel="stylesheet"
+		/>
 
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="/lib/fonts/boxicons.css"/>
-    <!--    <link rel="stylesheet" href="/css/bootstrap.min.css">-->
+		<!-- Icons. Uncomment required icon fonts -->
+		<link rel="stylesheet" href="/lib/fonts/boxicons.css" />
+		<!--    <link rel="stylesheet" href="/css/bootstrap.min.css">-->
 
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="/css/core.css" class="template-customizer-core-css"/>
-    <link rel="stylesheet" href="/css/theme-default.css" class="template-customizer-theme-css"/>
+		<!-- Core CSS -->
+		<link rel="stylesheet" href="/css/core.css" class="template-customizer-core-css" />
+		<link rel="stylesheet" href="/css/theme-default.css" class="template-customizer-theme-css" />
 
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="/lib/perfect-scrollbar/perfect-scrollbar.css"/>
-    <link rel="stylesheet" href="/css/vendors/buttons.bootstrap4.css">
-    <link rel="stylesheet" href="/css/vendors/dataTables.bootstrap4.css">
-    <link rel="stylesheet" href="/css/vendors/select.bootstrap4.css">
-    <!-- Page CSS -->
-    <!-- Page -->
-    <link rel="stylesheet" href="/css/pages/page-auth.css"/>
-    <link rel="stylesheet" href="/css/pages/page-ticket.css"/>
-    <!--    <link rel="stylesheet" href="/css/icons.min.css">-->
-    <!--    <link rel="stylesheet" href="/css/pages/page-datatable.css">-->
-    <!-- Helpers -->
-    <script src="/js/admin/helpers.js"></script>
+		<!-- Vendors CSS -->
+		<link rel="stylesheet" href="/lib/perfect-scrollbar/perfect-scrollbar.css" />
+		<link rel="stylesheet" href="/css/vendors/buttons.bootstrap4.css" />
+		<link rel="stylesheet" href="/css/vendors/dataTables.bootstrap4.css" />
+		<link rel="stylesheet" href="/css/vendors/select.bootstrap4.css" />
+		<!-- Page CSS -->
+		<!-- Page -->
+		<link rel="stylesheet" href="/css/pages/page-auth.css" />
+		<link rel="stylesheet" href="/css/pages/page-ticket.css" />
+		<!--    <link rel="stylesheet" href="/css/icons.min.css">-->
+		<!--    <link rel="stylesheet" href="/css/pages/page-datatable.css">-->
+		<!-- Helpers -->
+		<script src="/js/admin/helpers.js"></script>
 
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="/js/admin/config.js"></script>
-</head>
-<body>
-<!-- BEGIN: Content-->
-<div class="layout-wrapper layout-content-navbar">
-    <div class="layout-container">
-        <%- include('../../partials/admin/menubar.ejs', {
-        active: 'categories',
-        sub: ''
-        }) %>
-        <div class="layout-page">
-            <!-- Navbar -->
+		<!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+		<!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+		<script src="/js/admin/config.js"></script>
+	</head>
+	<body>
+		<!-- BEGIN: Content-->
+		<div class="layout-wrapper layout-content-navbar">
+			<div class="layout-container">
+				<%- include('../../partials/admin/menubar.ejs', { active: 'categories', sub: '' }) %>
+				<div class="layout-page">
+					<!-- Navbar -->
 
-            <nav
-                    class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                    id="layout-navbar"
-            >
-                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                        <i class="bx bx-menu bx-sm"></i>
-                    </a>
-                </div>
+					<nav
+						class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+						id="layout-navbar"
+					>
+						<div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+							<a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+								<i class="bx bx-menu bx-sm"></i>
+							</a>
+						</div>
 
-                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                    <!-- Search -->
-                    <div class="navbar-nav align-items-center">
-                        <div class="nav-item d-flex align-items-center">
-                            <i class="bx bx-search fs-4 lh-0"></i>
-                            <input
-                                    type="text"
-                                    class="form-control border-0 shadow-none"
-                                    placeholder="Search..."
-                                    aria-label="Search..."
-                            />
-                        </div>
-                    </div>
-                    <!-- /Search -->
+						<div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+							<!-- Search -->
+							<div class="navbar-nav align-items-center">
+								<div class="nav-item d-flex align-items-center">
+									<i class="bx bx-search fs-4 lh-0"></i>
+									<input
+										type="text"
+										class="form-control border-0 shadow-none"
+										placeholder="Search..."
+										aria-label="Search..."
+									/>
+								</div>
+							</div>
+							<!-- /Search -->
 
-                    <ul class="navbar-nav flex-row align-items-center ms-auto">
-                        <!-- Place this tag where you want the button to render. -->
-                        <li class="nav-item lh-1 me-3">
-                            <a
-                                    class="github-button"
-                                    href="https://github.com/themeselection/sneat-html-admin-template-free"
-                                    data-icon="octicon-star"
-                                    data-size="large"
-                                    data-show-count="true"
-                                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-                            >Star</a
-                            >
-                        </li>
+							<ul class="navbar-nav flex-row align-items-center ms-auto">
+								<!-- Place this tag where you want the button to render. -->
+								<li class="nav-item lh-1 me-3">
+									<a
+										class="github-button"
+										href="https://github.com/themeselection/sneat-html-admin-template-free"
+										data-icon="octicon-star"
+										data-size="large"
+										data-show-count="true"
+										aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
+										>Star</a
+									>
+								</li>
 
-                        <!-- User -->
-                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
-                               data-bs-toggle="dropdown">
-                                <div class="avatar avatar-online">
-                                    <img src="<%= user.avatar %>" alt class="w-px-40 h-auto rounded-circle"/>
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex">
-                                            <div class="flex-shrink-0 me-3">
-                                                <div class="avatar avatar-online">
-                                                    <img src="<%= user.avatar %>" alt
-                                                         class="w-px-40 h-auto rounded-circle"/>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <span class="fw-semibold d-block"><%= user.name || user.email %></span>
-                                                <small class="text-muted"><%= user.role %></small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="dropdown-divider"></div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="bx bx-user me-2"></i>
-                                        <span class="align-middle">My Profile</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="bx bx-cog me-2"></i>
-                                        <span class="align-middle">Settings</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="dropdown-divider"></div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item logout" href="/auth/logout/<%= user.id %>">
-                                        <i class="bx bx-power-off me-2"></i>
-                                        <span class="align-middle">Log Out</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!--/ User -->
-                    </ul>
-                </div>
-            </nav>
+								<!-- User -->
+								<li class="nav-item navbar-dropdown dropdown-user dropdown">
+									<a
+										class="nav-link dropdown-toggle hide-arrow"
+										href="javascript:void(0);"
+										data-bs-toggle="dropdown"
+									>
+										<div class="avatar avatar-online">
+											<img src="<%= user.avatar %>" alt class="w-px-40 h-auto rounded-circle" />
+										</div>
+									</a>
+									<ul class="dropdown-menu dropdown-menu-end">
+										<li>
+											<a class="dropdown-item" href="#">
+												<div class="d-flex">
+													<div class="flex-shrink-0 me-3">
+														<div class="avatar avatar-online">
+															<img
+																src="<%= user.avatar %>"
+																alt
+																class="w-px-40 h-auto rounded-circle"
+															/>
+														</div>
+													</div>
+													<div class="flex-grow-1">
+														<span class="fw-semibold d-block"
+															><%= user.name || user.email %></span
+														>
+														<small class="text-muted"><%= user.role %></small>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<div class="dropdown-divider"></div>
+										</li>
+										<li>
+											<a class="dropdown-item" href="#">
+												<i class="bx bx-user me-2"></i>
+												<span class="align-middle">My Profile</span>
+											</a>
+										</li>
+										<li>
+											<a class="dropdown-item" href="#">
+												<i class="bx bx-cog me-2"></i>
+												<span class="align-middle">Settings</span>
+											</a>
+										</li>
+										<li>
+											<a class="dropdown-item" href="#">
+												<span class="d-flex align-items-center align-middle">
+													<i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+													<span class="flex-grow-1 align-middle">Billing</span>
+													<span
+														class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20"
+														>4</span
+													>
+												</span>
+											</a>
+										</li>
+										<li>
+											<div class="dropdown-divider"></div>
+										</li>
+										<li>
+											<a class="dropdown-item logout" href="/auth/logout/<%= user.id %>">
+												<i class="bx bx-power-off me-2"></i>
+												<span class="align-middle">Log Out</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<!--/ User -->
+							</ul>
+						</div>
+					</nav>
 
-            <!-- / Navbar -->
+					<!-- / Navbar -->
 
-            <!-- Content wrapper -->
-            <div class="content-wrapper">
-                <div class="container-xxl flex-grow-1 container-p-y">
-                    <!--                    alert when add category-->
-                    <div class="alert alert-<%= flash.type %>" role="alert">
-                        <%= flash.message %>
-                    </div>
-                    <div class="row categories">
-                        <% if (!categories.length) { %>
-                            <div class="col-12 d-flex flex-column justify-content-center align-items-center">
-                                <div class="">
-                                    <h1 class="text-center h1">No categories found</h1>
-                                    <h3 class="text-center h3">Add a category to get started</h3>
-                                    <img src="/img/empty.svg" alt="No categories found" class="img-fluid img-thumbnail">
+					<!-- Content wrapper -->
+					<div class="content-wrapper">
+						<div class="container-xxl flex-grow-1 container-p-y">
+							<!--                    alert when add category-->
+							<div class="alert alert-<%= flash.type %>" role="alert"><%= flash.message %></div>
+							<div class="row categories">
+								<% if (!categories.length) { %>
+								<div class="col-12 d-flex flex-column justify-content-center align-items-center">
+									<div class="">
+										<h1 class="text-center h1">No categories found</h1>
+										<h3 class="text-center h3">Add a category to get started</h3>
+										<img
+											src="/img/empty.svg"
+											alt="No categories found"
+											class="img-fluid img-thumbnail"
+										/>
 
-                                    <!--                                    modal show add new categories-->
-                                    <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
-                                            data-bs-target="#addCategoryModal">
-                                        Add new category
-                                    </button>
-
-
-                                </div>
-                            </div>
-                        <% } else { %>
-                            <!--                                    modal show add new categories-->
-                            <div class="col-12">
-                                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
-                                        data-bs-target="#addCategoryModal">
-                                    Add new category
-                                </button>
-                            </div>
+										<!--                                    modal show add new categories-->
+										<button
+											type="button"
+											class="btn btn-primary w-100"
+											data-bs-toggle="modal"
+											data-bs-target="#addCategoryModal"
+										>
+											Add new category
+										</button>
+									</div>
+								</div>
+								<% } else { %>
+								<!--                                    modal show add new categories-->
+								<div class="col-12">
+									<button
+										type="button"
+										class="btn btn-primary mb-3"
+										data-bs-toggle="modal"
+										data-bs-target="#addCategoryModal"
+									>
+										Add new category
+									</button>
+								</div>
 
                             <% categories.forEach(category => { %>
                                 <div class="col-md-6 col-xl-4 d-inline-block mb-3 ticket">
@@ -216,48 +232,58 @@
                                                     <%= category.name %>
                                                 </h4>
 
-                                                <!--                                                dropdown three dots-->
-                                                <button
-                                                        type="button"
-                                                        class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow"
-                                                        data-bs-toggle="dropdown"
-                                                        aria-expanded="false"
-                                                >
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                    <li>
-                                                        <button class="dropdown-item btn__update"
-                                                                data-id="<%= category._id %>" type="button"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#editCategoryModal">
-                                                            Update
-                                                        </button>
-                                                    </li>
-                                                    <li><a class="dropdown-item btn__delete"
-                                                           data-id="<%= category._id %>" href="javascript:void(0);">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+												<!--                                                dropdown three dots-->
+												<button
+													type="button"
+													class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow"
+													data-bs-toggle="dropdown"
+													aria-expanded="false"
+												>
+													<i class="bx bx-dots-vertical-rounded"></i>
+												</button>
+												<ul class="dropdown-menu dropdown-menu-end">
+													<li>
+														<button
+															class="dropdown-item btn__update"
+															data-id="<%= category._id %>"
+															type="button"
+															data-bs-toggle="modal"
+															data-bs-target="#editCategoryModal"
+														>
+															Update
+														</button>
+													</li>
+													<li>
+														<a
+															class="dropdown-item btn__delete"
+															data-id="<%= category._id %>"
+															href="javascript:void(0);"
+															>Delete</a
+														>
+													</li>
+												</ul>
+											</div>
 
-                                            <p class="text-truncate mb-0 category__description" data-bs-toggle="tooltip"
-                                               title="<%= category.description %>">
-                                                <%= category.description %>
-                                            </p>
+											<p
+												class="text-truncate mb-0 category__description"
+												data-bs-toggle="tooltip"
+												title="<%= category.description %>"
+											>
+												<%= category.description %>
+											</p>
 
-                                            <hr class="divider"/>
+											<hr class="divider" />
 
-                                            <div class="d-flex justify-content-between">
-                                                <span>Created Date </span>
-                                                <span><%= new Date(category.createdAt).toLocaleDateString() %></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <% }); %>
-                        <% } %>
-                    </div>
-                </div>
+											<div class="d-flex justify-content-between">
+												<span>Created Date </span>
+												<span><%= new Date(category.createdAt).toLocaleDateString() %></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<% }); %> <% } %>
+							</div>
+						</div>
 
                 <form action="/admin/categories/create" method="post">
                     <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-hidden="true">
@@ -444,24 +470,21 @@
         <!-- / Layout page -->
     </div>
 
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
-</div>
-</div>
-</div>
+			<!-- Overlay -->
+			<div class="layout-overlay layout-menu-toggle"></div>
+		</div>
 
+		<!-- Core JS -->
+		<!-- build:js assets/vendor/js/core.js -->
+		<script src="/lib/jquery/jquery.js"></script>
+		<script src="/lib/popper/popper.js"></script>
+		<script src="/lib/bootstrap/bootstrap.js"></script>
+		<script src="/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-<!-- Core JS -->
-<!-- build:js assets/vendor/js/core.js -->
-<script src="/lib/jquery/jquery.js"></script>
-<script src="/lib/popper/popper.js"></script>
-<script src="/lib/bootstrap/bootstrap.js"></script>
-<script src="/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
-
-<script src="/lib/bootstrap/menu.js"></script>
-<!-- endbuild -->
-<script src="/lib/apex-charts/apexcharts.js"></script>
-<!-- Vendors JS -->
+		<script src="/lib/bootstrap/menu.js"></script>
+		<!-- endbuild -->
+		<script src="/lib/apex-charts/apexcharts.js"></script>
+		<!-- Vendors JS -->
 
 <!-- Main JS -->
 <script src="/js/admin/main.js"></script>
@@ -533,17 +556,21 @@
 <script src="/js/utils/auth/dashboards-analytics.js"></script>
 <script src="/js/utils/ui/extended-ui-perfect-scrollbar.js"></script>
 
-<script src="/lib/datatables/jquery.dataTables.min.js"></script>
-<script src="/lib/datatables/dataTables.bootstrap4.js"></script>
-<script src="/lib/datatables/dataTables.buttons.min.js"></script>
-<script src="/lib/datatables/dataTables.checkboxes.min.js"></script>
-<script src="/lib/datatables/dataTables.keyTable.min.js"></script>
-<script src="/lib/datatables/dataTables.responsive.min.js"></script>
-<script src="/lib/datatables/dataTables.select.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"
-        integrity="sha512-JRlcvSZAXT8+5SQQAvklXGJuxXTouyq8oIMaYERZQasB8SBDHZaUbeASsJWpk0UUrf89DP3/aefPPrlMR1h1yQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script src="/lib/datatables/jquery.dataTables.min.js"></script>
+		<script src="/lib/datatables/dataTables.bootstrap4.js"></script>
+		<script src="/lib/datatables/dataTables.buttons.min.js"></script>
+		<script src="/lib/datatables/dataTables.checkboxes.min.js"></script>
+		<script src="/lib/datatables/dataTables.keyTable.min.js"></script>
+		<script src="/lib/datatables/dataTables.responsive.min.js"></script>
+		<script src="/lib/datatables/dataTables.select.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"
+			integrity="sha512-JRlcvSZAXT8+5SQQAvklXGJuxXTouyq8oIMaYERZQasB8SBDHZaUbeASsJWpk0UUrf89DP3/aefPPrlMR1h1yQ=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
 
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-</body>
+		<!-- Place this tag in your head or just before your close body tag. -->
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+	</body>
+</html>

@@ -5,6 +5,8 @@ import {default as ticketRoutes} from "./ticket.routes.js";
 import {default as categoryRoutes} from "./category.routes.js";
 import {default as productRoutes} from "./product.routes.js";
 
+import {default as storyRoutes} from "./story.routes.js"
+
 import { Roles } from "#root/contants/roles.js";
 
 import { requireToken, authMiddleware } from "#middlewares/http/index.js";
@@ -22,6 +24,7 @@ router.use("/settings", settingRoutes);
 router.use("/tickets", ticketRoutes);
 router.use("/categories", categoryRoutes);
 router.use("/products", productRoutes);
+router.use("/stories", storyRoutes);
 router.use(userRoutes);
 
 export default router;

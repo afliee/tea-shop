@@ -59,7 +59,7 @@
 		<!-- BEGIN: Content-->
 		<div class="layout-wrapper layout-content-navbar">
 			<div class="layout-container">
-				<%- include('../../partials/admin/menubar.ejs', { active: 'tickets', sub: 'team-members' }) %>
+				<%- include('../../partials/admin/menubar.ejs', { active: 'stories', sub: 'manage-stories' }) %>
 				<div class="layout-page">
 					<!-- Navbar -->
 
@@ -183,112 +183,79 @@
 					<!-- Content wrapper -->
 					<div class="content-wrapper">
 						<div class="container-xxl flex-grow-1 container-p-y">
-							<div class="row">
-								<div class="col-12">
-									<div class="text-sm-right d-flex justify-content-end gap-1">
-										<div class="btn-group mb-3">
-											<a
-												href="/admin/tickets"
-												type="button"
-												class="btn btn-light <%= filter === 'all' && 'btn-primary'%>"
-											>
-												All
-											</a>
-										</div>
-										<div class="btn-group mb-3 ml-1">
-											<a
-												href="?filter=pending"
-												type="button"
-												class="btn btn-light <%= filter === 'pending' && 'btn-primary'%>"
-											>
-												Pending
-											</a>
-											<a
-												href="?filter=approved"
-												type="button"
-												class="btn btn-light <%= filter === 'approved' && 'btn-primary'%>"
-											>
-												Approved
-											</a>
-											<a
-												href="?filter=rejected"
-												type="button"
-												class="btn btn-light <%= filter === 'rejected' && 'btn-primary'%>"
-											>
-												Rejected
-											</a>
-										</div>
+							<div class="row my-3 d-flex justify-content-between">
+								<div class="col">
+									<div class="input-group">
+										<button
+											class="btn btn-outline-primary"
+											data-bs-toggle="modal"
+											data-bs-target="#tagFormList"
+											type="button"
+											id="button-addon1"
+										>
+											Filter Tags
+										</button>
+										<input
+											name="name"
+											type="text"
+											class="form-control tag-name"
+											placeholder="New tag name"
+											aria-label="New tag name"
+											aria-describedby="button-addon2"
+											required
+										/>
+										<button
+											class="btn btn-outline-primary btn-add-tag"
+											type="button"
+											id="button-addon2"
+										>
+											Add Tag
+										</button>
 									</div>
+									<div id="tag-alert" class="form-text"></div>
+								</div>
+								<div class="col-auto d-flex justify-content-end">
+									<button type="button" class="btn btn-primary" style="height: fit-content">
+										<a href="/admin/stories/create" style="color: white">Add New Story</a>
+									</button>
 								</div>
 							</div>
-							<div class="row tickets" data-masonry='{"percentPosition": true }'>
-								<% tickets.forEach(ticket => { %>
-								<div class="col-md-6 col-xl-3 d-inline-block mb-3 ticket">
-									<div class="card d-block shadow-sm">
+							<div class="row stories">
+								<% if(!stories.length) { %>
+								<div class="col-12">
+									<div class="card mb-4">
 										<div class="card-body">
-											<h4
-												class="mt-0 text-truncate"
-												data-bs-toggle="tooltip"
-												title="<%= ticket.subject%>"
-											>
-												<%= ticket.subject %>
-											</h4>
-
-											<% switch (ticket.status) { case 'approved': %>
-											<span class="badge bg-success text-white">Open</span>
-											<% break; case 'rejected': %>
-											<span class="badge bg-danger text-white">Closed</span>
-											<% break; case 'pending': %>
-											<span class="badge bg-warning text-white">Pending</span>
-											<% break; } %>
-											<p class="card-text text-muted mb-3 mt-2"><%= ticket.message %></p>
-
-											<div class="mb-3">
-												<a
-													href="javascript:void(0);"
-													data-toggle="tooltip"
-													data-placement="top"
-													title="<%= ticket.createdBy.name%>"
-													data-original-title="<%= ticket.createdBy.name %>"
-													class="d-inline-block"
+											<div class="text-center">
+												<h4 class="mb-4">No stories found</h4>
+												<a href="/admin/stories/create" class="btn btn-primary"
+													>Create a story</a
 												>
-													<img
-														src="<%= ticket.createdBy.avatar %>"
-														class="rounded rounded-circle avatar-xs"
-														alt="friend"
-													/>
-												</a>
-
-												<a href="mailto:<%= ticket.email %>" class="text-body fw-bold ms-2"
-													><%= ticket.createdBy.name || "N/A" %></a
-												>
-											</div>
-
-											<p class="mb-2 fw-bold">
-												Created At
-												<span class="float-end"
-													><%= new Date(ticket.createdAt).toLocaleDateString() %></span
-												>
-											</p>
-
-											<div class="d-flex justify-content-between">
-												<a
-													href="/admin/tickets/approve/<%= ticket.id %>"
-													class="<%= ticket.status === 'approved' && 'disabled'%>"
-												>
-													<button class="btn btn-outline-success">Approve</button>
-												</a>
-												<a
-													href="/admin/tickets/reject/<%= ticket.id %>"
-													class="<%= ticket.status === 'rejected' && 'disabled'%>"
-												>
-													<button class="btn btn-outline-danger">Reject</button>
-												</a>
 											</div>
 										</div>
 									</div>
 								</div>
-								<% }); %>
+								<% } else { %> <% stories.forEach( story => { %>
+								<div class="col-md-6 col-lg-4">
+									<div class="card mb-3" data-id-story="<%= story.id %>">
+										<div class="card-body">
+											<h5 class="card-title"><%= story.title %></h5>
+											<p
+												class="card-text"
+												style="
+													overflow: hidden;
+													display: -webkit-box;
+													-webkit-line-clamp: 2; /* number of lines to show */
+													line-clamp: 2;
+													-webkit-box-orient: vertical;
+												"
+											>
+												<%= story.sortDescription %>
+											</p>
+											<a href="javascript:void(0)" class="btn btn-primary btn-story-detail">Details</a>
+										</div>
+									</div>
+								</div>
+								<% }) %> <% } %>
 							</div>
 						</div>
 						<div class="content-backdrop fade"></div>
@@ -297,6 +264,66 @@
 				</div>
 				<!-- / Layout page -->
 			</div>
+
+			<!-- Modal -->
+			<form id="tag-list">
+				<div class="modal fade" id="tagFormList" tabindex="-1" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="modalCenterTitle">Filter Tags</h5>
+								<button
+									type="button"
+									class="btn-close"
+									data-bs-dismiss="modal"
+									aria-label="Close"
+								></button>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<div class="col mb-3">
+										<div class="input-group">
+											<input
+												type="text"
+												class="form-control"
+												placeholder="Enter tag name"
+												aria-label="Enter tag name"
+												aria-describedby="button-addon2"
+											/>
+											<button class="btn btn-outline-primary" type="button" id="button-addon2">
+												Search
+											</button>
+										</div>
+									</div>
+								</div>
+								<h5 class="modal-title" id="modalCenterTitle">Tags</h5>
+
+								<div class="row px-2 tags d-flex">
+									<% if(!tags.length) { %>
+									<div class="col-12">
+										<div class="card mb-4" data-id="<%= tag.id %>">
+											<div class="card-body">
+												<div class="text-center">
+													<h4 class="mb-4">No tags found</h4>
+													<a href="/admin/stories/create" class="btn btn-primary"
+														>Create a tag</a
+													>
+												</div>
+
+											</div>
+										</div>
+									</div>
+									<% } else { %> <% tags.forEach( tag => { %>
+									<div class="col-auto my-1 px-1">
+										<button type="button" class="btn btn-outline-dark"><%= tag.name %></button>
+									</div>
+									<% }) %> <% } %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
 
 			<!-- Overlay -->
 			<div class="layout-overlay layout-menu-toggle"></div>
@@ -338,5 +365,58 @@
 
 		<!-- Place this tag in your head or just before your close body tag. -->
 		<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+		<script>
+			$(document).ready(function () {
+				const btnAddTag = $(".btn-add-tag");
+				const tagAlert = $("#tag-alert");
+				const tags = $(".tags");
+
+				console.log(tagAlert);
+				btnAddTag.click(function () {
+					let tagName = $(".tag-name").val();
+					if (!tagName) {
+						tagAlert.text("Tag name is required");
+					}
+
+					$.ajax({
+						url: "/admin/stories/create-tag",
+						method: "POST",
+						data: {
+							name: tagName,
+						},
+						success: function (data) {
+							console.log(data);
+							tagAlert.html(`<p class="text-success mb-1">Add tag successfully</p>`);
+							hideAlert();
+							$(".tag-name").val("");
+
+							tags.append(
+								`<div class="col-auto my-1 px-1">
+									<button type="button" class="btn btn-outline-dark">${tagName}</button>
+								</div>`
+							);
+						},
+						error: function (err) {
+							console.log(err.responseJSON);
+							tagAlert.html(`<p class="text-danger mb-1">${err.responseJSON.message}</p>`);
+							hideAlert();
+						},
+					});
+				});
+
+
+				$(".btn-story-detail").click(function () {
+					const id = $(this).parents(".card").data("id-story");
+					window.location.href = `/admin/stories/${id}`;
+				});
+			});
+
+			function hideAlert() {
+				setTimeout(() => {
+					$("#tag-alert").html("");
+				}, 4000);
+			}
+		</script>
 	</body>
 </html>
