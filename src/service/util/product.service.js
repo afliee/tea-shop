@@ -1,5 +1,6 @@
 import csv from "csvtojson";
 import fs from 'fs';
+import lodash from "lodash";
 import path from "path";
 import { Category, Product } from "#root/model/index.js";
 import { PRODUCT_PATH, PUBLIC_PATH } from "#root/config/resource/multerConfig.js";
@@ -21,11 +22,13 @@ class ProductService {
                             _id: "$_id",
                             name: "$name",
                             price: "$price",
+                            images: "$images",
                             description: "$description",
                             salePrice: "$salePrice",
                             quantity: "$quantity",
                             expiredAt: "$expiredAt",
                             createdAt: "$createdAt",
+                            slug: "$slug",
                         }
                     }
                 }
@@ -85,8 +88,10 @@ class ProductService {
         //     data is array of product
             const products = data.map(( item ) => {
                 const { name, description, price, salePrice, quantity, category } = item;
+                const slug = lodash.kebabCase(name);
                 return {
                     name,
+                    slug,
                     description,
                     price,
                     salePrice,
@@ -114,6 +119,8 @@ class ProductService {
             }
 
             const { name, description, price, salePrice, category } = data;
+            const slug = lodash.kebabCase(name);
+            product.slug = slug;
             product.name = name;
             product.description = description;
             product.price = price;
@@ -164,6 +171,19 @@ class ProductService {
             return result;
         } catch (e) {
             console.log(e);
+            return false;
+        }
+    }
+
+    getBySlug = async (slug) => {
+        try {
+        //     find product by slug with name
+            const product = await Product.findOne({
+                slug
+            }).populate('category');
+
+            return product;
+        } catch (e) {
             return false;
         }
     }

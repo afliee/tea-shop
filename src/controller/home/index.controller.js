@@ -1,10 +1,15 @@
 import { Ticket } from "#models/index.js";
 
 import { UserValidator } from "#validator/index.js";
+import {ProductService, CategoryService} from "#services/index.js";
+import { ErrorMessage } from "#utils/error/message.utils.js";
 
+const categoryService = new CategoryService();
+const productService = new ProductService();
 class IndexController {
     constructor() {
         this.name = 'index';
+
     }
 
     async index( req, res ) {
@@ -35,9 +40,11 @@ class IndexController {
     }
 
     async product( req, res ) {
+        const categories = await categoryService.getAll();
         res.render("home/product.ejs", {
             title: "Product",
-            currentUser: req?.user || null
+            currentUser: req?.user || null,
+            categories
         });
     }
 
@@ -100,6 +107,34 @@ class IndexController {
                 type: "danger",
                 message: "Server error"
             });
+        }
+    }
+
+    async store( req, res ) {
+        const categories = await productService.getAll();
+        return res.render("home/store.ejs", {
+            title: "Store",
+            active: "store",
+            categories,
+            currentUser: req?.user || null
+        });
+    }
+
+     show =async (req, res) => {
+        const { slug } = req.params;
+        try {
+            const product = await productService.getBySlug(slug);
+            if (!product) {
+                return res.status(404).json(ErrorMessage(404, "Product not found"));
+            }
+            return res.render("home/product-detail.ejs", {
+                title: "Show",
+                active: "store",
+                product,
+                currentUser: req?.user || null
+            });
+        } catch (e) {
+            return res.status(500).json(ErrorMessage(500, "Server error"))
         }
     }
 }

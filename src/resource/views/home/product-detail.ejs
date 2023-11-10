@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,19 +41,18 @@
 <!-- Spinner End -->
 
 <%- include('../partials/header.ejs', {
-active: 'product'
+active: 'store'
 }); %>
 
-
 <!-- Page Header Start -->
-<div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container text-center py-5">
-        <h1 class="display-2 text-dark mb-4 animated slideInDown">Products</h1>
+        <h1 class="display-2 text-dark mb-4 animated slideInDown">Acticle</h1>
         <nav aria-label="breadcrumb animated slideInDown">
             <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                <li class="breadcrumb-item text-dark" aria-current="page">Products</li>
+                <li class="breadcrumb-item"><a href="/store">Pages</a></li>
+                <li class="breadcrumb-item text-dark" aria-current="page"><%= product.name %></li>
             </ol>
         </nav>
     </div>
@@ -61,28 +60,36 @@ active: 'product'
 <!-- Page Header End -->
 
 
-<!-- Products Start -->
-<div class="container-fluid product py-5">
-    <div class="container py-5">
-        <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-            <p class="fs-5 fw-medium fst-italic text-primary">Our Products</p>
-            <h1 class="display-6">Tea has a complex positive effect on the body</h1>
+<!-- Article Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-5 wow fadeIn rounded-2" data-wow-delay="0.1s">
+                <img class="img-fluid "
+                     src="<%= product?.images.length ? product.images[0].url : '/img/default-product-thumbnail_1.jpg' %>"
+                     alt="">
+            </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <div class="section-title">
+                    <p class="fs-5 fw-medium fst-italic text-primary">Featured Acticle</p>
+                    <h1 class="display-6"><%= product.name %></h1>
+                </div>
+
+                <h3 class="mb-3 mt-2 text-primary">
+                    <%= parseInt(product.salePrice).toLocaleString('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }) %>
+                </h3>
+                <p class="mb-4"><%= product.description %></p>
+
+                <a href="" class="btn btn-primary rounded-pill py-3 px-5">Buy Now</a>
+            </div>
         </div>
-        <div class="owl-carousel product-carousel wow fadeInUp" data-wow-delay="0.5s">
-            <% categories.forEach( category => { %>
-                <a href="/product/<%= category.id %>" class="d-block product-item rounded">
-                    <img src="<%= category?.image ? category.image : '/img/default-thumbnail.png' %>" height="400"
-                         alt="">
-                    <div class="bg-white shadow-sm text-center p-4 position-relative mt-n5 mx-4">
-                        <h4 class="text-primary"><%= category.name %></h4>
-                        <p class="text-body text-truncate"><%= category.description %></p>
-                    </div>
-                </a>
-            <% }) %>
-        </div>
+
     </div>
 </div>
-<!-- Products End -->
+<!-- Article End -->
 
 <%- include('../partials/footer.ejs') %>
 

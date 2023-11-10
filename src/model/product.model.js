@@ -8,6 +8,10 @@ export const Product = model(
             required: true,
             trim: true,
         },
+        slug: {
+            type: String,
+            trim: true,
+        },
         description: {
             type: String,
         },

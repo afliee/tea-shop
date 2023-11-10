@@ -20,4 +20,19 @@ router.get('/service', UserValidator.validateRememberMe, (req, res, next) => {
 }, IndexController.service);
 router.post('/service', UserValidator.validateRememberMe, IndexController.createTicket);
 
+router.get('/store', UserValidator.validateRememberMe, (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        return res.redirect('/auth/login');
+    } else {
+        next();
+    }
+}, IndexController.store);
+
+router.get('/store/:slug', UserValidator.validateRememberMe, (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        return res.redirect('/auth/login');
+    } else {
+        next();
+    }
+}, IndexController.show);
 export default router;
