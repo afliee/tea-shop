@@ -1,508 +1,582 @@
 <!DOCTYPE html>
 <html
-        lang="en"
-        class="light-style customizer-hide"
-        dir="ltr"
-        data-theme="theme-default"
-        data-template="vertical-menu-template-free"
+	lang="en"
+	class="light-style customizer-hide"
+	dir="ltr"
+	data-theme="theme-default"
+	data-template="vertical-menu-template-free"
 >
-<head>
-    <meta charset="utf-8"/>
-    <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+		/>
 
-    <title>Tea Loza</title>
+		<title>Tea Loza</title>
 
-    <meta name="description" content=""/>
+		<meta name="description" content="" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico"/>
+		<!-- Favicon -->
+		<link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-            rel="stylesheet"
-    />
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+			rel="stylesheet"
+		/>
 
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="/lib/fonts/boxicons.css"/>
-    <!--    <link rel="stylesheet" href="/css/bootstrap.min.css">-->
+		<!-- Icons. Uncomment required icon fonts -->
+		<link rel="stylesheet" href="/lib/fonts/boxicons.css" />
+		<!--    <link rel="stylesheet" href="/css/bootstrap.min.css">-->
 
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="/css/core.css" class="template-customizer-core-css"/>
-    <link rel="stylesheet" href="/css/theme-default.css" class="template-customizer-theme-css"/>
-    <link rel="stylesheet" href="/css/demo.css"/>
+		<!-- Core CSS -->
+		<link rel="stylesheet" href="/css/core.css" class="template-customizer-core-css" />
+		<link rel="stylesheet" href="/css/theme-default.css" class="template-customizer-theme-css" />
+		<link rel="stylesheet" href="/css/demo.css" />
 
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="/lib/perfect-scrollbar/perfect-scrollbar.css"/>
-    <link rel="stylesheet" href="/css/vendors/buttons.bootstrap4.css">
-    <link rel="stylesheet" href="/css/vendors/dataTables.bootstrap4.css">
-    <link rel="stylesheet" href="/css/vendors/select.bootstrap4.css">
-    <!-- Page CSS -->
-    <!-- Page -->
-    <link rel="stylesheet" href="/css/pages/page-auth.css"/>
-    <link rel="stylesheet" href="/css/pages/page-ticket.css"/>
-    <!--    <link rel="stylesheet" href="/css/icons.min.css">-->
-    <!--    <link rel="stylesheet" href="/css/pages/page-datatable.css">-->
-    <!-- Helpers -->
-    <script src="/js/admin/helpers.js"></script>
+		<!-- Vendors CSS -->
+		<link rel="stylesheet" href="/lib/perfect-scrollbar/perfect-scrollbar.css" />
+		<link rel="stylesheet" href="/css/vendors/buttons.bootstrap4.css" />
+		<link rel="stylesheet" href="/css/vendors/dataTables.bootstrap4.css" />
+		<link rel="stylesheet" href="/css/vendors/select.bootstrap4.css" />
+		<!-- Page CSS -->
+		<!-- Page -->
+		<link rel="stylesheet" href="/css/pages/page-auth.css" />
+		<link rel="stylesheet" href="/css/pages/page-ticket.css" />
+		<!--    <link rel="stylesheet" href="/css/icons.min.css">-->
+		<!--    <link rel="stylesheet" href="/css/pages/page-datatable.css">-->
+		<!-- Helpers -->
+		<script src="/js/admin/helpers.js"></script>
 
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="/js/admin/config.js"></script>
-</head>
-<body>
-<!-- BEGIN: Content-->
-<div class="layout-wrapper layout-content-navbar">
-    <div class="layout-container">
-        <%- include('../../partials/admin/menubar.ejs', {
-        active: 'products',
-        sub: ''
-        }) %>
-        <div class="layout-page">
-            <!-- Navbar -->
+		<!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+		<!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+		<script src="/js/admin/config.js"></script>
+	</head>
+	<body>
+		<!-- BEGIN: Content-->
+		<div class="layout-wrapper layout-content-navbar">
+			<div class="layout-container">
+				<%- include('../../partials/admin/menubar.ejs', { active: 'products', sub: '' }) %>
+				<div class="layout-page">
+					<!-- Navbar -->
 
-            <nav
-                    class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                    id="layout-navbar"
-            >
-                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                        <i class="bx bx-menu bx-sm"></i>
-                    </a>
-                </div>
+					<nav
+						class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+						id="layout-navbar"
+					>
+						<div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+							<a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+								<i class="bx bx-menu bx-sm"></i>
+							</a>
+						</div>
 
-                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                    <!-- Search -->
-                    <div class="navbar-nav align-items-center">
-                        <div class="nav-item d-flex align-items-center">
-                            <i class="bx bx-search fs-4 lh-0"></i>
-                            <input
-                                    type="text"
-                                    class="form-control border-0 shadow-none"
-                                    placeholder="Search..."
-                                    aria-label="Search..."
-                            />
-                        </div>
-                    </div>
-                    <!-- /Search -->
+						<div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+							<!-- Search -->
+							<div class="navbar-nav align-items-center">
+								<div class="nav-item d-flex align-items-center">
+									<i class="bx bx-search fs-4 lh-0"></i>
+									<input
+										type="text"
+										class="form-control border-0 shadow-none"
+										placeholder="Search..."
+										aria-label="Search..."
+									/>
+								</div>
+							</div>
+							<!-- /Search -->
 
-                    <ul class="navbar-nav flex-row align-items-center ms-auto">
-                        <!-- Place this tag where you want the button to render. -->
-                        <li class="nav-item lh-1 me-3">
-                            <a
-                                    class="github-button"
-                                    href="https://github.com/themeselection/sneat-html-admin-template-free"
-                                    data-icon="octicon-star"
-                                    data-size="large"
-                                    data-show-count="true"
-                                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-                            >Star</a
-                            >
-                        </li>
+							<ul class="navbar-nav flex-row align-items-center ms-auto">
+								<!-- Place this tag where you want the button to render. -->
+								<li class="nav-item lh-1 me-3">
+									<a
+										class="github-button"
+										href="https://github.com/themeselection/sneat-html-admin-template-free"
+										data-icon="octicon-star"
+										data-size="large"
+										data-show-count="true"
+										aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
+										>Star</a
+									>
+								</li>
 
-                        <!-- User -->
-                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
-                               data-bs-toggle="dropdown">
-                                <div class="avatar avatar-online">
-                                    <img src="<%= user?.avatar %>" alt class="w-px-40 h-auto rounded-circle"/>
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex">
-                                            <div class="flex-shrink-0 me-3">
-                                                <div class="avatar avatar-online">
-                                                    <img src="<%= user?.avatar %>" alt
-                                                         class="w-px-40 h-auto rounded-circle"/>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <span class="fw-semibold d-block"><%= user.name || user.email %></span>
-                                                <small class="text-muted"><%= user.role %></small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="dropdown-divider"></div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="bx bx-user me-2"></i>
-                                        <span class="align-middle">My Profile</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="bx bx-cog me-2"></i>
-                                        <span class="align-middle">Settings</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="dropdown-divider"></div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item logout" href="/auth/logout/<%= user.id %>">
-                                        <i class="bx bx-power-off me-2"></i>
-                                        <span class="align-middle">Log Out</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!--/ User -->
-                    </ul>
-                </div>
-            </nav>
+								<!-- User -->
+								<li class="nav-item navbar-dropdown dropdown-user dropdown">
+									<a
+										class="nav-link dropdown-toggle hide-arrow"
+										href="javascript:void(0);"
+										data-bs-toggle="dropdown"
+									>
+										<div class="avatar avatar-online">
+											<img src="<%= user?.avatar %>" alt class="w-px-40 h-auto rounded-circle" />
+										</div>
+									</a>
+									<ul class="dropdown-menu dropdown-menu-end">
+										<li>
+											<a class="dropdown-item" href="#">
+												<div class="d-flex">
+													<div class="flex-shrink-0 me-3">
+														<div class="avatar avatar-online">
+															<img
+																src="<%= user?.avatar %>"
+																alt
+																class="w-px-40 h-auto rounded-circle"
+															/>
+														</div>
+													</div>
+													<div class="flex-grow-1">
+														<span class="fw-semibold d-block"
+															><%= user.name || user.email %></span
+														>
+														<small class="text-muted"><%= user.role %></small>
+													</div>
+												</div>
+											</a>
+										</li>
+										<li>
+											<div class="dropdown-divider"></div>
+										</li>
+										<li>
+											<a class="dropdown-item" href="#">
+												<i class="bx bx-user me-2"></i>
+												<span class="align-middle">My Profile</span>
+											</a>
+										</li>
+										<li>
+											<a class="dropdown-item" href="#">
+												<i class="bx bx-cog me-2"></i>
+												<span class="align-middle">Settings</span>
+											</a>
+										</li>
+										<li>
+											<a class="dropdown-item" href="#">
+												<span class="d-flex align-items-center align-middle">
+													<i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+													<span class="flex-grow-1 align-middle">Billing</span>
+													<span
+														class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20"
+														>4</span
+													>
+												</span>
+											</a>
+										</li>
+										<li>
+											<div class="dropdown-divider"></div>
+										</li>
+										<li>
+											<a class="dropdown-item logout" href="/auth/logout/<%= user.id %>">
+												<i class="bx bx-power-off me-2"></i>
+												<span class="align-middle">Log Out</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<!--/ User -->
+							</ul>
+						</div>
+					</nav>
 
-            <!-- / Navbar -->
+					<!-- / Navbar -->
 
-            <!-- Content wrapper -->
-            <div class="content-wrapper">
-                <div class="container-xxl flex-grow-1 container-p-y">
-                    <div class="mb-3 collapse mt-3" id="uploadProduct">
-                        <!-- File Upload -->
-                        <form action="/admin/products/upload" method="post" class="dropzone" id="myAwesomeDropzone"
-                              data-plugin="dropzone" data-previews-container="#file-previews"
-                              data-upload-preview-template="#uploadPreviewTemplate">
-                            <div class="fallback">
-                                <input name="file" type="file" class="d-none"
-                                       accept="text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
-                            </div>
+					<!-- Content wrapper -->
+					<div class="content-wrapper">
+						<div class="container-xxl flex-grow-1 container-p-y">
+							<div class="mb-3 collapse mt-3" id="uploadProduct">
+								<!-- File Upload -->
+								<form
+									action="/admin/products/upload"
+									method="post"
+									class="dropzone"
+									id="myAwesomeDropzone"
+									data-plugin="dropzone"
+									data-previews-container="#file-previews"
+									data-upload-preview-template="#uploadPreviewTemplate"
+								>
+									<div class="fallback">
+										<input
+											name="file"
+											type="file"
+											class="d-none"
+											accept="text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+										/>
+									</div>
 
-                            <div class="dz-message needsclick">
-                                <i class="h1 text-muted dripicons-cloud-upload"></i>
-                                <h3>Drop files here or click to upload.</h3>
-                                <span class="text-muted font-13">The system just accept (.csv, .xls, .xlsx) format</span>
-                            </div>
-                        </form>
+									<div class="dz-message needsclick">
+										<i class="h1 text-muted dripicons-cloud-upload"></i>
+										<h3>Drop files here or click to upload.</h3>
+										<span class="text-muted font-13"
+											>The system just accept (.csv, .xls, .xlsx) format</span
+										>
+									</div>
+								</form>
 
-                        <!-- Preview -->
-                        <div class="dropzone-previews mt-3" id="file-previews"></div>
+								<!-- Preview -->
+								<div class="dropzone-previews mt-3" id="file-previews"></div>
 
-                        <button class="btn btn-primary d-none w-100 mt-3 btn-save">Save Changes</button>
-                        <!-- file preview template -->
-                        <div class="d-none" id="uploadPreviewTemplate">
-                            <div class="card mt-1 mb-0 shadow-none border">
-                                <div class="p-2">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <img data-dz-thumbnail src="#"
-                                                 class="avatar-sm rounded bg-light dz-thumbnail" alt="">
-                                        </div>
-                                        <div class="col pl-0">
-                                            <a href="javascript:void(0);" class="text-muted font-weight-bold dz-name"
-                                               data-dz-name></a>
-                                            <p class="mb-0" data-dz-size></p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Button -->
-                                            <a href="" class="btn btn-link btn-lg text-muted" data-dz-remove>
-                                                <i class="bx bx-crosshair"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <table id="product_table" class="table table-responsive dt-responsive nowrap w-100 d-none mt-3">
-                        <thead>
-                        <tr>
-                            <th class="text-center">Name</th>
-                            <th class="text-center">Description</th>
-                            <th class="text-center">Price</th>
-                            <th class="text-center">Sell Price</th>
-                            <th class="text-center">Quantity</th>
-                            <th class="text-center">Category</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                        </thead>
-                    </table>
+								<button class="btn btn-primary d-none w-100 mt-3 btn-save">Save Changes</button>
+								<!-- file preview template -->
+								<div class="d-none" id="uploadPreviewTemplate">
+									<div class="card mt-1 mb-0 shadow-none border">
+										<div class="p-2">
+											<div class="row align-items-center">
+												<div class="col-auto">
+													<img
+														data-dz-thumbnail
+														src="#"
+														class="avatar-sm rounded bg-light dz-thumbnail"
+														alt=""
+													/>
+												</div>
+												<div class="col pl-0">
+													<a
+														href="javascript:void(0);"
+														class="text-muted font-weight-bold dz-name"
+														data-dz-name
+													></a>
+													<p class="mb-0" data-dz-size></p>
+												</div>
+												<div class="col-auto">
+													<!-- Button -->
+													<a href="" class="btn btn-link btn-lg text-muted" data-dz-remove>
+														<i class="bx bx-crosshair"></i>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<table
+								id="product_table"
+								class="table table-responsive dt-responsive nowrap w-100 d-none mt-3"
+							>
+								<thead>
+									<tr>
+										<th class="text-center">Name</th>
+										<th class="text-center">Description</th>
+										<th class="text-center">Price</th>
+										<th class="text-center">Sell Price</th>
+										<th class="text-center">Quantity</th>
+										<th class="text-center">Category</th>
+										<th class="text-center">Action</th>
+									</tr>
+								</thead>
+							</table>
 
-                    <!--                    alert when error-->
-                    <div class="alert alert-danger alert-dismissible fade show d-none" role="alert">
-                        <strong>Oh snap!</strong> <span class="message"></span>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    <% if (!categories.length) { %>
-                        <div class="row">
-                            <div class="col-12 d-flex flex-column justify-content-center align-items-center">
-                                <div class="">
-                                    <h1 class="text-center h1">No Product found</h1>
-                                    <h3 class="text-center h3">Let insert some product</h3>
-                                    <img src="/img/empty.svg" alt="No product found" class="img-fluid img-thumbnail">
+							<!--                    alert when error-->
+							<div class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+								<strong>Oh snap!</strong> <span class="message"></span>
+								<button
+									type="button"
+									class="btn-close"
+									data-bs-dismiss="alert"
+									aria-label="Close"
+								></button>
+							</div>
+							<% if (!categories.length) { %>
+							<div class="row">
+								<div class="col-12 d-flex flex-column justify-content-center align-items-center">
+									<div class="">
+										<h1 class="text-center h1">No Product found</h1>
+										<h3 class="text-center h3">Let insert some product</h3>
+										<img
+											src="/img/empty.svg"
+											alt="No product found"
+											class="img-fluid img-thumbnail"
+										/>
 
-                                    <!--                                    modal show add new categories-->
-                                    <button
-                                            class="btn btn-primary me-1 w-100"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#uploadProduct"
-                                            aria-expanded="false"
-                                            aria-controls="uploadProduct"
-                                    >
-                                        Add New Product
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    <% } else { %>
-                        <div class="row">
-                            <div class="col-12">
-                                <button
-                                        class="btn btn-primary me-1 w-100"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#uploadProduct"
-                                        aria-expanded="false"
-                                        aria-controls="uploadProduct"
-                                >
-                                    Add New Product
-                                </button>
-                            </div>
+										<!--                                    modal show add new categories-->
+										<button
+											class="btn btn-primary me-1 w-100"
+											type="button"
+											data-bs-toggle="collapse"
+											data-bs-target="#uploadProduct"
+											aria-expanded="false"
+											aria-controls="uploadProduct"
+										>
+											Add New Product
+										</button>
+									</div>
+								</div>
+							</div>
+							<% } else { %>
+							<div class="row">
+								<div class="col-12">
+									<button
+										class="btn btn-primary me-1 w-100"
+										type="button"
+										data-bs-toggle="collapse"
+										data-bs-target="#uploadProduct"
+										aria-expanded="false"
+										aria-controls="uploadProduct"
+									>
+										Add New Product
+									</button>
+								</div>
 
-                            <% categories.forEach(category => { %>
-                                <div class="col-12 row mt-2 mx-0">
-                                    <h3 class="h3 text-uppercase"><%= category.category.name %></h3>
-                                    <div class="col-12 row g-2">
-                                        <% category.products.forEach(product => { %>
-                                            <div class=" mb-3 col-12 col-lg-4 col-md-6">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="d-flex justify-content-between align-items-center d-none barcode__container">
-                                                            <span>Code </span>
-                                                            <svg class="barcode mb-3" jsbarcode-height="30"
-                                                                 jsbarcode-format="CODE128"
-                                                                 jsbarcode-value="<%= product._id %>"
-                                                                 jsbarcode-textmargin="0"
-                                                                 jsbarcode-fontoptions="bold"/>
-                                                        </div>
+								<% categories.forEach(category => { %>
+								<div class="col-12 row mt-2 mx-0">
+									<h3 class="h3 text-uppercase"><%= category.category.name %></h3>
+									<div class="col-12 row g-2">
+										<% category.products.forEach(product => { %>
+										<div class="mb-3 col-12 col-lg-4 col-md-6">
+											<div class="card">
+												<div class="card-body">
+													<div
+														class="d-flex justify-content-between align-items-center d-none barcode__container"
+													>
+														<span>Code </span>
+														<svg
+															class="barcode mb-3"
+															jsbarcode-height="30"
+															jsbarcode-format="CODE128"
+															jsbarcode-value="<%= product._id %>"
+															jsbarcode-textmargin="0"
+															jsbarcode-fontoptions="bold"
+														></svg>
+													</div>
 
-                                                        <h4 class="card-title"><%= product.name %></h4>
-                                                        <p class="card-text text-truncate-2"
-                                                           data-bs-toggle="tooltip"
-                                                           data-bs-placement="bottom"
-                                                           title="<%= product.description %>"><%= product.description %></p>
+													<h4 class="card-title"><%= product.name %></h4>
+													<p
+														class="card-text text-truncate-2"
+														data-bs-toggle="tooltip"
+														data-bs-placement="bottom"
+														title="<%= product.description %>"
+													>
+														<%= product.description %>
+													</p>
 
-                                                        <hr class="divider mb-3">
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <p class="card-text">Price: <span
-                                                                            class="fw-bold"><%= parseInt(product.price).toLocaleString('vi-VN', {
-                                                                            style: 'currency',
-                                                                            currency: 'VND'
-                                                                        }) %></span>
-                                                                </p>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <p class="card-text">Sell Price: <span
-                                                                            class="fw-bold"><%= parseInt(product.salePrice).toLocaleString('vi-VN', {
-                                                                            style: 'currency',
-                                                                            currency: 'VND'
-                                                                        }) %></span>
-                                                                </p>
-                                                            </div>
-                                                        </div>
+													<hr class="divider mb-3" />
+													<div class="row">
+														<div class="col-6">
+															<p class="card-text">
+																Price:
+																<span class="fw-bold"
+																	><%= parseInt(product.price).toLocaleString('vi-VN',
+																	{ style: 'currency', currency: 'VND' }) %></span
+																>
+															</p>
+														</div>
+														<div class="col-6">
+															<p class="card-text">
+																Sell Price:
+																<span class="fw-bold"
+																	><%=
+																	parseInt(product.salePrice).toLocaleString('vi-VN',
+																	{ style: 'currency', currency: 'VND' }) %></span
+																>
+															</p>
+														</div>
+													</div>
 
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <p class="card-text">Quantity: <span
-                                                                            class="fw-bold"><%= product.quantity %></span>
-                                                                </p>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <p class="card-text">Sold: <span
-                                                                            class="fw-bold"><%= product?.sold || 0 %></span>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <hr class="divider mb-3"/>
-                                                        <div class="justify-content-between d-flex align-items-center">
-                                                            <span>Created At</span>
-                                                            <span class="fw-bold"><%= new Date(product.createdAt).toLocaleDateString() %></span>
-                                                        </div>
+													<div class="row">
+														<div class="col-6">
+															<p class="card-text">
+																Quantity:
+																<span class="fw-bold"><%= product.quantity %></span>
+															</p>
+														</div>
+														<div class="col-6">
+															<p class="card-text">
+																Sold:
+																<span class="fw-bold"><%= product?.sold || 0 %></span>
+															</p>
+														</div>
+													</div>
+													<hr class="divider mb-3" />
+													<div class="justify-content-between d-flex align-items-center">
+														<span>Created At</span>
+														<span class="fw-bold"
+															><%= new Date(product.createdAt).toLocaleDateString()
+															%></span
+														>
+													</div>
 
-                                                        <div class="row mt-3">
-                                                            <div class="col-6">
-                                                                <a href="/admin/products/<%= product._id%>" class="btn btn-primary w-100">Edit</a>
-                                                            </div>
+													<div class="row mt-3">
+														<div class="col-6">
+															<a
+																href="/admin/products/<%= product._id%>"
+																class="btn btn-primary w-100"
+																>Edit</a
+															>
+														</div>
 
-                                                            <div class="col-6">
-                                                                <button class="btn btn-outline-danger w-100 btn-delete" type="button" data-product-name="<%= product.name%>" data-product-id="<%= product.id%>">Delete</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <% }); %>
-                                    </div>
-                                </div>
-                            <% }); %>
-                        </div>
-                    <% } %>
+														<div class="col-6">
+															<button
+																class="btn btn-outline-danger w-100 btn-delete"
+																type="button"
+																data-product-name="<%= product.name%>"
+																data-product-id="<%= product.id%>"
+															>
+																Delete
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<% }); %>
+									</div>
+								</div>
+								<% }); %>
+							</div>
+							<% } %>
 
-                    <div class="modal fade" id="viewProduct" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalCenterTitle">Product's Information</h5>
-                                    <button
-                                            type="button"
-                                            class="btn-close"
-                                            data-bs-dismiss="modal"
-                                            aria-label="Close"
-                                    ></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col mb-3">
-                                            <label for="nameWithTitle"
-                                                   class="form-label">Name</label>
-                                            <input
-                                                    type="text"
-                                                    id="name"
-                                                    class="form-control"
-                                                    placeholder="Enter Name"
-                                                    name="name"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="row g-2">
-                                        <div class="col-md">
-                                            <label for="description"
-                                                   class="form-label">Description</label>
-                                            <textarea
-                                                    class="form-control"
-                                                    id="description"
-                                                    rows="3"
-                                                    name="description"
-                                                    placeholder="Enter Description"
-                                            ></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row g-2">
-                                        <div class="col-6">
-                                            <label for="price" class="form-label">Price</label>
-                                            <input
-                                                    type="number"
-                                                    id="price"
-                                                    class="form-control"
-                                                    placeholder="Enter Price"
-                                                    name="price"
-                                            />
-                                        </div>
+							<div class="modal fade" id="viewProduct" tabindex="-1" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="modalCenterTitle">Product's Information</h5>
+											<button
+												type="button"
+												class="btn-close"
+												data-bs-dismiss="modal"
+												aria-label="Close"
+											></button>
+										</div>
+										<div class="modal-body">
+											<div class="row">
+												<div class="col mb-3">
+													<label for="nameWithTitle" class="form-label">Name</label>
+													<input
+														type="text"
+														id="name"
+														class="form-control"
+														placeholder="Enter Name"
+														name="name"
+													/>
+												</div>
+											</div>
+											<div class="row g-2">
+												<div class="col-md">
+													<label for="description" class="form-label">Description</label>
+													<textarea
+														class="form-control"
+														id="description"
+														rows="3"
+														name="description"
+														placeholder="Enter Description"
+													></textarea>
+												</div>
+											</div>
+											<div class="row g-2">
+												<div class="col-6">
+													<label for="price" class="form-label">Price</label>
+													<input
+														type="number"
+														id="price"
+														class="form-control"
+														placeholder="Enter Price"
+														name="price"
+													/>
+												</div>
 
-                                        <div class="col-6">
-                                            <label for="sellPrice" class="form-label">Sell Price</label>
-                                            <input
-                                                    type="number"
-                                                    id="sellPrice"
-                                                    class="form-control"
-                                                    placeholder="Enter Sell Price"
-                                                    name="sellPrice"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label for="quantity" class="form-label">Quantity</label>
-                                        <input
-                                                type="number"
-                                                id="quantity"
-                                                class="form-control"
-                                                placeholder="Enter Quantity"
-                                                name="quantity"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary"
-                                            data-bs-dismiss="modal">
-                                        Close
-                                    </button>
-                                    <button type="button" class="btn btn-primary btn-save-change">Save changes
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content-backdrop fade"></div>
-            </div>
-            <!-- Content wrapper -->
-        </div>
-        <!-- / Layout page -->
-    </div>
+												<div class="col-6">
+													<label for="sellPrice" class="form-label">Sell Price</label>
+													<input
+														type="number"
+														id="sellPrice"
+														class="form-control"
+														placeholder="Enter Sell Price"
+														name="sellPrice"
+													/>
+												</div>
+											</div>
+											<div class="col">
+												<label for="quantity" class="form-label">Quantity</label>
+												<input
+													type="number"
+													id="quantity"
+													class="form-control"
+													placeholder="Enter Quantity"
+													name="quantity"
+												/>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button
+												type="button"
+												class="btn btn-outline-secondary"
+												data-bs-dismiss="modal"
+											>
+												Close
+											</button>
+											<button type="button" class="btn btn-primary btn-save-change">
+												Save changes
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="content-backdrop fade"></div>
+					</div>
+					<!-- Content wrapper -->
+				</div>
+				<!-- / Layout page -->
+			</div>
 
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
-</div>
-</div>
-</div>
+			<!-- Overlay -->
+			<div class="layout-overlay layout-menu-toggle"></div>
+		</div>
 
+		<!-- Core JS -->
+		<!-- build:js assets/vendor/js/core.js -->
+		<script src="/lib/jquery/jquery.js"></script>
+		<script src="/lib/popper/popper.js"></script>
+		<script src="/lib/bootstrap/bootstrap.js"></script>
+		<script src="/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
+		<script src="/lib/dropzone/dropzone.min.js"></script>
+		<script src="/lib/bootstrap/menu.js"></script>
+		<!-- endbuild -->
+		<script src="/lib/apex-charts/apexcharts.js"></script>
+		<!-- Vendors JS -->
+		<!-- Page JS -->
+		<script src="/js/utils/auth/dashboards-analytics.js"></script>
+		<script src="/js/utils/ui/extended-ui-perfect-scrollbar.js"></script>
 
-<!-- Core JS -->
-<!-- build:js assets/vendor/js/core.js -->
-<script src="/lib/jquery/jquery.js"></script>
-<script src="/lib/popper/popper.js"></script>
-<script src="/lib/bootstrap/bootstrap.js"></script>
-<script src="/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
-<script src="/lib/dropzone/dropzone.min.js"></script>
-<script src="/lib/bootstrap/menu.js"></script>
-<!-- endbuild -->
-<script src="/lib/apex-charts/apexcharts.js"></script>
-<!-- Vendors JS -->
-<!-- Page JS -->
-<script src="/js/utils/auth/dashboards-analytics.js"></script>
-<script src="/js/utils/ui/extended-ui-perfect-scrollbar.js"></script>
+		<script src="/lib/datatables/jquery.dataTables.min.js"></script>
+		<script src="/lib/datatables/dataTables.bootstrap4.js"></script>
+		<script src="/lib/datatables/dataTables.buttons.min.js"></script>
+		<script src="/lib/datatables/dataTables.checkboxes.min.js"></script>
+		<script src="/lib/datatables/dataTables.keyTable.min.js"></script>
+		<script src="/lib/datatables/dataTables.responsive.min.js"></script>
+		<script src="/lib/datatables/dataTables.select.min.js"></script>
+		<script src="/lib/jsbarcode/JsBarcode.all.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"
+			integrity="sha512-JRlcvSZAXT8+5SQQAvklXGJuxXTouyq8oIMaYERZQasB8SBDHZaUbeASsJWpk0UUrf89DP3/aefPPrlMR1h1yQ=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<!-- Main JS -->
+		<script src="/js/admin/main.js"></script>
+		<script src="/js/utils/auth/logout.js"></script>
+		<script src="/js/admin/component.upload-product.js"></script>
+		<script src="/js/admin/component.delete-product.js"></script>
+		<script>
+			$(".barcode__container").each(function () {
+				JsBarcode(
+					this.querySelector(".barcode"),
+					this.querySelector(".barcode").getAttribute("jsbarcode-value"),
+					{
+						format: "CODE128",
+						textMargin: 0,
+						fontSize: 14,
+						width: 1,
+						height: 30,
+						displayValue: false,
+					}
+				);
 
-<script src="/lib/datatables/jquery.dataTables.min.js"></script>
-<script src="/lib/datatables/dataTables.bootstrap4.js"></script>
-<script src="/lib/datatables/dataTables.buttons.min.js"></script>
-<script src="/lib/datatables/dataTables.checkboxes.min.js"></script>
-<script src="/lib/datatables/dataTables.keyTable.min.js"></script>
-<script src="/lib/datatables/dataTables.responsive.min.js"></script>
-<script src="/lib/datatables/dataTables.select.min.js"></script>
-<script src="/lib/jsbarcode/JsBarcode.all.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"
-        integrity="sha512-JRlcvSZAXT8+5SQQAvklXGJuxXTouyq8oIMaYERZQasB8SBDHZaUbeASsJWpk0UUrf89DP3/aefPPrlMR1h1yQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- Main JS -->
-<script src="/js/admin/main.js"></script>
-<script src="/js/utils/auth/logout.js"></script>
-<script src="/js/admin/component.upload-product.js"></script>
-<script src="/js/admin/component.delete-product.js"></script>
-<script>
-    $('.barcode__container').each(function () {
-        JsBarcode(this.querySelector('.barcode'), this.querySelector('.barcode').getAttribute('jsbarcode-value'), {
-            format: "CODE128",
-            textMargin: 0,
-            fontSize: 14,
-            width: 1,
-            height: 30,
-            displayValue: false
-        });
+				this.classList.remove("d-none");
+			});
+		</script>
 
-        this.classList.remove('d-none');
-    })
-</script>
-
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-</body>
+		<!-- Place this tag in your head or just before your close body tag. -->
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+	</body>
+</html>

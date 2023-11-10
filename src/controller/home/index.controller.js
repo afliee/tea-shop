@@ -1,4 +1,4 @@
-import { Ticket } from "#models/index.js";
+import { Ticket, Story} from "#models/index.js";
 
 import { UserValidator } from "#validator/index.js";
 import {ProductService, CategoryService} from "#services/index.js";
@@ -51,6 +51,25 @@ class IndexController {
     async about( req, res ) {
         res.render("home/about.ejs", {
             title: "About",
+            currentUser: req?.user || null
+        });
+    }
+
+    async story( req, res ) {
+        const stories = await Story.find().populate("tag");
+        res.render("home/story.ejs", {
+            title: "Story",
+            stories,
+            currentUser: req?.user || null
+        });
+    }
+
+    async showStory( req, res ) {
+        const { id } = req.params;
+        const story = await Story.findById(id).populate("tag");
+        res.render("home/story-detail.ejs", {
+            title: "Story",
+            story,
             currentUser: req?.user || null
         });
     }
