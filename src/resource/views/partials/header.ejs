@@ -35,6 +35,21 @@
 					<%}%>
 					<a href="/contact" class="nav-item nav-link <%- active === 'contact' && 'active' %>">Contact</a>
 				</div>
+				<div class="border-start ps-4 d-none d-lg-block me-4">
+<!--					card icon-->
+					<% if (!currentUser) {%>
+						<a href="/cart/guest" class="btn btn-primary">
+							<i class="bi bi-cart3"></i>
+							<span class="badge bg-secondary rounded-pill cart-count">0</span>
+						</a>
+					<%} else {%>
+						<a href="/cart/<%= currentUser.id %>" class="btn btn-primary">
+							<i class="bi bi-cart3"></i>
+							<span class="badge bg-secondary rounded-pill cart-count">0</span>
+						</a>
+					<%}%>
+				</div>
+
 				<div class="border-start ps-4 d-none d-lg-block">
 					<% if (!currentUser) { %>
 					<a href="/auth/login" class="btn btn-primary">Login</a>
@@ -81,4 +96,6 @@
 		</nav>
 	</div>
 </div>
+<script src="/js/utils/ui/util.function.js"></script>
+<script>getTotal();</script>
 <!-- Navbar End -->

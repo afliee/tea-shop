@@ -5,6 +5,7 @@ import {default as dashboardRoutes} from "./admin/dashboard.routes.js";
 import {default as memberRoutes} from "./user/member.routes.js";
 import {default as importRoutes} from "./util/import.routes.js";
 import {default as categoryRoutes} from "./admin/category.routes.js";
+import cartRoutes from "#routes/home/cart.routes.js";
 
 export {
     homeRouters,
@@ -13,4 +14,5 @@ export {
     memberRoutes,
     importRoutes,
     categoryRoutes,
+    cartRoutes
 }

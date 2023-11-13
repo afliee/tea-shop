@@ -502,3 +502,7 @@
 .copyright a:hover {
 	color: #ffffff !important;
 }
+.toast-placement-ex {
+	position: fixed;
+	z-index: 10000;	
+}

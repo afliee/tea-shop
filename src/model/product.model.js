@@ -1,4 +1,4 @@
-import {Schema, model} from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 export const Product = model(
     'Product',
@@ -25,7 +25,7 @@ export const Product = model(
             required: true,
             trim: true,
             default: 0,
-            validate: (value) => {
+            validate: ( value ) => {
                 if (value < 0) throw new Error('Invalid price');
             }
         },
@@ -33,7 +33,7 @@ export const Product = model(
             type: Number,
             trim: true,
             default: 0,
-            validate: (value) => {
+            validate: ( value ) => {
                 if (value < 0) throw new Error('Invalid sale price');
             }
         },
@@ -42,7 +42,7 @@ export const Product = model(
             required: true,
             trim: true,
             default: 0,
-            validate: (value) => {
+            validate: ( value ) => {
                 if (value < 0) throw new Error('Invalid quantity');
             }
         },

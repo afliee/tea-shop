@@ -64,6 +64,22 @@ active: 'store'
 <div class="container-xxl py-5">
     <div class="container">
         <div class="row g-5">
+            <div>
+                <div
+                        class="bs-toast toast toast-placement-ex m-2 top-0 end-0"
+                        role="alert"
+                        aria-live="assertive"
+                        aria-atomic="true"
+                        data-delay="2000"
+                >
+                    <div class="toast-header bg-primary">
+                        <i class="bx bx-bell me-2"></i>
+                        <div class="me-auto fw-semibold">Tea Loza</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">Fruitcake chocolate bar tootsie roll gummies gummies jelly beans cake.</div>
+                </div>
+            </div>
             <div class="col-lg-5 wow fadeIn rounded-2" data-wow-delay="0.1s">
                 <img class="img-fluid "
                      src="<%= product?.images.length ? product.images[0].url : '/img/default-product-thumbnail_1.jpg' %>"
@@ -81,12 +97,37 @@ active: 'store'
                         currency: 'VND'
                     }) %>
                 </h3>
-                <p class="mb-4"><%= product.description %></p>
 
-                <a href="" class="btn btn-primary rounded-pill py-3 px-5">Buy Now</a>
+<!--                <a href="" class="btn btn-primary rounded-pill py-3 px-5">Buy Now</a>-->
+                <div class="row">
+                    <div class="col-4 mb-3">
+                        <div class="buttons-group btn-group">
+                            <button type="button" class="btn bg-primary py-2 btn-minus">
+                                <i class="bi bi-dash"></i>
+                            </button>
+
+                            <input type="number" class="form-control py-2 input-quantity" id="number" value="1" min="1" max="<%= product.quantity %>" style="width: 100px;">
+
+                            <button type="button" class="btn bg-primary py-2 btn-plus">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <button type="button" class="btn btn-primary w-100 py-2 btn__add-cart" data-product-id="<%= product.id %>">Add to cart</button>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <a role="button" class="btn btn-primary px-3 w-100 py-2" href="#" data-product-id="<%= product.id %>">Buy Now</a>
+                    </div>
+                </div>
+
+                <p class="mb-4"><%= product.description %></p>
             </div>
         </div>
 
+        <input type="hidden" name="user_id" id="user_id" value="<%= currentUser ? currentUser.id : null%>">
     </div>
 </div>
 <!-- Article End -->
@@ -107,6 +148,8 @@ active: 'store'
 
 <!-- Template Javascript -->
 <script src="/js/home/main.js"></script>
+<script src="/js/utils/ui/util.function.js"></script>
+<script src="/js/home/product-detail.js"></script>
 </body>
 
 </html>
