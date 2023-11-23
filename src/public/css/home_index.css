@@ -508,3 +508,105 @@
 	position: fixed;
 	z-index: 10000;	
 }
+
+
+.divider {
+	display: block;
+	text-align: center;
+	margin: 1rem 0;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.divider .divider-text {
+	position: relative;
+	display: inline-block;
+	font-size: 1rem;
+	padding: 0rem 1rem;
+}
+
+.divider .divider-text i {
+	font-size: 1rem;
+}
+
+.divider .divider-text:before,
+.divider .divider-text:after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	width: 100vw;
+	border-top: 1px solid rgba(67, 89, 113, 0.2);
+}
+
+.divider .divider-text:before {
+	right: 100%;
+}
+
+.divider .divider-text:after {
+	left: 100%;
+}
+
+.divider.text-start .divider-text {
+	padding-left: 0;
+}
+
+.divider.text-end .divider-text {
+	padding-right: 0;
+}
+
+.divider.text-start-center .divider-text {
+	left: -25%;
+}
+
+.divider.text-end-center .divider-text {
+	right: -25%;
+}
+
+.divider.divider-dotted .divider-text:before,
+.divider.divider-dotted .divider-text:after {
+	border-style: dotted;
+	border-width: 0 1px 1px;
+	border-color: rgba(67, 89, 113, 0.2);
+}
+
+.divider.divider-dashed .divider-text:before,
+.divider.divider-dashed .divider-text:after {
+	border-style: dashed;
+	border-width: 0 1px 1px;
+	border-color: rgba(67, 89, 113, 0.2);
+}
+
+.divider.divider.divider-secondary .divider-text:before,
+.divider.divider.divider-secondary .divider-text:after {
+	border-color: #8592a3;
+}
+
+.divider.divider.divider-success .divider-text:before,
+.divider.divider.divider-success .divider-text:after {
+	border-color: #71dd37;
+}
+
+.divider.divider.divider-info .divider-text:before,
+.divider.divider.divider-info .divider-text:after {
+	border-color: #03c3ec;
+}
+
+.divider.divider.divider-warning .divider-text:before,
+.divider.divider.divider-warning .divider-text:after {
+	border-color: #ffab00;
+}
+
+.divider.divider.divider-danger .divider-text:before,
+.divider.divider.divider-danger .divider-text:after {
+	border-color: #ff3e1d;
+}
+
+.divider.divider.divider-dark .divider-text:before,
+.divider.divider.divider-dark .divider-text:after {
+	border-color: #233446;
+}
+
+.divider.divider.divider-gray .divider-text:before,
+.divider.divider.divider-gray .divider-text:after {
+	border-color: rgba(67, 89, 113, 0.1);
+}

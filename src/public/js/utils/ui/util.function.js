@@ -1,5 +1,5 @@
 function getTotal() {
-    fetch('/cart/total', {
+    return fetch('/cart/total', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -10,6 +10,7 @@ function getTotal() {
         })
         .then(data => {
             $('.cart-count').text(data.total);
+            return data.total;
         })
         .catch(err => {
             console.log(err);

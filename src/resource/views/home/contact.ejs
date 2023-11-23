@@ -97,34 +97,39 @@
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     <h3 class="mb-4">Feedback</h3>
                     <p class="mb-4">If you are not satisfied with any of our services. Please give us feedback through the following form</a>.</p>
-                    <form>
+                    <form id="form_feedback" action="/feedback" method="post">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                    <input type="text" class="form-control" id="name" placeholder="Your Name" name="name" required>
                                     <label for="name">Your Name</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
                                     <label for="email">Your Email</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
                                     <label for="subject">Subject</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 120px"></textarea>
-                                    <label for="message">Message</label>
+                                    <textarea class="form-control" name="message" placeholder="Leave a message here" id="message" style="height: 120px" required></textarea>
+                                    <label for="message">Reasons</label>
                                 </div>
                             </div>
+                            <!--                            danger alert-->
+                            <div class="alert error_alert d-none alert-dismissible fade show px-2" role="alert">
+                                <strong class="error error_message"></strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
                             <div class="col-12">
-                                <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Send Message</button>
+                                <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Send Feedback</button>
                             </div>
                         </div>
                     </form>
@@ -155,6 +160,52 @@
     <!-- Template Javascript -->
     <script src="/js/home/main.js"></script>
     <script src="/js/utils/auth/logout.js"></script>
+    <script>
+        $(document).ready(function () {
+            const formService = $('#form_feedback');
+
+            formService.on('submit', function (e) {
+                e.preventDefault();
+
+                const name = $('#name').val();
+                const email = $('#email').val();
+                const subject = $('#subject').val();
+                const message = $('#message').val();
+
+                if (!name || !email || !subject || !message) {
+                    $('.error_alert').removeClass('d-none').addClass('d-block');
+                    $('.error_alert').addClass('alert-danger');
+
+                    $('.error_message').html('All fields are required');
+                }
+
+                $.ajax({
+                    url: '/feedback',
+                    method: 'POST',
+                    data: {
+                        name,
+                        email,
+                        subject,
+                        message
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        $('.error_alert').removeClass('d-none').addClass('d-block');
+                        $('.error_alert').addClass('alert-success');
+
+                        $('.error_message').html(response.message);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        $('.error_alert').removeClass('d-none').addClass('d-block');
+                        $('.error_alert').addClass('alert-danger');
+
+                        $('.error_message').html(error.responseJSON.message);
+                    }
+                });
+            })
+        })
+    </script>
 </body>
 
 </html>

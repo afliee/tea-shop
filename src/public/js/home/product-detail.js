@@ -33,7 +33,7 @@ $(document).ready(function () {
 
     btnAddToCart.on('click', function (e) {
         e.preventDefault();
-        const userId = $('#user-id').val();
+        const userId = $('#user_id').val();
         const quantity = parseInt(inputQuantity.val());
         const id = $(this).data('product-id');
 
@@ -54,12 +54,12 @@ $(document).ready(function () {
             url: '/cart/guest',
             method: 'POST',
             data,
-            success: function (response) {
+            success: async function (response) {
                 console.log(response);
                 const toast = $('.toast');
                 toast.find('.toast-body').text('Your product has been added to cart');
                 toast.toast('show');
-                getTotal();
+                await getTotal();
             },
             error: function (err) {
                 console.log(err);
@@ -72,8 +72,12 @@ $(document).ready(function () {
             url: `/cart/${userId}`,
             method: 'POST',
             data,
-            success: function (response) {
+            success:async function (response) {
                 console.log(response);
+                const toast = $('.toast');
+                toast.find('.toast-body').text('Your product has been added to cart');
+                toast.toast('show');
+                await getTotal();
             },
             error: function (err) {
                 console.log(err);

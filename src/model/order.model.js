@@ -10,6 +10,10 @@ export const Order = model(
             type: String,
             require: true
         },
+        email: {
+            type: String,
+            require: true
+        },
         note: {
             type: String
         },
@@ -27,8 +31,14 @@ export const Order = model(
             default: 0
         },
         products: [{
-            type: Schema.Types.ObjectId,
-            ref: 'Product'
+            product: {
+                type: Schema.Types.ObjectId,
+                ref: 'Product'
+            },
+            quantity: {
+                type: Number,
+                require: true
+            }
         }],
         amount: {
             type: Number,
@@ -43,6 +53,10 @@ export const Order = model(
             type: String,
             enum: [...Object.keys(OrderStatus)],
             default: OrderStatus.PENDING
+        },
+        address: {
+            type: String,
+            require: true
         }
     }, {
         timestamps: true

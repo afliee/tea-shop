@@ -1,4 +1,4 @@
-import { Ticket, Story} from "#models/index.js";
+import { Ticket, Story, Feedback} from "#models/index.js";
 
 import { UserValidator } from "#validator/index.js";
 import {ProductService, CategoryService} from "#services/index.js";
@@ -154,6 +154,32 @@ class IndexController {
             });
         } catch (e) {
             return res.status(500).json(ErrorMessage(500, "Server error"))
+        }
+    }
+
+    feedback = async (req, res) => {
+        const { name, email, subject, message } = req.body;
+        try {
+            if (!name || !email || !subject || !message) {
+                return res.status(400).json(ErrorMessage(400, "All fields are required"));
+            }
+            const user = req?.user;
+            const feedback = {
+                name,
+                email,
+                subject,
+                message,
+                sender: user?._id
+            }
+
+            await Feedback.create(feedback);
+            return res.status(200).json({
+                type: "success",
+                message: "Feedback sent successfully"
+            });
+        } catch (e) {
+            console.log(e);
+            return res.status(500).json(ErrorMessage(500, "Server error"));
         }
     }
 }

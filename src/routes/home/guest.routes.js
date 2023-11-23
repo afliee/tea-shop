@@ -9,7 +9,7 @@ const router = express.Router();
 
 const TRANSACTION_LIMIT_TIME = 1000 * 60 * 60 * 24; // 1 day
 router.get('/', ( req, res ) => {
-    return res.render('home/card/guest.ejs');
+    return res.render('home/card/guest.ejs', { message: req.flash('message')});
 });
 
 router.get('/products', async ( req, res ) => {

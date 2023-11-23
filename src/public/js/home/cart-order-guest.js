@@ -357,11 +357,14 @@ $(document).ready(function () {
 
 	// get total fee
 
-	deliveryMethod.on("change", function () {
+	deliveryMethod.on("change",async function () {
 		f_service_id = $(this).find(":checked").val().trim();
 		const toDistrict = $(selectDistrict).find(":selected").val().trim();
 		const toWard = $(selectWard).find(":selected").val().trim();
-		console.log("Total: " + getTotal());
+		const total =await getTotal().then(total => {
+			return total;
+		})
+		console.log('Total', total);
 		console.log(
 			JSON.stringify({
 				service_id: parseInt(f_service_id),
@@ -389,17 +392,19 @@ $(document).ready(function () {
 				from_district_id: parseInt(FROM_DISTRICT_ID),
 				to_district_id: parseInt(toDistrict),
 				to_ward_code: toWard,
-				insurance_value: getTotal(),
+				insurance_value: total,
 				coupon: null,
 				height: 15,
 				length: 15,
 				weight: 1000,
 				width: 15,
 			}),
-			success: function (response) {
+			success: async function (response) {
 				console.log(response);
 				const total_fee = response.data.total;
-				const subtotal = getTotal();
+				const subtotal = $('#product_total').val();
+				console.log($('#product_total'));
+				console.log('Subtotal',$('#product_total').val());
 				$("#total-fee").text(
 					parseInt(total_fee).toLocaleString("vi-VN", {
 						currency: "VND",
@@ -408,11 +413,13 @@ $(document).ready(function () {
 				);
 
 				$("#total").text(
-					parseInt(total_fee + getTotal()).toLocaleString("vi-VN", {
+					parseInt(total_fee + +subtotal).toLocaleString("vi-VN", {
 						currency: "VND",
 						style: "currency",
 					})
 				);
+
+				$("#total").attr('data-total', total_fee + +subtotal);
 			},
 			error: function (err) {
 				console.log(err);

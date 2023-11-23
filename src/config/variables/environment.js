@@ -18,6 +18,11 @@ const env = {
     EMAIL_PORT: process.env.EMAIL_PORT,
     EMAIL_USERNAME: process.env.EMAIL_USERNAME,
     EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
+    VN_PAY_TMN_CODE: process.env.VN_PAY_TMN_CODE,
+    VN_PAY_URL: process.env.VN_PAY_URL,
+    VN_PAY_HASH_SECRET: process.env.VN_PAY_HASH_SECRET,
+    VN_PAY_RETURN_URL: process.env.VN_PAY_RETURN_URL,
+    VN_PAY_BANK_CODE: process.env.VN_PAY_BANK_CODE,
 };
 
 export default env;

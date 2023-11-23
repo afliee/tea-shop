@@ -20,7 +20,8 @@
     "#services/*": "./src/service/*",
     "#utils/*": "./src/utils/*",
     "#middlewares/*": "./src/middleware/*",
-    "#validator/*": "./src/validator/*"
+    "#validator/*": "./src/validator/*",
+    "#config/*": "./src/config/*"
   },
   "dependencies": {
     "accesscontrol": "^2.2.1",
@@ -28,6 +29,7 @@
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.0.0",
+    "crypto": "^1.0.1",
     "csvtojson": "^2.0.10",
     "datatables": "^1.10.18",
     "dotenv": "^16.3.1",
@@ -39,6 +41,7 @@
     "jsbarcode": "^3.11.5",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "mongoose": "^7.5.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
@@ -49,6 +52,7 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
+    "qs": "^6.11.2",
     "sheetjs": "^2.0.0",
     "validator": "^13.11.0",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz"

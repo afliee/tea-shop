@@ -77,8 +77,8 @@
 								<input type="text" class="form-control" id="fullname" placeholder="Full name" />
 							</div>
 							<div class="mb-2 p-0">
-								<label for="phone" class="col-form-label fw-bold">Phone Number</label>
-								<input type="text" class="form-control" id="phone" />
+								<label for="mail" class="col-form-label fw-bold">Email</label>
+								<input type="text" class="form-control" id="mail" required/>
 							</div>
 							<div class="mb-2 p-0">
 								<label for="address" class="col-form-label fw-bold">Address</label>
@@ -103,16 +103,21 @@
 									rows="2"
 									placeholder="Detail address"
 								></textarea>
+
+								<textarea
+										class="form-control"
+										id="note"
+										rows="2"
+										placeholder="Some note for delivery"
+										required
+								></textarea>
 							</div>
 						</div>
 						<div class="delivery row mb-3">
 							<h3 class="mb-3" style="background-color: var(--light-green)">DELIVERY METHOD</h3>
 							<div class="delivery-list"></div>
 						</div>
-						<div class="payment row mb-3">
-							<h3 class="mb-3" style="background-color: var(--light-green)">PAYMENT METHODS</h3>
-							<div class="payment-list"></div>
-						</div>
+
 					</div>
 
 					<div class="col-md-5 col-12 px-5 m-0">
@@ -128,7 +133,7 @@
 								</thead>
 								<tbody>
 									<% products.forEach(( product, index ) => { %>
-									<tr>
+									<tr class="product" data-product-id="<%= product._id%>">
 										<td class="text-center">
 											<strong> <%= product.name %> </strong>
 										</td>
@@ -152,11 +157,23 @@
 										</td>
 										<td class="text-center" id="subtotal">
 											<strong>
-												<% products.forEach(( product, index ) => { %> <%=
-												parseInt(product.salePrice *
-												parseInt(quantities[index])).toLocaleString('vi-VN', { currency: 'VND',
-												style: 'currency' }) %> <% }); %>
+												<% let subtotal = 0 %>
+												<% products.forEach(( product, index ) => { %>
+													<%
+														const total = parseInt(product.salePrice * parseInt(quantities[index]));
+														subtotal += total;
+													%>
+
+												<% }); %>
+
+												<%= subtotal.toLocaleString('vi-VN',
+														{
+															currency: 'VND',
+															style: 'currency'
+														})
+												%>
 											</strong>
+											<input type="hidden" value="<%= subtotal%>" name="subtotal" id="product_total">
 										</td>
 									</tr>
 									<tr>
@@ -172,11 +189,37 @@
 											<strong>Total</strong>
 										</td>
 										<td class="text-center">
-											<strong id="total"> 0 </strong>
+											<strong id="total" data-total="0"> 0 </strong>
 										</td>
 									</tr>
 								</tfoot>
 							</table>
+						</div>
+
+						<div class="divider mt-3 mb-2">
+							<div class="divider-text">
+								Payment Method
+							</div>
+						</div>
+						<div  class="text-end mb-3">
+							<small class="text-muted">(Currently, System just allow online payment)</small>
+						</div>
+
+						<div class="card">
+							<div class="card-body">
+								<div class="form-check  d-flex justify-content-between">
+									<input type="radio" id="vnpay" name="vnpay" value="vnpay" checked class="form-check-input">
+									<label for="vnpay">
+										<div class="d-inline-block">
+											<img src="/img/vnpay.svg" alt="vnpay" width="100px">
+											Pay with VNPAY
+										</div>
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="w-100">
+							<button type="button " class="btn btn-primary btn-lg btn-block mt-3 w-100" id="btn-place">Checkout</button>
 						</div>
 					</div>
 				</div>
@@ -205,5 +248,6 @@
 		<script src="/js/utils/auth/logout.js"></script>
 		<script src="/js/utils/ui/util.function.js"></script>
 		<script src="/js/home/cart-order-guest.js"></script>
+		<script src="/js/home/cart-payment-user.js"></script>
 	</body>
 </html>

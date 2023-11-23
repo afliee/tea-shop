@@ -4,6 +4,8 @@ import {default as MemberController} from "#controllers/auth/member.controller.j
 import {default as ImportController} from "#controllers/util/import.controller.js";
 import {default as CategoryController} from "#controllers/admin/category.controller.js";
 import {default as StoryController} from "#controllers/admin/story.controller.js";
+import {default as PaymentController} from "#controllers/util/payment.controller.js";
+import {default as OrderController} from "#controllers/util/order.controller.js";
 
 export {
     IndexController,
@@ -11,5 +13,7 @@ export {
     MemberController,
     ImportController,
     CategoryController, 
-    StoryController
+    StoryController,
+    PaymentController,
+    OrderController
 }

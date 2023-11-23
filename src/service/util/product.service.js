@@ -187,6 +187,34 @@ class ProductService {
             return false;
         }
     }
+
+    getById = async (id) => {
+        try {
+            const product = await Product.findById(id).populate('category');
+
+            return product;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    getAllByIds = async (ids = [], selection = []) => {
+        try {
+            // const idsArray = ids.map(item => item.product)
+            // console.log(idsArray);
+            console.log("ids");
+            console.log(ids);
+            const products = await Product.find({
+                _id: {
+                    $in: ids
+                }
+            }).select(selection);
+            return products;
+        } catch (e) {
+            console.log(e);
+            return false;
+        }
+    }
 }
 
 export default ProductService;

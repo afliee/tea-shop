@@ -14,6 +14,7 @@ router.get("/about", UserValidator.validateRememberMe, IndexController.about);
 router.get("/story", UserValidator.validateRememberMe, IndexController.story);
 router.get("/story/:id", UserValidator.validateRememberMe, IndexController.showStory);
 router.get("/contact", UserValidator.validateRememberMe, IndexController.contact);
+router.post('/feedback', UserValidator.validateRememberMe, IndexController.feedback);
 router.get('/service', UserValidator.validateRememberMe, (req, res, next) => {
     if (!req.isAuthenticated()) {
         return res.redirect('/auth/login');
