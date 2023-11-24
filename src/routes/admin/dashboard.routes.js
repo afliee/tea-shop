@@ -6,6 +6,7 @@ import { default as categoryRoutes } from "./category.routes.js";
 import { default as productRoutes } from "./product.routes.js";
 import { default as orderRoutes } from "../util/order.routes.js";
 import { default as storyRoutes } from "./story.routes.js"
+import {default as importRoutes} from "./import.routes.js";
 
 import { Roles } from "#root/contants/roles.js";
 
@@ -87,7 +88,7 @@ router.use("/categories", categoryRoutes);
 router.use("/products", productRoutes);
 router.use("/stories", storyRoutes);
 router.use("/orders", orderRoutes);
-
+router.use("/imports", importRoutes);
 router.use(userRoutes);
 
 export default router;

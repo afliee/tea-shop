@@ -8,6 +8,7 @@ import { Story } from "#models/story.model.js"
 import { Tag } from "#models/tag.model.js";
 import {Order} from "#models/order.model.js";
 import {Feedback} from "#models/feedback.model.js";
+import {Ingredient} from "#models/ingredient.model.js";
 
 export {
     User,
@@ -19,5 +20,6 @@ export {
     Story,
     Tag,
     Order,
-    Feedback
+    Feedback,
+    Ingredient
 }

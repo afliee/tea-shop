@@ -6,7 +6,7 @@ import {default as CategoryController} from "#controllers/admin/category.control
 import {default as StoryController} from "#controllers/admin/story.controller.js";
 import {default as PaymentController} from "#controllers/util/payment.controller.js";
 import {default as OrderController} from "#controllers/util/order.controller.js";
-
+import {default as AdminImportController} from "#controllers/admin/import.controller.js";
 export {
     IndexController,
     AuthController,
@@ -15,5 +15,6 @@ export {
     CategoryController, 
     StoryController,
     PaymentController,
-    OrderController
+    OrderController,
+    AdminImportController
 }

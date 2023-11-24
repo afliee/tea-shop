@@ -23,6 +23,18 @@ class ImportController {
         return res.status(200).json({ data });
 
     }
+
+    create = async (req, res, next) => {
+        const data = req.body;
+        console.log("Import Controller", data);
+        if (!data || !data.length) {
+            return res.status(400).json({ message: 'Data is required' });
+        }
+
+        const products = await this._importService.create(req.user,data);
+
+        return res.status(200).json({ products });
+    }
 }
 
 export default new ImportController();

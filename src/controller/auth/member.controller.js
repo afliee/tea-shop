@@ -136,7 +136,9 @@ class MemberController {
         } catch (e) {
             return res.status(500).json(ErrorMessage(500, e.message, e));
         }
-    }   
+    }
+
+
 }
 
 export default new MemberController();

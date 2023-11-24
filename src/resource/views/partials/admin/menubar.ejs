@@ -133,6 +133,21 @@
             </a>
         </li>
 
+        <li class="menu-item <%- active === 'external' && 'active'%>">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="External Manager">External Manager</div>
+            </a>
+
+            <ul class="menu-sub">
+                <li class="menu-item <%= sub && sub === 'import-request' && 'active'%>">
+                    <a href="/admin/imports" class="menu-link">
+                        <div data-i18n="Import Requests">Import Request</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Stories Manager</span>
         </li>

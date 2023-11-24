@@ -50,12 +50,14 @@
                         console.log(response);
                         const data = response?.data;
                         if (!data) {
-                            n('#import-table').addClass('d-none');
+                            n('#product_table').addClass('d-none');
+                            n('.alert .message').text('File type not supported');
+                            n('.alert').removeClass('d-none');
                             return;
                         }
 
                         console.log(data);
-                        const table = n('#import-table').DataTable({
+                        const table = n('#product_table').DataTable({
                             responsive: true,
                             rowReorder: {
                                 selector: 'td:nth-child(2)'
@@ -87,7 +89,13 @@
                             columns: [
                                 {
                                     title: 'Name',
-                                    data: 'name'
+                                    data: 'name',
+                                    render: function ( data ) {
+                                        // format truncate string
+                                        return `
+                                            <p class="text-truncate text-center" style="max-width: 450px">${data}</p>
+                                        `
+                                    }
                                 },
                                 {
                                     title: 'Description',
@@ -102,57 +110,147 @@
                                 {
                                     title: 'Price',
                                     data: 'price',
-                                //     convert price to string vnd
+                                    //     convert price to string vnd
                                     render: function ( data ) {
-                                        return parseInt(data).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-                                    }
-                                },
-                                {
-                                    title: 'Sell Price',
-                                    data: 'sellPrice',
-                                //     convert price to string vnd
-                                    render: function ( data ) {
-                                        return parseInt(data).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                                        return `
+                                            <span class="text-center" data-value="${data}">${parseInt(data).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                                        `;
                                     }
                                 },
                                 {
                                     title: 'Quantity',
-                                    data: 'quantity'
+                                    data: 'quantity',
+                                    render: function (data) {
+                                        return `
+                                            <div class="text-center">
+                                                <span class="text-center" data-value="${data}">${data}</span>
+                                            </div> 
+                                        `;
+                                    }
                                 },
                                 {
-                                    title: 'Category',
-                                    data: 'categories',
+                                    title: 'Unit',
+                                    data: 'units',
                                     render: function ( data ) {
                                         return `
                                             <select class="form-control form-control-sm">
-                                                <option value="" selected>Select category</option>
-                                                ${data.map(( item ) => `<option value="${item._id}">${item.name}</option>`)}
+                                                <option value="" selected>Select Unit</option>
+                                                ${data.map(( item ) => `<option value="${item}">${item}</option>`)}
                                             </select>
                                         `;
                                     }
                                 },
                                 {
-                                    title: 'Type',
-                                    data: 'type',
-                                },
-                                {
                                     title: 'Action',
-                                    data: null,
+                                    // data like index of data variable
+                                    data: 'index',
                                     render: function ( data ) {
+                                        const modal = n('#viewProduct');
+
                                         return `
-                                            <a href="/product/${data._id}" class="btn btn-primary btn-sm">View</a>
+                                            <button type="button" class="btn btn-primary btn-sm btn-view-product" data-bs-toggle="modal" data-bs-target="#viewProduct" data-id="${data}">
+                                                View
+                                            </button>
                                         `
                                     }
                                 }
                             ]
                         })
+                        n('.btn-view-product').on('click', function () {
+                            const id = n(this).data('id');
+                            const product = data[id];
+                            const modal = n('#viewProduct');
 
-                        n('#import-table').removeClass('d-none');
+                            modal.find('#name').val(product.name);
+                            modal.find('#description').val(product.description);
+                            modal.find('#price').val(product.price);
+                            modal.find('#quantity').val(product.quantity);
+                            modal.find('#expiredAt').val(product.expiredAt);
+                            modal.modal('show');
+
+                            modal.find('.btn-save-change').on('click', function () {
+                                const name = modal.find('#name').val();
+                                const description = modal.find('#description').val();
+                                const price = modal.find('#price').val();
+                                const quantity = modal.find('#quantity').val();
+                                const expiredAt = modal.find('#expiredAt').val();
+                                table.row(id).data({
+                                    name,
+                                    description,
+                                    price,
+                                    quantity,
+                                    expiredAt,
+                                    units: product.units
+                                }).draw();
+                                //replace data in table with new data
+                                data[id] = {
+                                    name,
+                                    description,
+                                    price,
+                                    quantity,
+                                    expiredAt,
+                                    units: product.units
+                                }
+                                //     hide modal
+                                modal.modal('hide');
+                            });
+                        });
+
+                        n('.btn-save').removeClass('d-none');
+
+                        n('.btn-save').on('click', function () {
+//      check column category has value
+                            const unit = n('#product_table').find('select').toArray().map(( item ) => n(item).val());
+                            if (unit.includes('')) {
+                                n('.toast').find('.toast-body').text('Please select unit for each product');
+                                n('.toast').toast('show');
+                                return;
+                            }
+
+                            //     change unit each product to category selected
+                            data.forEach(( item, index ) => {
+                                item.unit = unit[index];
+                                //     remove categories in data
+                                delete item.units;
+                            });
+                            console.log(data);
+
+                            n.ajax({
+                                url: '/import/create',
+                                method: 'POST',
+                                data: JSON.stringify(data),
+                                contentType: 'application/json',
+                                beforeSend: function () {
+                                    n('.btn-save').attr('disabled', true);
+                                    n('.btn-save').text('Saving...');
+                                },
+                                success: function ( response ) {
+                                    console.log(response);
+                                    n('.toast').find('.toast-body').text('Import products success');
+                                    n('.toast').toast('show');
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 2000);
+                                },
+                                error: function ( response ) {
+                                    console.log(response);
+                                    n('.toast').find('.toast-body').text('Something went wrong');
+                                    n('.toast').toast('show');
+                                }
+                            })
+                        });
+
+
+                        n('#product_table').removeClass('d-none');
                     });
 
                     //     on fail send file to server
                     this.on('error', function ( file, response ) {
                         console.log(response);
+                        n('#product_table').addClass('d-none');
+                        n('.toast').find('.toast-body').text('Something went wrong');
+                        n('.toast').toast('show');
+                        n('.btn-save').addClass('d-none');
                     });
                 }
                 n(this).dropzone(e);

@@ -25,5 +25,11 @@ const upload = multer({
     storage: multerConfig(IMPORT_PATH, IMPORT_TYPE).storage
 })
 router.post('/upload', upload.single('file'), ImportController.handleUpload);
+router.post('/create', UserValidator.validateRememberMe, (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        return res.redirect('/auth/login');
+    }
+    next();
+}, authMiddleware.requireRole([Roles.ADMIN, Roles.SUPPlIER]), ImportController.create);
 
 export default router;

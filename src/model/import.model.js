@@ -5,13 +5,11 @@ export const Import = model(
     new Schema({
         supplier: {
             type: Schema.Types.ObjectId,
-            ref: 'Supplier'
+            ref: 'User'
         },
-        products: [{
-            product: {
-                type: Schema.Types.ObjectId,
-                ref: 'Product'
-            }
+        ingredients: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Ingredient'
         }],
         total: {
             type: Number,
@@ -31,5 +29,7 @@ export const Import = model(
             enum: ['pending', 'approved', 'rejected'],
             default: 'pending'
         }
+    }, {
+        timestamps: true
     })
 )
