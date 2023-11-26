@@ -1,7 +1,6 @@
-import {Schema, model} from "mongoose";
+import { Schema, model } from "mongoose";
 
 // import ObjectId
-
 
 export const Story = model(
 	"Story",
@@ -31,6 +30,10 @@ export const Story = model(
 		tag: {
 			type: Schema.Types.ObjectId,
 			ref: "Tag",
+		},
+		active: {
+			type: Boolean,
+			default: true,
 		},
 	})
 );
