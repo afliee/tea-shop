@@ -51,7 +51,7 @@ router.get('/user/orders', async(req, res) => {
 		console.log(order.productsDetail);
 
 	}
-	console.log(orders[0].productsDetail);
+
 	return res.render('layouts/user/orders.ejs', {
 		title: 'Orders',
 		flash: req.flash(),
