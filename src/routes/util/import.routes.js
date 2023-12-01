@@ -18,7 +18,13 @@ router.get('/', UserValidator.validateRememberMe, ( req, res, next ) => {
         next();
     }
 }, authMiddleware.requireRole([Roles.ADMIN, Roles.SUPPlIER]), ( req, res ) => {
-    res.render('layouts/util/import.ejs', { user: req.user });
+    const user = req.user;
+    switch (user.role) {
+        case Roles.ADMIN:
+            return res.render('layouts/util/import.ejs', { user: req.user });
+        case Roles.SUPPlIER:
+            return res.render('home/provideIngredient.ejs', { user: req.user });
+    }
 });
 
 const upload = multer({

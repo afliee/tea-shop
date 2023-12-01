@@ -78,7 +78,8 @@
                                     '<option value="-1">All</option>' +
                                     '</select> records'
                             },
-                            order: [[1, 'asc']],
+                            _id: 'index',
+                            // order: [[1, 'asc']],
                             drawCallback: function () {
                                 n('.dataTables_paginate > .pagination').addClass(
                                     'pagination-rounded'
@@ -156,6 +157,38 @@
                                 }
                             ]
                         })
+
+                        const modal = n('#viewProduct');
+                        modal.find('.btn-save-change').on('click', function (e) {
+                            const id = n(this).data('id');
+                            e.preventDefault();
+                            e.stopPropagation();
+                            const name = modal.find('#name').val();
+                            const description = modal.find('#description').val();
+                            const price = modal.find('#price').val();
+                            const quantity = modal.find('#quantity').val();
+                            const expiredAt = modal.find('#expiredAt').val();
+
+                            table.row(id).data({
+                                name,
+                                description,
+                                price,
+                                quantity,
+                                expiredAt,
+                                units: data[id].units
+                            }).draw();
+
+                            data[id] = {
+                                name,
+                                description,
+                                price,
+                                quantity,
+                                expiredAt,
+                                units: data[id].units
+                            }
+                            //     hide modal
+                            modal.modal('hide');
+                        });
                         n('.btn-view-product').on('click', function () {
                             const id = n(this).data('id');
                             const product = data[id];
@@ -166,34 +199,31 @@
                             modal.find('#price').val(product.price);
                             modal.find('#quantity').val(product.quantity);
                             modal.find('#expiredAt').val(product.expiredAt);
+                            modal.find('.btn-save-change').data('id', id);
                             modal.modal('show');
 
-                            modal.find('.btn-save-change').on('click', function () {
-                                const name = modal.find('#name').val();
-                                const description = modal.find('#description').val();
-                                const price = modal.find('#price').val();
-                                const quantity = modal.find('#quantity').val();
-                                const expiredAt = modal.find('#expiredAt').val();
-                                table.row(id).data({
-                                    name,
-                                    description,
-                                    price,
-                                    quantity,
-                                    expiredAt,
-                                    units: product.units
-                                }).draw();
-                                //replace data in table with new data
-                                data[id] = {
-                                    name,
-                                    description,
-                                    price,
-                                    quantity,
-                                    expiredAt,
-                                    units: product.units
-                                }
-                                //     hide modal
-                                modal.modal('hide');
-                            });
+                            // modal.find('.btn-save-change').on('click', function (e) {
+                            //
+                            //     e.preventDefault();
+                            //     e.stopPropagation();
+                            //     const name = modal.find('#name').val();
+                            //     const description = modal.find('#description').val();
+                            //     const price = modal.find('#price').val();
+                            //     const quantity = modal.find('#quantity').val();
+                            //     const expiredAt = modal.find('#expiredAt').val();
+                            //     table.row(id).data({
+                            //         name,
+                            //         description,
+                            //         price,
+                            //         quantity,
+                            //         expiredAt,
+                            //         units: product.units
+                            //     }).draw();
+                            //
+                            //     console.log(`name: ${name}, description: ${description}, price: ${price}, quantity: ${quantity}, expiredAt: ${expiredAt}, id: ${id}`)
+                            //     //     hide modal
+                            //     modal.modal('hide');
+                            // });
                         });
 
                         n('.btn-save').removeClass('d-none');

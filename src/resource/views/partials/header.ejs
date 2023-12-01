@@ -83,10 +83,14 @@
 							<li><a class="dropdown-item" href="/admin">Admin Dashboard</a></li>
 							<% } %>
 							<li><a class="dropdown-item" href="/members/user/profile">Profile</a></li>
-							<li><a class="dropdown-item" href="/members/user/orders">
+							<li>
+								<a class="dropdown-item" href="/members/user/orders">
 									Orders
 								</a>
 							</li>
+							<% if (currentUser.role === 'SUPPlIER') { %>
+								<li><a class="dropdown-item" href="/import">Provide Ingredients</a></li>
+							<% } %>
 							<li>
 								<a class="dropdown-item logout" href="<%= `/auth/logout/${ currentUser._id }` %>"
 									>Logout</a
