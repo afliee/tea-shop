@@ -1,0 +1,10 @@
+name,description,price,quantity,expiredAt
+"Tea Tay Nguyen", "Tea from Tay Nguyen", 10000, 100, "2023-12-31"
+"Coffe Cao Nguyen", "Coffe from Cao Nguyen", 20000, 100, "2023-12-31"
+"Tea Cao Nguyen", "Tea from Cao Nguyen", 10000, 100, "2023-12-31"
+"Coffe Crema", "Coffe from Crema", 20000, 100, "2023-12-31"
+"Tea Crema", "Tea from Crema", 10000, 100, "2023-12-31"
+"Coffe Robusta", "Coffe from Robusta", 20000, 100, "2023-12-31"
+"Tea Robusta", "Tea from Robusta", 10000, 100, "2023-12-31"
+"Coffe Arabica", "Coffe from Arabica", 20000, 100, "2023-12-31"
+"Tea Arabica", "Tea from Arabica", 10000, 100, "2023-12-31"
