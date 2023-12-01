@@ -92,7 +92,7 @@ currentUser: currentUser
                                     </div>
                                     <div class="store-overlay">
                                         <a href="<%= '/store/' + product.slug %>" class="btn btn-primary rounded-pill py-2 px-4 m-2">More Detail <i class="fa fa-arrow-right ms-2"></i></a>
-                                        <a href="" class="btn btn-dark rounded-pill py-2 px-4 m-2">Add to Cart <i class="fa fa-cart-plus ms-2"></i></a>
+                                        <a href="" class="btn btn-dark rounded-pill py-2 px-4 m-2 btn__add-cart " data-product-id="<%= product._id%>">Add to Cart <i class="fa fa-cart-plus ms-2"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -102,6 +102,24 @@ currentUser: currentUser
             <% }) %>
         <% } %>
     </div>
+    <div>
+        <div
+                class="bs-toast toast toast-placement-ex m-2 bottom-0 end-0"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true"
+                data-delay="2000"
+        >
+            <div class="toast-header bg-primary">
+                <i class="bx bx-bell me-2"></i>
+                <div class="me-auto fw-semibold">Tea Loza</div>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">Fruitcake chocolate bar tootsie roll gummies gummies jelly beans cake.</div>
+        </div>
+    </div>
+
+    <input type="hidden" id="user_id" value="<%= currentUser ? currentUser._id : null %>">
 </div>
 <!-- Products End -->
 
@@ -122,6 +140,7 @@ currentUser: currentUser
 
 <!-- Template Javascript -->
 <script src="/js/home/main.js"></script>
+<script src="/js/home/product-detail.js"></script>
 </body>
 
 </html>

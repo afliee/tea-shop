@@ -34,7 +34,10 @@ $(document).ready(function () {
     btnAddToCart.on('click', function (e) {
         e.preventDefault();
         const userId = $('#user_id').val();
-        const quantity = parseInt(inputQuantity.val());
+        let quantity = parseInt(inputQuantity.val());
+        if (isNaN(quantity)) {
+            quantity = 1;
+        }
         const id = $(this).data('product-id');
 
         const data = {
