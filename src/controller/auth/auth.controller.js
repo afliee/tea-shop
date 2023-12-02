@@ -42,7 +42,7 @@ class AuthController {
             subject: "Active account",
             template: "activeAccount",
             context: {
-                url: `${ URL_PREFIX }:${ PORT }/auth/active/${ signUp._id }?success_url=${ URL_PREFIX }:${ PORT }/auth/login&failure_url=${ URL_PREFIX }:${ PORT }/auth/reactive?id=${ signUp._id }&token=${ signUp.token }`,
+                url: `${ URL_PREFIX }/auth/active/${ signUp._id }?success_url=${ URL_PREFIX }/auth/login&failure_url=${ URL_PREFIX }/auth/reactive?id=${ signUp._id }&token=${ signUp.token }`,
                 name: signUp.name || signUp.email,
             }
         })
@@ -161,7 +161,7 @@ class AuthController {
                 subject: "Reactivate account",
                 template: "activeAccount",
                 context: {
-                    url: `${ URL_PREFIX }:${ PORT }/auth/active/${ user._id }?success_url=${ URL_PREFIX }:${ PORT }/auth/login&failure_url=${ URL_PREFIX }:${ PORT }/auth/reactive?id=${ user._id }&token=${ token }`,
+                    url: `${ URL_PREFIX }/auth/active/${ user._id }?success_url=${ URL_PREFIX }/auth/login&failure_url=${ URL_PREFIX }/auth/reactive?id=${ user._id }&token=${ token }`,
                     name: user.name || user.email,
                 }
             }).then(() => {
@@ -189,7 +189,7 @@ class AuthController {
                 subject: "Forgot password",
                 template: "forgotPassword",
                 context: {
-                    url: `${URL_PREFIX}:${PORT}/auth/forgot-password/${user._id}`,
+                    url: `${URL_PREFIX}/auth/forgot-password/${user._id}`,
                     name: user.name || user.email,
                 }
             }).then(() => {
