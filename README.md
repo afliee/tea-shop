@@ -32,6 +32,8 @@
 - Let open [http://localhost:3000](http://localhost:3000) to see the result.
 - Enjoy it! 👻
 
+* **Order way**: You can access to [Tea Loza Website](https://tea-loza.alfiee.tech) to visit and experience.
+
 ## Note
 - With the purpose of security, we don't upload the `.env` file. Please contact us to get the `.env` file.
 - With online payment feature, we use [VNPAY](https://sandbox.vnpayment.vn/apis) to test. Please contact us to get the
